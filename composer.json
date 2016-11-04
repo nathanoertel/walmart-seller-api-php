@@ -1,0 +1,22 @@
+{
+	"name": "digitalclouddesigns/walmart-seller-api-php",
+	"description": "PHP library for Walmart Seller APIs",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Nathan Oertel",
+			"email": "nathan@digitalclouddesigns.com"
+		}
+	],
+	"minimum-stability": "stable",
+	"require": {
+		"php": ">=5.3.3",
+		"phpseclib/phpseclib": "^2.0.1"
+	},
+	"autoload": {
+		"psr-4": {
+			"WalmartSellerAPI\\": "src/"
+		}
+	}
+}
