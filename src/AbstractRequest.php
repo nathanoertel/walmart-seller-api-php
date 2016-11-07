@@ -1,13 +1,22 @@
 <?php
 namespace WalmartSellerAPI;
 
-abstract class WalmartSellerAPI_AbtractRequest {
+use phpseclib\Crypt\Random;
+use phpseclib\Crypt\RSA;
+
+abstract class AbstractRequest {
 
 	const ENV_PROD = 'prod';
 	const ENV_DEV = 'dev';
 	
 	const BASE_URL_PROD = 'https://marketplace.walmartapis.com';
 	const BASE_URL_DEV = 'https://marketplace.stg.walmartapis.com/gmp-gateway-service-app';
+
+	const GET = 'GET';
+	const ADD = 'ADD';
+	const UPDATE = 'UPDATE';
+	const PUT = 'PUT';
+	const DELETE = 'DELETE';
 
 	public $env;
 
@@ -25,19 +34,19 @@ abstract class WalmartSellerAPI_AbtractRequest {
 	public function __construct(array $config = [], $env = self::ENV_PROD)
 	{
 		// check the environment
-		if(!in_array($env, [self::ENV_PROD, self::ENV_STAGE])) {
-			throw new Exception('Invalid environment');
+		if(!in_array($env, [self::ENV_PROD, self::ENV_DEV])) {
+			throw new \Exception('Invalid environment');
 		}
 
 		$this->env = $env;
 
 		// check that the necessary keys are set
 		if(!isset($config['consumerId']) || !isset($config['privateKey'])) {
-			throw new Exception('Configuration missing consumerId or privateKey');
+			throw new \Exception('Configuration missing consumerId or privateKey');
 		}
 	
 		// Apply some defaults.
-		$this->config = array_merge_recursive($this->config, [
+		$this->config = array_merge_recursive($this->config, $config, [
 			'http_client_options' => [
 				'defaults' => [
 					'auth' => [
@@ -65,61 +74,62 @@ abstract class WalmartSellerAPI_AbtractRequest {
 	}
 
 	public function get() {
-
+		return $this->request(self::GET);
 	}
 
-	private function request($method, $parameters) {
+	private function request($method, $parameters = array()) {
 
-		$url = $this->getEnvBaseUrl().$this->getEndpoint();
+		$url = $this->getEnvBaseUrl($this->env).$this->getEndpoint();
 
 		$curl = curl_init();
 
-		$time = time();
+		$time = round(microtime(true)*1000);
 
 		$options = array(
-		    CURLOPT_RETURNTRANSFER => 1,
-		    CURLOPT_URL => $this->endpointBase.$this->getEndpoint(),
-		    CURLOPT_USERAGENT => 'Digital Cloud Commerce',
-		    CURLOPT_HTTPHEADER => array(
-		    	'WM_SVC.NAME: Walmart Marketplace',
-		    	'WM_SEC.AUTH_SIGNATURE: ',
-		    	'WM_CONSUMER.ID: '.$this->config['consumerId'],
-		    	'WM_SEC.TIMESTAMP: '.$time,
-		    	'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16))
-		    ),
-		    CURLOPT_HEADER => 1,
-		    CURLOPT_RETURNTRANSFER => 1
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_URL => $url,
+			CURLOPT_USERAGENT => 'Digital Cloud Commerce',
+			CURLOPT_HTTPHEADER => array(
+				'Accept: application/xml',
+				'WM_SVC.NAME: Walmart Marketplace',
+				'WM_CONSUMER.ID: '.$this->config['consumerId'],
+				'WM_SEC.TIMESTAMP: '.$time,
+				'WM_SEC.AUTH_SIGNATURE: '.$this->getSignature($this->config['consumerId'], $this->config['privateKey'], $url, $method, $time),
+				'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16))
+			),
+			CURLOPT_HEADER => 1,
+			CURLOPT_RETURNTRANSFER => 1
 		);
-		
-		if($method == WalmartSellerAPI__AbstractRequest::GET && !empty($data)) {
-			$options[CURLOPT_URL] .= '?'.http_build_query($data);
+
+		if($method == self::GET) {
+			if(!empty($data)) $options[CURLOPT_URL] .= '?'.http_build_query($data);
 			if($this->logger) $this->logger->log('GET '.$options[CURLOPT_URL]);
-		} else if($method == WalmartSellerAPI__AbstractRequest::FIND) {
+		} else if($method == self::FIND) {
 			$options[CURLOPT_URL] .= '/'.$data['id'].(empty($data['data']) ? '' : '?'.http_build_query($data['data']));
 			if($this->logger) $this->logger->log('FIND '.$options[CURLOPT_URL]);
-		} else if($method == WalmartSellerAPI__AbstractRequest::UPDATE) {
+		} else if($method == self::UPDATE) {
 			$options[CURLOPT_URL] .= '/'.$data['id'];
 			$options[CURLOPT_CUSTOMREQUEST] = 'PUT';
-		    $options[CURLOPT_POSTFIELDS] = $data['data'];
+			$options[CURLOPT_POSTFIELDS] = $data['data'];
 			if($this->logger) {
 				$this->logger->log('UPDATE '.$options[CURLOPT_URL]);
 				$this->logger->log($options[CURLOPT_POSTFIELDS]);
 			}
-		} else if($method == LightspeedPOS_AbstractRequest::ADD) {
+		} else if($method == self::ADD) {
 			$options[CURLOPT_POST] = 1;
-		    $options[CURLOPT_POSTFIELDS] = $data;
+			$options[CURLOPT_POSTFIELDS] = $data;
 			if($this->logger) {
 				$this->logger->log('ADD '.$options[CURLOPT_URL]);
 				$this->logger->log($options[CURLOPT_POSTFIELDS]);
 			}
-		} else if($method == LightspeedPOS_AbstractRequest::DELETE) {
+		} else if($method == self::DELETE) {
 			$options[CURLOPT_URL] .= '/'.$data;
 			$options[CURLOPT_CUSTOMREQUEST] = 'DELETE';
 			if($this->logger) $this->logger->log('DELETE '.$options[CURLOPT_URL]);
 		}
 		
 		curl_setopt_array($curl, $options);
-		
+
 		$response = curl_exec($curl);
 
 		echo $response;
@@ -151,7 +161,30 @@ abstract class WalmartSellerAPI_AbtractRequest {
 	private function getSignature($consumerId, $privateKey, $requestUrl, $requestMethod, $timestamp) {
 		$message = $consumerId."\n".$requestUrl."\n".strtoupper($requestMethod)."\n".$timestamp."\n";
 
+		$rsa = new RSA();
 		$decodedPrivateKey = base64_decode($privateKey);
+		$rsa->setPrivateKeyFormat(RSA::PRIVATE_FORMAT_PKCS8);
+		$rsa->setPublicKeyFormat(RSA::PRIVATE_FORMAT_PKCS8);
+
+		/**
+		 * Load private key
+		 */
+		if($rsa->loadKey($decodedPrivateKey,RSA::PRIVATE_FORMAT_PKCS8)){
+			/**
+			 * Make sure we use SHA256 for signing
+			 */
+			$rsa->setHash('sha256');
+			$rsa->setSignatureMode(RSA::SIGNATURE_PKCS1);
+
+			echo $message;
+			$signed = $rsa->sign($message);
+			/**
+			 * Return Base64 Encode generated signature
+			 */
+			return base64_encode($signed);
+		} else {
+			throw new \Exception("Unable to load private key");
+		}
 	}
 
 	/**

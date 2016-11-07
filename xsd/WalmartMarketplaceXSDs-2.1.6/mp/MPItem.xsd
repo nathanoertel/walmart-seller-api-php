@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Schema for data exchanged between Walmart and its partners.
+  Copyright 2015 Walmart Corporation. All rights reserved.
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://walmart.com/"
+  targetNamespace="http://walmart.com/"
+  elementFormDefault="qualified"
+  version="2.1">
+
+  <xsd:include schemaLocation="MPItemCommons.xsd"/>
+  <xsd:include schemaLocation="MPProduct.xsd" />
+  <xsd:include schemaLocation="MPItemShippingOverrides.xsd" />
+    
+  <xsd:element name="MPItem" type="MPItem"/>
+  
+  <xsd:complexType name="MPItem">
+    <xsd:sequence>
+      <xsd:element name="mart" type="Mart" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Mart where the item would be listed
+          </xsd:documentation>
+        </xsd:annotation>  
+      </xsd:element>
+      <xsd:element name="sku" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Partner's item identifier, Walmart includes this value in all communications regarding item information such as orders
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255" />
+            <xsd:minLength value="1"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="wpid" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Walmart's item identifier
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="12" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="Product" type="MPProduct" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Product
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="launchDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Date from which the offer is valid
+            The dateTime is specified in the following form "YYYY-MM-DDThh:mm:ss" where:
+              YYYY  indicates the year
+              MM    indicates the month
+              DD    indicates the day
+              T     indicates the start of the required time section
+              hh    indicates the hour
+              mm    indicates the minute
+              ss    indicates the second
+              Note: All components are required!
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="discontinueDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Date after which the offer is no longer valid
+            The dateTime is specified in the following form "YYYY-MM-DDThh:mm:ss" where:
+              YYYY  indicates the year
+              MM    indicates the month
+              DD    indicates the day
+              T     indicates the start of the required time section
+              hh    indicates the hour
+              mm    indicates the minute
+              ss    indicates the second
+              Note: All components are required!
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="price" type="Money" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            item price
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="minAdvertisedPrice" type="Money" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            minimum advertisement price
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="isMustShipAlone" type="xsd:boolean" minOccurs="0" default="false">
+        <xsd:annotation>
+          <xsd:documentation>
+            cannot ship with another item in the same box?
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="shippingWeight" type="WeightMeasure" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            shipping weight
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="shippingOverrides" type="MPItemShippingOverrides" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            shipping method and charge overrides
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+</xsd:schema>

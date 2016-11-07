@@ -1,0 +1,2114 @@
+<?xml version="1.0" encoding="UTF-8"?><!--  Schema for data exchanged between Walmart and its partners. Copyright 2015 Walmart Corporation. All rights reserved. --><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://walmart.com/" targetNamespace="http://walmart.com/" elementFormDefault="qualified" version="2.1">
+     <xsd:complexType name="MainImage">
+          <xsd:annotation>
+               <xsd:documentation>The item's primary image. For variations, this image should coincide with each variant item in the group. E.g., for green pants, this image will show green pants. For blue pants, the image will show blue pants. 
+
+Submit the largest, full size image you have. Recommended resolution is 3000 x 3000 pixels at 300 PPI. The minimum image size we will accept is 500 x 500 pixels at 72 PPI.
+
+Recommended format is JPG. PNG, EPS, PSD, BMP, and TIFF are also accepted.
+
+Recommended color mode is RGB. CMYK is also accepted. 
+
+Do not enlarge your image if it does not meet these requirements. Doing so results in an unacceptable, degraded image.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="mainImageUrl" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Location of the image. URLs must begin with http:// or https:// Example: http://www.walmart.com/main_image.jpg</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:anyURI">
+                              <xsd:maxLength value="2000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="altText" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Alternative text of an image, video, or other asset. Use descriptive terms to describe the image.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="150"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="AdditionalAssets">
+          <xsd:annotation>
+               <xsd:documentation>Additional media (videos, rebate forms, instruction manuals, etc.) to be shown on the item page. List the assets in the order in which you wish them to appear on the site.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="additionalAsset" minOccurs="0" maxOccurs="unbounded" type="additionalAsset"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="ProductIdentifiers">
+          <xsd:annotation>
+               <xsd:documentation>Specify at least one Product ID and its ID Type.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="productIdentifier" minOccurs="0" maxOccurs="unbounded" type="productIdentifier"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="CurrencyUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="CurrencyUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:double"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Features">
+          <xsd:annotation>
+               <xsd:documentation>List notable features of the item. Example: Fire-Resistant; Has Handles; Removable Cover</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="feature" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="CertificationsAndClaims">
+          <xsd:annotation>
+               <xsd:documentation>List any notable claims, certifications, or compliant standards for the item.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="certificationsAndClaim" minOccurs="0" maxOccurs="unbounded" type="certificationsAndClaim"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="LengthUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="LengthUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="WeightUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="WeightUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:double"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="SportsLeague">
+          <xsd:sequence>
+               <xsd:element name="sportsLeagueValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="SportsTeam">
+          <xsd:sequence>
+               <xsd:element name="sportsTeamValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Athlete">
+          <xsd:sequence>
+               <xsd:element name="athleteValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="BatteryTypeAndQuantity">
+          <xsd:annotation>
+               <xsd:documentation>Required if Has Batteries = Y</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="batteryTypeAndQuantityValue" minOccurs="0" maxOccurs="unbounded" type="batteryTypeAndQuantityValue"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="PPUUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="PPUUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="TemperatureUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="TemperatureUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="SmallPartsWarnings">
+          <xsd:annotation>
+               <xsd:documentation>Indicates type of choking hazard warning to show on the item page.
+
+Code definitions:
+0 - Not Applicable
+1 - Any ball with a diameter of 1.75 inches (44.4mm) or less that is intended for use by children 3 years or older
+2 - Any toy or game intended for children 3 years or older but less than 8 years that contains a small ball
+3 - Any toy and game with small parts intended for use by children at least 3 years old but under 6 years
+4 - Any latex balloon, or toy or game that contains a latex balloon
+5 - Any marble intended for children 3 years or older
+6 - Any toy and game intended for children at least 3 years old but less than 8 years which contains a marble Example: 0; 1; 2; 3; 4; 5; 6</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="smallPartsWarning" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="StateRestrictions">
+          <xsd:sequence>
+               <xsd:element name="stateRestriction" minOccurs="0" maxOccurs="unbounded" type="stateRestriction"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="AdditionalProductAttributes">
+          <xsd:annotation>
+               <xsd:documentation>Additional product attributes not enumerated in the spec using name-value pairs.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="additionalProductAttribute" minOccurs="0" maxOccurs="unbounded" type="additionalProductAttribute"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="SwatchImages">
+          <xsd:annotation>
+               <xsd:documentation>Enter the swatch image location in "Swatch Image URL," and its corresponding variant attribute name in "Swatch Variant Attribute." Required for products with visual variations, like color or pattern. List the swatches in the order you recommend they appear on the site.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="swatchImage" minOccurs="0" maxOccurs="unbounded" type="swatchImage"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="AccessoriesIncluded">
+          <xsd:sequence>
+               <xsd:element name="accessoriesIncludedValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="VariantAttributeNames">
+          <xsd:annotation>
+               <xsd:documentation>Designate all attributes by which the item is varying. This list may include variants that the category spec has not explicitly identified. 
+Ex: If partner provides data for "Collar Size," and "Collar Size" is not in the list of valid variants, then input "Collar Size" as a value here. Example: collarSize; color; shirtSize</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="variantAttributeName" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Color">
+          <xsd:annotation>
+               <xsd:documentation>Color value as provided by the manufacturer. Example: Aqua; Burgundy; Mauve; Fuchsia</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="colorValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Material">
+          <xsd:annotation>
+               <xsd:documentation>Material makeup of the item. Fabric materials should be entered using the "Fabric Content" attribute. Example: Nickel; Metal; Plastic</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="materialValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="RecommendedUses">
+          <xsd:annotation>
+               <xsd:documentation>Further clarification of what is the item may be used for. Example: Television; Home Audio; GPS</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="recommendedUse" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="MountType">
+          <xsd:annotation>
+               <xsd:documentation>How the item is mounted, for use especially with shelves. Example: Wall Mount; Ceiling Mount</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="mountTypeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="VolumeUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="VolumeUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="ElectricalMeasurementUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="ElectricalMeasurementUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="PowerUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="PowerUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="AreaUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="AreaUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Pattern">
+          <xsd:annotation>
+               <xsd:documentation>Decorative design or visual ornamentation, often with a thematic, recurring motif. Example: Floral; Plaid; Paisley</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="patternValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="CompatibleSurfaces">
+          <xsd:sequence>
+               <xsd:element name="compatibleSurface" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="TimeUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="TimeUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="RecycledMaterialContent">
+          <xsd:sequence>
+               <xsd:element name="recycledMaterialContentValue" minOccurs="0" maxOccurs="unbounded" type="recycledMaterialContentValue"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="RecommendedSurfaces">
+          <xsd:annotation>
+               <xsd:documentation> Example: Wood; Concrete; Vinyl</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="recommendedSurface" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="PressureUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="PressureUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="PercentageUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="PercentageUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="ActiveIngredients">
+          <xsd:annotation>
+               <xsd:documentation>The list of active ingredients in order of potency, as shown on the item label.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="activeIngredient" minOccurs="0" maxOccurs="unbounded" type="activeIngredient"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="InactiveIngredients">
+          <xsd:annotation>
+               <xsd:documentation>The list of inactive ingredients in order of potency, as shown on the item label.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="inactiveIngredient" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="SpeedUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="SpeedUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Character">
+          <xsd:annotation>
+               <xsd:documentation>A person or entity portrayed in print or visual media. A character might be a fictional personality or an actual living person. Example: Dora the Explorer; SpongeBob SquarePants</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="characterValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="AngleUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="AngleUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="BrightnessUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="BrightnessUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="FabricContent">
+          <xsd:annotation>
+               <xsd:documentation>Material makeup of the item.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="fabricContentValue" minOccurs="0" maxOccurs="unbounded" type="fabricContentValue"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="FabricCareInstructions">
+          <xsd:annotation>
+               <xsd:documentation>Enter details of the fabric care label. Example: Dry Clean Only; Machine Washable; Hand Wash</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="fabricCareInstruction" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Theme">
+          <xsd:annotation>
+               <xsd:documentation>A dominant idea carried in an artwork or piece of furniture Example: Animals  Insects; Automobiles; Space; Baseball; Princesses;</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="themeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="AgeGroup">
+          <xsd:annotation>
+               <xsd:documentation>General grouping of ages into commonly used demographic labels. Example: Child; Teen; Adult</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="ageGroupValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="RecommendedRooms">
+          <xsd:annotation>
+               <xsd:documentation>The rooms recommended for the item's use. Example: Family Room; Home Office; Kitchen; Dining Room</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="recommendedRoom" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Occasion">
+          <xsd:annotation>
+               <xsd:documentation>The particular target time, event, or holiday for the product Example: Halloween; Christmas; Wedding; Anniversary</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="occasionValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="FillMaterial">
+          <xsd:annotation>
+               <xsd:documentation>The stuffing material of the item, as for cushions or plush toys. Example: Down; Polyester</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="fillMaterialValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="HolidayLightingStyle">
+          <xsd:annotation>
+               <xsd:documentation> Example: Blinking Lights; String Lights</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="holidayLightingStyleValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="TargetAudience">
+          <xsd:annotation>
+               <xsd:documentation>The demographic for which the item is targeted. Example: Family; Parties; Kids</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="targetAudienceValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="HairLength">
+          <xsd:annotation>
+               <xsd:documentation>The length of hair that grooming product is intended for. Example: Short; Medium; Long</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="hairLengthValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="StopUseIndications">
+          <xsd:annotation>
+               <xsd:documentation> Example: Stop using immediately if you experience severe burning, itching...</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="stopUseIndication" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="NutrientContentClaims">
+          <xsd:annotation>
+               <xsd:documentation>A claim on a food item that directly or by implication characterizes the level of a nutrient in the food. Example: Low Fat; Sugar-Free; Fat-Free; Gluten-Free; Kosher; Natural; Alcohol-Free; Contains No Milk Products; Vegan; High in Oat Bran; 100 Calories</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="nutrientContentClaim" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Sport">
+          <xsd:annotation>
+               <xsd:documentation>If the game is sports-related, please provide the specific sport. Example: Hiking; Wrestling; Olympic Sports; Cycling; Surfing; Basketball; Baseball; Rowing; Dance  Fitness</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="sportValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="DiaposableBabyDiaperType">
+          <xsd:annotation>
+               <xsd:documentation>Type of disposable diaper Example: Pull-up; Swim</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="diaposableBabyDiaperTypeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="OrganicCertifications">
+          <xsd:annotation>
+               <xsd:documentation>Indicates that the item is certified organic by designating the certifying agent. Example: EU Organic; Global Organic Textile Standard (GOTS); Oregon Tilth Certified Organic (OTCO); California Certified Organic; Farmers (CCOF); USDA Organic; Ecocert; Farm Verified Organic (FVO); OCIA-Certified Organic; QIA Organic; Canadian Organic Standards (COS)</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="organicCertification" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Season">
+          <xsd:annotation>
+               <xsd:documentation> Example: Spring; Summer; Fall; Winter; All-Season</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="seasonValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="AwardsWon">
+          <xsd:annotation>
+               <xsd:documentation> Example: Oppenheim Toy Portfolio Best Toy Award</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="awardsWonValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="EducationalFocus">
+          <xsd:annotation>
+               <xsd:documentation> Example: Shape Identification; Language; Motor Skills; Pretend Play; Color Identification; Science; Nature; Math; Counting; Music; Reading; Writing; Creativity</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="educationalFocu" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Nutrients">
+          <xsd:annotation>
+               <xsd:documentation>Additional nutrients, not including total fat or total carbohydrates, which should be entered in "Total Fat" and "Total Carbohydrate" respectively.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="nutrient" minOccurs="0" maxOccurs="unbounded" type="nutrient"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="RecommendedLocations">
+          <xsd:annotation>
+               <xsd:documentation>The primary location recommended for the item's use. Example: Indoor; Outdoor; Vehicle</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="recommendedLocation" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="FrameMaterial">
+          <xsd:annotation>
+               <xsd:documentation>The material used in the item's frame if different than its main material makeup, which is described using the "Material" attribute. Example: Metal; Plastic; Rubber; Titanium; Wood</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="frameMaterialValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Connections">
+          <xsd:annotation>
+               <xsd:documentation>The standardized connections provided on the item. Example: HDMI; S-Video; RCA</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="connection" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="AudioFeatures">
+          <xsd:annotation>
+               <xsd:documentation> Example: Noise-Canceling; High-Fidelity; Surround Sound; Stereo; Mono</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="audioFeature" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="MobileOperatingSystem">
+          <xsd:annotation>
+               <xsd:documentation>The operating system loaded on the device or upon which the software is designed to operate. Example: Android; iOS; Windows Phone; Symbian; CyanogenMod</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="mobileOperatingSystemValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="ResolutionUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="ResolutionUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="DigitalCapacityUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="DigitalCapacityUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="FrequencyUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="FrequencyUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="ProcessorType">
+          <xsd:annotation>
+               <xsd:documentation>Commonly used retail name for the central processing unit. Example: Celeron; Intel Core i7; Snapdragon; ARM Cortex A7</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="processorTypeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="WirelessTechnologies">
+          <xsd:annotation>
+               <xsd:documentation>Any wireless communications standard used within or by the item. Example: Bluetooth; 802.11a; 5.8 GHz; 802.11g; 900 Mhz; Wi-Fi; 2.4GHz; None; 802.11b; 802.11n</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="wirelessTechnology" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="TelevisionType">
+          <xsd:annotation>
+               <xsd:documentation>The type of TV with reference to its technology and capabilities. Example: Plasma TV; OLED TV; LCD TV; DLP TV; LED TV; CRT TV; Curved TV; Smart TV; 3D TV; Outdoor TV; TV/DVD Combo</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="televisionTypeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="InputsAndOutputs">
+          <xsd:annotation>
+               <xsd:documentation>Delimited list of the number and type of each connection on the item.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="inputsAndOutput" minOccurs="0" maxOccurs="unbounded" type="inputsAndOutput"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="CompatibleDevices">
+          <xsd:annotation>
+               <xsd:documentation>A list of the devices compatible with the item. Example: iPad; Tablet Computers; CD Players; GPS; Desktop Computers; Blu-ray players; DVD Players</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="compatibleDevice" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="SoftwareCategory">
+          <xsd:annotation>
+               <xsd:documentation>The general category of software by which the item is most closely associated. Example: Antivirus  Security; Web  Desktop Publishing; Drivers  Utilities; Maps; Personal Finance, Tax  Legal; Productivity; Business  Office; Operating Systems; Image, Video  Audio; Servers, Development  DBMS; Hobbies  Leisure; Mobile Phone; Education, Language,  Reference; Voice Recognition</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="softwareCategoryValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="SystemRequirements">
+          <xsd:annotation>
+               <xsd:documentation>The basic requirements necessary of any system in order to satisfactorily run the software. Example: Windows 7 or later; Intel Core 2 Duo 1.8Ghz or AMD Athlon X2 64 2.4Ghz Processor; 2GB RAM; 15GB Free Hard Drive Space</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="systemRequirement" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="OperatingSystem">
+          <xsd:annotation>
+               <xsd:documentation>The operating system loaded on the device or upon which the software is designed to operate. Example: Microsoft Windows 8.1; OS X v10.8 Mountain Lion; Android KitKat</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="operatingSystemValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="CpuSocketType">
+          <xsd:annotation>
+               <xsd:documentation>The interface of, or required by, the central processing unit. Example: AM3; LGA 1150</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="cpuSocketTypeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="MotherboardFormFactor">
+          <xsd:annotation>
+               <xsd:documentation>The standardized form factor with which the motherboard complies. Example: ATX; Micro ATX</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="motherboardFormFactorValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="RecordableMediaFormats">
+          <xsd:annotation>
+               <xsd:documentation>The recording technologies compatible with the item. Example: DVD-R; DVD-RW; motion JPEG; Blu-Ray; MPEG-1;</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="recordableMediaFormat" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="CompatibleBrands">
+          <xsd:annotation>
+               <xsd:documentation>A list of the brands most commonly compatible with the item. Example: Toshiba; Dell; HP</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="compatibleBrand" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="HeadphoneFeatures">
+          <xsd:annotation>
+               <xsd:documentation> Example: In-Ear; Over-Ear; On-Ear; Ear-Clip; Behind-the-Neck; Closed Cup; Open Cup; Microphone; Memory Foam</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="headphoneFeature" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="VolumetricFlowRateUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="VolumetricFlowRateUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="OriginalLanguages">
+          <xsd:annotation>
+               <xsd:documentation>The original language of the work. Usually this will be one language, but occasionally more than one is appropriate. For example, if a movie is dubbed in English but the original language is Chinese, enter "Chinese." Example: Spanish; English; Dutch; Kurdish; Swahili; Klingon</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="originalLanguage" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Actors">
+          <xsd:annotation>
+               <xsd:documentation>Actors who receive top billing in a movie or television show. Example: Humphrey Bogart; Julia Roberts; Brad Pitt; Marilyn Monroe</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="actor" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="DubbedLanguages">
+          <xsd:annotation>
+               <xsd:documentation>Language(s) that a film has been dubbed with Example: Korean; Czech; Hindi; Spanish; German</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="dubbedLanguage" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="SubtitledLanguages">
+          <xsd:annotation>
+               <xsd:documentation>Language(s) that a film's subtitles have been written in Example: English; Portuguese; Turkish; Russian; Thai</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="subtitledLanguage" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Performer">
+          <xsd:annotation>
+               <xsd:documentation>The performer/s or name of group on the album or single. Example: Beyonce; Kelly Clarkson; George Strait; Queen; The Grateful Dead; They Might Be Giants; The Boston Pops Orchestra</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="performerValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="TrackListings">
+          <xsd:annotation>
+               <xsd:documentation>List each track on the album with track name, number, and duration.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="trackListing" minOccurs="0" maxOccurs="unbounded" type="trackListing"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Author">
+          <xsd:annotation>
+               <xsd:documentation>The name (or pseudonym) of the person who wrote a book, as written on the cover and/or title page. Example: Dr. Seuss; William Shakespeare; Beatrix Potter</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="authorValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="InkColor">
+          <xsd:annotation>
+               <xsd:documentation>The ink color of pens, markers, ink pads, and other writing implements. Example: Black; Red; Blue</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="inkColorValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="PaperSize">
+          <xsd:annotation>
+               <xsd:documentation> Example: A1; B4</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="paperSizeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Instrument">
+          <xsd:annotation>
+               <xsd:documentation>The name(s) of the musical instrument(s) or equipment this accessory is intended for/compatible with. Example: clarinet; guitar; trumpet; kazoo</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="instrumentValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="NumberOfPlayer">
+          <xsd:sequence>
+               <xsd:element name="minimumNumberOfPlayers" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The minimum number of people required to play the game. Example: 2.0</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="maximumNumberOfPlayers" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The maximum number of people for which the game is intended. Example: 4.0</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="FoodAllergenStatements">
+          <xsd:annotation>
+               <xsd:documentation>Statement regarding any ingredients that may be food allergens. Example: Contains Peanuts, Soy, and MSG</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="foodAllergenStatement" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="MemoryCardType">
+          <xsd:sequence>
+               <xsd:element name="memoryCardTypeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="FocusType">
+          <xsd:annotation>
+               <xsd:documentation> Example: Auto; Center; Fixed</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="focusTypeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="ExposureModes">
+          <xsd:sequence>
+               <xsd:element name="exposureMode" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="LensType">
+          <xsd:annotation>
+               <xsd:documentation>Whether the lens is single, multifocal, or tinted Example: Single Vision; Bifocal; Progressive; Trifocal; Sunglasses</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="lensTypeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="HandleMaterial">
+          <xsd:annotation>
+               <xsd:documentation>Material of the handle, if different from the rest of the item. Example: Leather; Imitation Leather; Fabric; Suede</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="handleMaterialValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Gemstone">
+          <xsd:annotation>
+               <xsd:documentation> Example: Amethyst; Aquamarine; Citrine; Coral; Crystal; Cubic Zirconia; Diamond; Emerald; Garnet; Jade; Mother of Pearl; Multigemstone; Onyx; Opal; Pearl; Peridot; Quartz; Ruby; Sapphire; Tanzanite; Tiger's Eye; Topaz; Turquoise</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="gemstoneValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="BodyParts">
+          <xsd:annotation>
+               <xsd:documentation>The body part/s for which the item is intended. Example: Ankle; Hand; Wrist</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="bodyPart" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="RingStyle">
+          <xsd:annotation>
+               <xsd:documentation>Form or design of a ring Example: Cocktail; Hearts; Engagement; Stacking; Halo; Solitaire; Three-Stone; Eternity; Semi-Eternity; No Stone; Claddah; Midi</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="ringStyleValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="WatchBandMaterial">
+          <xsd:sequence>
+               <xsd:element name="watchBandMaterialValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="WatchStyle">
+          <xsd:annotation>
+               <xsd:documentation>Level of formality or type of dress Example: Casual; Dress; Fashion; Sport</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="watchStyleValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="FuelEconomyUnit">
+          <xsd:sequence>
+               <xsd:element name="unit" minOccurs="0" maxOccurs="1" type="FuelEconomyUnitOfMeasure"/>
+               <xsd:element name="measure" minOccurs="0" maxOccurs="1">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="InterfaceType">
+          <xsd:sequence>
+               <xsd:element name="interfaceTypeValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="BraSize">
+          <xsd:sequence>
+               <xsd:element name="braBandSize" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Bra band size in inches. Example: 34 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="braCupSize" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: A; AA; B; C; D; DD</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="PantSize">
+          <xsd:sequence>
+               <xsd:element name="inseam" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Pant inseam in inches. Example: 32 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="waistSize" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation>Waist size in inches. Example: 38 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="clothingSize" value="null"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="DressShirtSize">
+          <xsd:sequence>
+               <xsd:element name="neckSize" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Neck size in inches. Example: 15.5 in; 16 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="sleeveLength" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Sleeve length in inches if available for the item. Example: 34 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="BallCoreMaterial">
+          <xsd:sequence>
+               <xsd:element name="ballCoreMaterialValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="HealthConcerns">
+          <xsd:annotation>
+               <xsd:documentation> Example: Cold; Fever; Allergy; Prenatal</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="healthConcern" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="IngredientClaim">
+          <xsd:annotation>
+               <xsd:documentation>A claim that advertises the lack or presence of ingredients for the purpose of sellability. Example: All Natural Ingredients; Vegan; BPA-Free;</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="ingredientClaimValue" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="additionalAsset">
+          <xsd:sequence>
+               <xsd:element name="altText" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Alternative text of an image, video, or other asset. Use descriptive terms to describe the image.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="150"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="assetUrl" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Location of the additional assets. Required if additional assets beyond the main image are provided. URLs must begin with http:// or https:// Example: http://www.walmart.com/video1.jpg</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:anyURI">
+                              <xsd:maxLength value="2000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="assetType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Provides additional information on the assets. Example: Secondary Image; Video; Instruction Manual; Assembly Instructions; Badge; Manufacturer Logo</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="additionalAssetAttributes" minOccurs="0" maxOccurs="1" type="AdditionalAssetAttributes">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="productIdentifier">
+          <xsd:sequence>
+               <xsd:element name="productIdType" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Type of unique identifier used in the "Product ID" field. Example: UPC; GTIN; ISBN; ISSN; EAN</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="UPC"/>
+                              <xsd:enumeration value="GTIN"/>
+                              <xsd:enumeration value="EAN"/>
+                              <xsd:enumeration value="ISSN"/>
+                              <xsd:enumeration value="ISBN"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="productId" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Alphanumeric ID that uniquely identifies the product. Example: X12345</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="14"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="certificationsAndClaim">
+          <xsd:sequence>
+               <xsd:element name="certificationAndClaimType" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Type of certification or claim. Example: Organic; BPA-Free; Fair Trade</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="certifyingAgent" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Certifying agency for claim. Not all claims have a certifying agent. Example: Oregon Tilth; GOTS</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="batteryTypeAndQuantityValue">
+          <xsd:sequence>
+               <xsd:element name="batteryTechnologyType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>If battery type is lead acid, lead acid (nonspillable), lithium ion, or lithium metal, the item requires a hazardous materials risk assessment via WERCS. Example: Does Not Contain a Battery; Alkaline; Carbon Zinc; Lead Acid; Lead Acid (Nonspillable); Lithium Primary (Lithium Metal); Lithium Ion; Magnesium; Mercury; Nickel Cadmium; Nickel Metal Hydride; Silver; Thermal; Other; Multiple Types</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="Lithium Ion"/>
+                              <xsd:enumeration value="Nickel Metal Hydride"/>
+                              <xsd:enumeration value="Does Not Contain a Battery"/>
+                              <xsd:enumeration value="Lead Acid (Non-Spillable)"/>
+                              <xsd:enumeration value="Lithium Primary"/>
+                              <xsd:enumeration value="Multiple Types"/>
+                              <xsd:enumeration value="Carbon Zinc"/>
+                              <xsd:enumeration value="Magnesium"/>
+                              <xsd:enumeration value="Mercury"/>
+                              <xsd:enumeration value="Thermal"/>
+                              <xsd:enumeration value="Other"/>
+                              <xsd:enumeration value="Nickel Cadmium"/>
+                              <xsd:enumeration value="Lead Acid"/>
+                              <xsd:enumeration value="Silver"/>
+                              <xsd:enumeration value="Alkaline"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberOfBatteries" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Required if "Has Batteries = Y"</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="stateRestriction">
+          <xsd:sequence/>
+     </xsd:complexType>
+     <xsd:complexType name="additionalProductAttribute">
+          <xsd:sequence>
+               <xsd:element name="productAttributeName" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>A name of a single attribute for the additional detail name-value pair. Example: isCFLLightBulb</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="100"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="productAttributeValue" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>A value of a single attribute for the additional detail name-value pair. Example: true</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="swatchImage">
+          <xsd:sequence>
+               <xsd:element name="swatchImageUrl" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>URL of the color or pattern swatch image. This will be shown as a small square on the item page. Recommended resolution is 100 x 100 pixels. URLs must begin with http:// or https:// Example: http://www.walmart.com/swatch1.jpg</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:anyURI">
+                              <xsd:maxLength value="2000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="swatchVariantAttribute" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Attribute name corresponding to the swatch. Example: color; pattern</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="recycledMaterialContentValue">
+          <xsd:sequence>
+               <xsd:element name="recycledMaterial" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Type of recycled material used to create the item. Example: Bamboo; Cotton</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="percentageOfRecycledMaterial" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Corresponding percentage of the recycled material used to create the item. Example: 90%; 80%</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="activeIngredient">
+          <xsd:sequence>
+               <xsd:element name="activeIngredientName" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Ingredient name. Example: Benzoyl Peroxide</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="activeIngredientPercentage" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The percent of the active ingredient in the item. Example: 0.02</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="fabricContentValue">
+          <xsd:sequence>
+               <xsd:element name="materialName" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Material name. Example: Cotton; Rayon</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="materialPercentage" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Corresponding material percentage. Example: 98%; 2%</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="nutrient">
+          <xsd:sequence>
+               <xsd:element name="nutrientName" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Name of additional nutrient.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="nutrientAmount" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Amount of the nutrient present in one serving. Example: 30 g</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="nutrientPercentageDailyValue" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Percent daily value of the nutrient present in one serving. Example: 0.15</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="inputsAndOutput">
+          <xsd:sequence>
+               <xsd:element name="inputOutputType" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Type of connection. Example: HDMI; S/PDIF; USB 3.0; DVI</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="inputOutputQuantity" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Number of connections corresponding to the Input/Output type. Example: 2; 1; 3; 1</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="trackListing">
+          <xsd:sequence>
+               <xsd:element name="trackNumber" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The number of the individual track on an album. Example: 2.0</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="trackName" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The name of the individual track on an album. Example: Blue Suede Shoes</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="trackDuration" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The duration of the individual track on an album. Example: 4.23 min</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="AdditionalAssetAttributes">
+          <xsd:annotation>
+               <xsd:documentation>Additional details about the provided assets using name-value pairs.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:sequence>
+               <xsd:element name="additionalAssetAttribute" minOccurs="0" maxOccurs="unbounded" type="additionalAssetAttribute"/>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="additionalAssetAttribute">
+          <xsd:sequence>
+               <xsd:element name="attributeName" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>A name of a single attribute for the additional detail name-value pair. Example: documentType</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="100"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="attributeValue" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>A value of a single attribute for the additional detail name-value pair. Example: PDF</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:simpleType name="AngleUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Degree"/>
+               <xsd:enumeration value="Radian"/>
+               <xsd:enumeration value="Steradian"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="AreaUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Square Centimeters"/>
+               <xsd:enumeration value="Square Millimeters"/>
+               <xsd:enumeration value="Square Feet"/>
+               <xsd:enumeration value="Square Inches"/>
+               <xsd:enumeration value="Square Meters"/>
+               <xsd:enumeration value="Square Yards"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="LengthUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Inches"/>
+               <xsd:enumeration value="Micrometers"/>
+               <xsd:enumeration value="Feet"/>
+               <xsd:enumeration value="Millimeters"/>
+               <xsd:enumeration value="Centimeters"/>
+               <xsd:enumeration value="Meters"/>
+               <xsd:enumeration value="Yards"/>
+               <xsd:enumeration value="French"/>
+               <xsd:enumeration value="Miles"/>
+               <xsd:enumeration value="Mil"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="PercentageUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Percentage"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="VolumetricFlowRateUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="liters per second"/>
+               <xsd:enumeration value="cubic meters per second"/>
+               <xsd:enumeration value="cubic feet per second"/>
+               <xsd:enumeration value="cubic meters per minute"/>
+               <xsd:enumeration value="gallons per second"/>
+               <xsd:enumeration value="cubic feet per minute"/>
+               <xsd:enumeration value="liters per minute"/>
+               <xsd:enumeration value="gallons per minute"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="PressureUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Pounds Per Square Inch"/>
+               <xsd:enumeration value="Barye"/>
+               <xsd:enumeration value="Pieze"/>
+               <xsd:enumeration value="Pascal"/>
+               <xsd:enumeration value="Psig/Bar"/>
+               <xsd:enumeration value="Bar"/>
+               <xsd:enumeration value="Torr"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="VolumeUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="US Gallons"/>
+               <xsd:enumeration value="Imperial (UK) Gallons"/>
+               <xsd:enumeration value="Cubic Feet"/>
+               <xsd:enumeration value="Cubic Inches"/>
+               <xsd:enumeration value="Cubic Centimeters"/>
+               <xsd:enumeration value="Cubic Meters"/>
+               <xsd:enumeration value="Milliliters"/>
+               <xsd:enumeration value="Cubic Yards"/>
+               <xsd:enumeration value="Fluid Ounces"/>
+               <xsd:enumeration value="Quarts"/>
+               <xsd:enumeration value="Liters"/>
+               <xsd:enumeration value="Pints"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="CurrencyUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="USD"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="ResolutionUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Dots Per Square Inch"/>
+               <xsd:enumeration value="Pixels Per Inch"/>
+               <xsd:enumeration value="Volumetric Pixels"/>
+               <xsd:enumeration value="Megapixels"/>
+               <xsd:enumeration value="Resolution Element"/>
+               <xsd:enumeration value="Surface Element"/>
+               <xsd:enumeration value="Dots Per Inch"/>
+               <xsd:enumeration value="Texels"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="ElectricalMeasurementUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Volts"/>
+               <xsd:enumeration value="Coulombs"/>
+               <xsd:enumeration value="Amps"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="WeightUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Kilograms Per Meter"/>
+               <xsd:enumeration value="Kilograms"/>
+               <xsd:enumeration value="Milligrams"/>
+               <xsd:enumeration value="Ounces"/>
+               <xsd:enumeration value="Pounds"/>
+               <xsd:enumeration value="Grams"/>
+               <xsd:enumeration value="Carat"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="FuelEconomyUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Miles Per Gallon"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="TimeUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Minutes"/>
+               <xsd:enumeration value="Seconds"/>
+               <xsd:enumeration value="Months"/>
+               <xsd:enumeration value="Hours"/>
+               <xsd:enumeration value="Milliseconds"/>
+               <xsd:enumeration value="Days"/>
+               <xsd:enumeration value="Years"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="BrightnessUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Lumen Seconds Per Meter"/>
+               <xsd:enumeration value="Lumens"/>
+               <xsd:enumeration value="Candelas Per Square Meter"/>
+               <xsd:enumeration value="Lumens Per Watt"/>
+               <xsd:enumeration value="Lux Seconds"/>
+               <xsd:enumeration value="Lumen Seconds"/>
+               <xsd:enumeration value="Candelas"/>
+               <xsd:enumeration value="Lux"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="FrequencyUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Kilohertz"/>
+               <xsd:enumeration value="Gigahertz"/>
+               <xsd:enumeration value="Megahertz"/>
+               <xsd:enumeration value="Hertz"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="SpeedUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Kilometers Per Hour"/>
+               <xsd:enumeration value="Meters Per Second Squared"/>
+               <xsd:enumeration value="Meters Per Second"/>
+               <xsd:enumeration value="Radian Per Second"/>
+               <xsd:enumeration value="Revolutions Per Minute"/>
+               <xsd:enumeration value="Feet Per Minute"/>
+               <xsd:enumeration value="Miles Per Hour"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="PowerUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Horsepower"/>
+               <xsd:enumeration value="Joules"/>
+               <xsd:enumeration value="Decibels"/>
+               <xsd:enumeration value="Watts"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="DigitalCapacityUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Terabytes"/>
+               <xsd:enumeration value="Kibibytes"/>
+               <xsd:enumeration value="Mebibytes"/>
+               <xsd:enumeration value="Gibibytes"/>
+               <xsd:enumeration value="Kilobytes"/>
+               <xsd:enumeration value="Gigabytes"/>
+               <xsd:enumeration value="Tebibytes"/>
+               <xsd:enumeration value="Megabyte"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="PPUUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Inch"/>
+               <xsd:enumeration value="Kilogram"/>
+               <xsd:enumeration value="Each"/>
+               <xsd:enumeration value="Ounce"/>
+               <xsd:enumeration value="Centimeter"/>
+               <xsd:enumeration value="Per 100 Sheet"/>
+               <xsd:enumeration value="Pound"/>
+               <xsd:enumeration value="Square Foot"/>
+               <xsd:enumeration value="Milliliter"/>
+               <xsd:enumeration value="Cubic Foot"/>
+               <xsd:enumeration value="Pint"/>
+               <xsd:enumeration value="Foot"/>
+               <xsd:enumeration value="Gram"/>
+               <xsd:enumeration value="Per 100 Count"/>
+               <xsd:enumeration value="Quart"/>
+               <xsd:enumeration value="Fluid Ounce"/>
+               <xsd:enumeration value="Gallon"/>
+               <xsd:enumeration value="Liter"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+     <xsd:simpleType name="TemperatureUnitOfMeasure">
+          <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="Degrees Fahrenheit"/>
+               <xsd:enumeration value="Degrees Celsius"/>
+               <xsd:enumeration value="Degrees Centigrade"/>
+               <xsd:enumeration value="Kelvin"/>
+          </xsd:restriction>
+     </xsd:simpleType>
+</xsd:schema>

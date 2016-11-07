@@ -1,0 +1,1103 @@
+<?xml version="1.0" encoding="UTF-8"?><!--  Schema for data exchanged between Walmart and its partners. Copyright 2015 Walmart Corporation. All rights reserved. --><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://walmart.com/" targetNamespace="http://walmart.com/" elementFormDefault="qualified" version="2.1">
+     <xsd:include schemaLocation="MPProductCommons.xsd"/>
+     <xsd:complexType name="TVShows">
+          <xsd:sequence>
+               <xsd:element name="digitalVideoFormats" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The form in which the work is sold to the customer Example: DVD; Blu-Ray</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tvRating" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>TV Parental Guidelines Rating Example: TV-Y7; Unrated; TV-Y; TV-MA; TV-PG-L; TV-PG; Not Rated; TV-14; TV-G; TV-Y7-FV; TV-PG-V</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tvShowGenre" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The general category for the television show. Example: Comedy; Drama; Documentary  Educational; Animation  Cartoons; Holidays; Special Interest; Game Shows; TAlk  Variety Shows; Reality TV;</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tvShowSubgenre" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The more specific subcategory for the television show. Example: British Comedy; Crime Drama; Sketch Comedy; Historical Documentary; Soap Opera</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tvNetwork" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The broadcast, cable, or online network which distributes the television program. Example: Fox; CBS; NBC; HBO; PBS; Netflix</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tvShowSeason" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The set of television episodes recorded for the season of the calendar year, usually airing from September until May. Example: 2; 7</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberOfEpisodes" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The number of television episodes contained in the item. Example: 13; 26</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="episode" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>If the item is only one episode, the number of the episode. Example: 2; 321</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="director" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Person who receives "Directed by" billing on a film or television show. Example: Joss Whedon; Kathryn Bigelow; Woody Allen; Penny Marshall</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="actors" minOccurs="0" maxOccurs="1" type="Actors">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="screenwriter" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Person who is credited or billed as the primary writer on a film or television project. Example: John Hughes; Nora Ephron; Joel Coen; Tina Fey</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="studioProductionCompany" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Company that is credited with creation of a film or television show. Example: 20th Century Fox; Lionsgate; Dreamworks; NBC; HBO</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="videoStreamingQuality" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The video resolution quality while streaming. Example: Standard Definition; High Definition; Full High Definition</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="audioTrackCodec" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The compression format or codec for the audio track. Example: Dolby Digital 5.1; Dolby TrueHD; DTS; Dolby Pro Logic II</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="duration" minOccurs="0" maxOccurs="1" type="TimeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation>Viewing or listening time. Example: 120 min</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="dvdReleaseDate" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Date that the film or TV show was released on DVD. Example: 42005.0</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:date"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isDubbed" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>A film or television show is dubbed if there is an audio track that replaces the voices of the original actors with a different language Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="dubbedLanguages" minOccurs="0" maxOccurs="1" type="DubbedLanguages">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="isDubbed" value="Y"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="hasSubtitles" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>A film or television show has subtitles if there is a transcript or screenplay of the dialog or commentary displayed on the screen. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="subtitledLanguages" minOccurs="0" maxOccurs="1" type="SubtitledLanguages">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="hasSubtitles" value="Y"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="seriesTitle" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>If the work is one of multiple works in a series, the title of the series or collection. Example: The Millenium Trilogy; The Hunger Games Trilogy; Hooked on Classics</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberInSeries" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The number in the series, if the work is one of multiple works in a series. Example: 2; 4; 7</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="aspectRatio" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The proportional relationship between the display's width and its height. Commonly expressed as two numbers separated by a colon. Example: 4:3; 16:9; 21:9</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Music">
+          <xsd:sequence>
+               <xsd:element name="musicGenre" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>General music category. Example: Karaoke; Christian  Gospel; World; Pop; New Age; Dance  DJ; Blues; Classical; Jazz; Holiday; Reggae; Rock; Rap  Hip-Hop; Soundtracks; Latin; Comedy  Spoken Word; RB; Easy Listening; Country; Children's; Folk</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="musicSubGenre" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Specific music category. Example: Motown; Salvadoran; Rumba; Chamber Music; Funk; Honky Tonk; Dub; Dixieland Jazz; Tejano; Speed Metal; Celtic; Christmas; Film Soundtrack;</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="performer" minOccurs="0" maxOccurs="1" type="Performer">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="songwriter" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>A person credited with authorship of tracks on a music product Example: James Taylor; Dolly Parton; Freddie Mercury</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="musicMediaFormat" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The physical or digital format of the item. Example: CD; MP3; LP;</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="musicProducer" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Person or entity credited with producing the album or single. Example: Babyface; Brian Eno; T Bone Burnett; quincy Jones</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="recordLabel" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The brand or publishing company associated with the item. Example: Universal Music Group; Sony Music Entertainment; Warner Music Group</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberOfDiscs" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Number of discs included in the item. Example: 2; 4</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberOfTracks" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Number of tracks included in the item. Example: 13; 10</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="releaseDate" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The date an item was released, for use especially with aged products, such as cheese. Example: 42005.0</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:date"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="musicReleaseType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>A distinguishing feature of the release, such as number of tracks or type of performance. Example: Single, Extended Play, Recorded Live, Karaoke Version</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="400"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="hasParentalAdvisoryLabel" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Indicates whether a music album has been labeled with a Parental Advisory label by the Recording Industry Association of America. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="trackListings" minOccurs="0" maxOccurs="1" type="TrackListings">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="seriesTitle" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>If the work is one of multiple works in a series, the title of the series or collection. Example: The Millenium Trilogy; The Hunger Games Trilogy; Hooked on Classics</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberInSeries" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The number in the series, if the work is one of multiple works in a series. Example: 2; 4; 7</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="BooksAndMagazines">
+          <xsd:sequence>
+               <xsd:element name="condition" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>For refurbished items; used for non-perishables Example: New; Used; Refurbished</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="gender" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>To specify target gender of the item. Example: Women; Men; Girls; Boys; Unisex</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="Unisex"/>
+                              <xsd:enumeration value="Women"/>
+                              <xsd:enumeration value="Men"/>
+                              <xsd:enumeration value="Boys"/>
+                              <xsd:enumeration value="Girls"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="color" minOccurs="0" maxOccurs="1" type="Color">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="material" minOccurs="0" maxOccurs="1" type="Material">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="pattern" minOccurs="0" maxOccurs="1" type="Pattern">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="edition" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The specific edition of the item. Example: Game of the Year; Limited; Ghost; Black; Anniversary</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="subject" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The "aboutness" of an item, distinct from the genre. It may be the subject of a documentary, nonfiction book, or art print. Example: Art for Kids; Dance; Hobbies</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="bookFormat" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Paperback; Hardcover; eBook; Audiobook; Board Book</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="genre" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The general book or magazine category. Example: Children's Books; Literature  Fiction; Textbooks; Art, Music, and Photography; History; Home, Hobbies,  Garden; Health, Mind  Body; Religion; Business  Investing; Political  Social Sciences; Romance; Biography  Memoirs; Bibles; Comics  Graphic Novels; Computing  Internet; Cooking, Food  Wine; Mystery  Suspense; Parenting  Families; Sports  Recreation; Travel  Nature</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="subgenre" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The more specific book or magazine subcategory. Example: Cozy Mysteries; Crime Procedurals; Dystopian Science Fiction; Fashion; Gardening; Popular Psychology; Italian Cooking; Cycling;</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="author" minOccurs="0" maxOccurs="1" type="Author">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="editor" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The person or entity responsible for choosing the collection of stories or articles in a book or magazine, as printed on the title page, or a magazine masthead Example: Anna Wintour;</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="illustrator" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The person credited with drawing illustrations within a printed work Example: Hayao Miyazaki; Maurice Sendak</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="publisher" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Publishing company as printed or displayed on the cover or title page. Example: Brown and Co.; Pearson P T R; W.B. Saunders Company</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="translator" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The person credited with translating the book from the original language into the language of the current edition. Example: Dorothy L. Sayers; Jorge Luis Borges</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="translatedFrom" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The original language that a work was translated from. Example: Czech; Russian; French; Vietnamese</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="fictionNonfiction" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Fiction; Non-Fiction</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="Fiction"/>
+                              <xsd:enumeration value="Nonfiction"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isUnabridged" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Indicates that the item is the complete original work with no omissions. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="originalPublicationDate" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Date that a printed work was first published, if different from the publication date of the current edition. Example: 42005.0</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:date"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="publicationDate" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Date of publication for the current edition. Example: 42005.0</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:date"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="readingLevel" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The intended age or grade-level for a printed work. Example: Young Adult; Ages 6-8; 3rd Grade</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberOfPages" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Number of pages within a printed work. Example: 357.0</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="issue" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>For an ongoing serial publication, the specific issue, as named by the publication, usually either month and year, or issue and volume number. Example: May 2015; Issue 4 Volume 7</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="seriesTitle" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>If the work is one of multiple works in a series, the title of the series or collection. Example: The Millenium Trilogy; The Hunger Games Trilogy; Hooked on Classics</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberInSeries" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The number in the series, if the work is one of multiple works in a series. Example: 2; 4; 7</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Movies">
+          <xsd:sequence>
+               <xsd:element name="mpaaRating" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Motion Picture Association of America Rating Example: G; PG; PG-13; R; NC-17; Not Rated</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="PG"/>
+                              <xsd:enumeration value="PG-13"/>
+                              <xsd:enumeration value="G"/>
+                              <xsd:enumeration value="R"/>
+                              <xsd:enumeration value="NC-17"/>
+                              <xsd:enumeration value="Unrated"/>
+                              <xsd:enumeration value="Not Rated"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="movieGenre" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>General film category. Example: Romance; Documentary; Comedy; Kids  Family</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="movieSubgenre" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>More specific film subcategory. Example: Romantic Drama; Sports Documentary; Stand-Up Comedy; Superheroes</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="theatricalReleaseDate" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Date that a film was originally released in theaters. Example: 42005.0</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:date"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="digitalVideoFormats" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The form in which the work is sold to the customer Example: DVD; Blu-Ray</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="director" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Person who receives "Directed by" billing on a film or television show. Example: Joss Whedon; Kathryn Bigelow; Woody Allen; Penny Marshall</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="actors" minOccurs="0" maxOccurs="1" type="Actors">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="screenwriter" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Person who is credited or billed as the primary writer on a film or television project. Example: John Hughes; Nora Ephron; Joel Coen; Tina Fey</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="studioProductionCompany" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Company that is credited with creation of a film or television show. Example: 20th Century Fox; Lionsgate; Dreamworks; NBC; HBO</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="videoStreamingQuality" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The video resolution quality while streaming. Example: Standard Definition; High Definition; Full High Definition</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="audioTrackCodec" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The compression format or codec for the audio track. Example: Dolby Digital 5.1; Dolby TrueHD; DTS; Dolby Pro Logic II</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="duration" minOccurs="0" maxOccurs="1" type="TimeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation>Viewing or listening time. Example: 120 min</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="dvdReleaseDate" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Date that the film or TV show was released on DVD. Example: 42005.0</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:date"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isDubbed" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>A film or television show is dubbed if there is an audio track that replaces the voices of the original actors with a different language Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="dubbedLanguages" minOccurs="0" maxOccurs="1" type="DubbedLanguages">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="isDubbed" value="Y"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="hasSubtitles" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>A film or television show has subtitles if there is a transcript or screenplay of the dialog or commentary displayed on the screen. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="subtitledLanguages" minOccurs="0" maxOccurs="1" type="SubtitledLanguages">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="hasSubtitles" value="Y"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="seriesTitle" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>If the work is one of multiple works in a series, the title of the series or collection. Example: The Millenium Trilogy; The Hunger Games Trilogy; Hooked on Classics</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberInSeries" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The number in the series, if the work is one of multiple works in a series. Example: 2; 4; 7</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="aspectRatio" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The proportional relationship between the display's width and its height. Commonly expressed as two numbers separated by a colon. Example: 4:3; 16:9; 21:9</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Media">
+          <xsd:sequence>
+               <xsd:element name="title" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The name given to the work. Does not include any marketing adjectives outside of the given name. Example: Great Expectations; Seinfeld; Star Wars Episode IV- A New Hope; Vogue; Thriller</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="originalLanguages" minOccurs="0" maxOccurs="1" type="OriginalLanguages">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="variantGroupId" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Required if item is a variant.
+ 
+Make up a number for "Variant Group ID," and add this to all variations of the same product. Partners must ensure uniqueness of their Variant Group IDs.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="variantAttributeNames"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="20"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="variantAttributeNames" minOccurs="0" maxOccurs="1" type="VariantAttributeNames">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="variantGroupId"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="isPrimaryVariant" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Note whether item is intended as the main variant in a variant grouping. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isAdultProduct" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Indicates if item is adult in nature and should not appear in results for children's products. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="awardsWon" minOccurs="0" maxOccurs="1" type="AwardsWon">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="character" minOccurs="0" maxOccurs="1" type="Character">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="targetAudience" minOccurs="0" maxOccurs="1" type="TargetAudience">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="isDownloadableContentAvailable" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Is extra content available to extend or enhance gameplay via a download? Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:choice minOccurs="0" maxOccurs="1">
+                    <xsd:element name="TVShows" type="TVShows"/>
+                    <xsd:element name="Music" type="Music"/>
+                    <xsd:element name="BooksAndMagazines" type="BooksAndMagazines"/>
+                    <xsd:element name="Movies" type="Movies"/>
+               </xsd:choice>
+          </xsd:sequence>
+     </xsd:complexType>
+</xsd:schema>

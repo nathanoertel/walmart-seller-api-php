@@ -1,0 +1,1801 @@
+<?xml version="1.0" encoding="UTF-8"?><!--  Schema for data exchanged between Walmart and its partners. Copyright 2015 Walmart Corporation. All rights reserved. --><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://walmart.com/" targetNamespace="http://walmart.com/" elementFormDefault="qualified" version="2.1">
+     <xsd:include schemaLocation="MPProductCommons.xsd"/>
+     <xsd:complexType name="WheelsAndWheelComponents">
+          <xsd:sequence>
+               <xsd:element name="finish" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Overall finish of the item. Example: Natural; Unfinished; Brown; Espresso; Oak</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="diameter" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 29 mm</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="vehicleRimSize" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="compatibleTireSize" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberOfSpokes" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="hasWearSensor" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="LandVehicles">
+          <xsd:sequence>
+               <xsd:element name="landVehicleCategory" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Moped; Motorcycle; Truck; Van; Bus</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="powertrain" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 4 Stroke Diesel Engine; Gasoline Hybrid; Electric</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="drivetrain" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: T-V-Drive Cummins QSB 425 Diesels; 160mm jet pump, axial-flow, single stage</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="transmissionDesignation" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 6MT 4WD</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="acceleration" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 0 - 60 mph / 4.3 s; 0 - 100 kph / 4.5 s</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="frontSuspension" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Independent MacPherson strut-type with rear stabilizer bar; Inverted strut-type with aluminum-alloy lower L-arm and pillow-ball joint mount, stabilizer bar; Ohlins 43mm upside down forks with adjustable preload, compression  rebound damping</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="rearSuspension" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Independent short-and-long arm (SLA) with one upper and two lower control arms; double wishbone with pillow ball lateral link bushing, stabilizer bar; Ohlins twin shocks with remote reservoir - adjustable ride height, preload and compression</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="frontBrakes" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Ventilated 13" discs with dual piston calipers; Twin Brembo 320mm fully-floating high carbon stainless steel discs  Brembo 4 piston radially mounted callipers. Brembo front brake master cylinder with integral reservoir</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="rearBrakes" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 11.3" discs with single piston calipers; Single Brembo 220mm disc  Brembo 2 piston calliper. Brembo rear brake master cylinder</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="seatingCapacity" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The number of people that can be accommodated by the available seats of an item. Example: 2; 4; 8</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="frontWheels" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="rearWheels" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="frontTires" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 120/70 x 17"; 225/45-18</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="rearTires" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 180/55 x 17"; 145/70-18</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="wheelbase" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 32 ft; 16 ft 3 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="curbWeight" minOccurs="0" maxOccurs="1" type="WeightUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 2932 lb; 28500 lb</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="towingCapacity" minOccurs="0" maxOccurs="1" type="WeightUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 6000 lb; 2000 lb</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="submodel" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="seatHeight" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation>The height from the floor to the top of the seat, in inches. Example: 36 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="engineModel" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 2.0L EcoBoost; 12-cylinder 6-litre Continental</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="compressionRatio" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 8.2:1; 9.0:1</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="boreStroke" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 83.0 mm x 69.2 mm</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="inductionSystem" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Eaton Twin Vortices Series Roots-type supercharger with air-to-water intercooler</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="coolingSystem" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Air; Liquid; Inducted water</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="maximumEnginePower" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 201 hp; 647 kW</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="topSpeed" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 197 mph; 13 km</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="fuelRequirement" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 98 (95) RON</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="fuelSystem" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Digital Fuel Injection (DFIÂ®) with 60mm throttle body; Fuel Stratified Injection (FSI)</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="fuelCapacity" minOccurs="0" maxOccurs="1" type="VolumeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 20.6 gal; 13.25 gal</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="averageFuelConsumption" minOccurs="0" maxOccurs="1" type="FuelEconomyUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 12.3 mpg; 30.8 mpg</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="vehicleMake" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="vehicleModel" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="vehicleType" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="vehicleYear" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="torque" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 650 ft-lbs,</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="engineDisplacement" minOccurs="0" maxOccurs="1" type="VolumeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 22 cc; 375 cc</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="VehiclePartsAndAccessories">
+          <xsd:sequence>
+               <xsd:element name="fabricContent" minOccurs="0" maxOccurs="1" type="FabricContent">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="isWeatherResistant" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="finish" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Overall finish of the item. Example: Natural; Unfinished; Brown; Espresso; Oak</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="chainLength" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation>Enter length of jewelry chain. Example: 13 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="fabricCareInstructions" minOccurs="0" maxOccurs="1" type="FabricCareInstructions">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="batteriesRequired" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Indicates if batteries are required to use the item. Batteries may or may not be included. To specify battery inclusion and type, use the "Has Batteries" and "Battery Technology Type" attributes in the root spec. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="batterySize" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isReusable" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Indicates the item can be used more than once. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="connections" minOccurs="0" maxOccurs="1" type="Connections">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="character" minOccurs="0" maxOccurs="1" type="Character">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="powerType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Provides information on the exact type of power used by the item. Example: Electric; Batteries</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tireDiameter" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 16 in; 18 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="fillMaterial" minOccurs="0" maxOccurs="1" type="FillMaterial">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="fluidOunces" minOccurs="0" maxOccurs="1" type="VolumeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 8 fl oz</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="maximumTemperature" minOccurs="0" maxOccurs="1" type="TemperatureUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 55 ÂºF; 1200 ÂºF</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="volumeCapacity" minOccurs="0" maxOccurs="1" type="VolumeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation>To be used for items requiring volume capacity values. Example: 4 cu ft</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="fuelType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Electric; Gas</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="volts" minOccurs="0" maxOccurs="1" type="ElectricalMeasurementUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 220 V</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="watts" minOccurs="0" maxOccurs="1" type="PowerUnit">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="isLightBulbIncluded" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="vehicleMake" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="beamAngle" minOccurs="0" maxOccurs="1" type="AngleUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 15Âº; 25Âº</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="beamSpread" minOccurs="0" maxOccurs="1" type="AngleUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 3.6 ft; 32.4 ft</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="vehicleModel" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="vehicleType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="vehicleYear" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="automotiveWindowShadeFit" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="breakingStrength" minOccurs="0" maxOccurs="1" type="WeightUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 15 lb; 2600 lb</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="candlePower" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="displayResolution" minOccurs="0" maxOccurs="1" type="ResolutionUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 800 x 600; 1440 x 1080</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="form" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Describes the way the item is dispensed or consumed, including its texture or other physical characteristics. Example: Spray; Foam; Cream; Gel; Tablet; Suppository</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="coldCrankAmp" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="compatibleCars" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="dropDistance" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 10 in; 0-6 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="shape" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Physical shape of the item. Example: Aviator; Cateye; Horned; Oval; Rectangle; Round; Square; Wayfarer</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="fastenerHeadType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isLockable" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="filterLife" minOccurs="0" maxOccurs="1" type="TimeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 3 months; 300,000 gal</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="flashPoint" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="fullyIncinerable" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="hitchClass" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="inDashSystem" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="interfaceType" minOccurs="0" maxOccurs="1" type="InterfaceType">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="displayTechnology" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The primary technology used for the item's display. Example: OLED; Retina Display; DLP; Plasma; LCD</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="maximumMotorSpeed" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberOfOutlets" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="numberOfPhases" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="receiverCompatibility" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 3 in; 2.5 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="reserveCapacity" minOccurs="0" maxOccurs="1" type="TimeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 140 min; 60 min</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="saeDotCompliant" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="shackleClearance" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 3 in; 2.5 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="shackleDiameter" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 0.25 in; 0.375 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="shackleLength" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 3 in; 2.5 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="shankLength" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 3 in; 2.5 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="shearStrength" minOccurs="0" maxOccurs="1" type="WeightUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 15000 lb; 230 lb</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="hasShortCircuitProtection" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="thickness" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 0.375 in; 0.125 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="threadSize" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 0.125 in; 10 mm</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="towingMirrorSide" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="lightBulbType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Incandescent; Halogen; 
+LED</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="cableLength" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation>The total length of the cable (including connectors), measured in feet. Example: 3 ft; 15 ft</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="compatibleBrands" minOccurs="0" maxOccurs="1" type="CompatibleBrands">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="compatibleDevices" minOccurs="0" maxOccurs="1" type="CompatibleDevices">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="wirelessTechnologies" minOccurs="0" maxOccurs="1" type="WirelessTechnologies">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="amps" minOccurs="0" maxOccurs="1" type="ElectricalMeasurementUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 5.0 A; 3.8 A</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="maximumLoadWeight" minOccurs="0" maxOccurs="1" type="WeightUnit">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="horsepower" minOccurs="0" maxOccurs="1" type="PowerUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 0.5 HP; 15 HP</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="loadCapacity" minOccurs="0" maxOccurs="1" type="PressureUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 60 psf; 75 psi</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Tires">
+          <xsd:sequence>
+               <xsd:element name="tireDiameter" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 16 in; 18 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tireSize" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:decimal"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tireWidth" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tireSeason" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tireLoadIndex" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tireSpeedRating" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tireTreadwearRating" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isRunFlat" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tireTractionRating" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="B"/>
+                              <xsd:enumeration value="A"/>
+                              <xsd:enumeration value="AA"/>
+                              <xsd:enumeration value="C"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tireTemperatureRating" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="C"/>
+                              <xsd:enumeration value="B"/>
+                              <xsd:enumeration value="A"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="constructionType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tireSidewallStyle" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="tireType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="maximumInflationPressure" minOccurs="0" maxOccurs="1" type="PressureUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 36 psi; 48 psi</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="treadDepth" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="treadWidth" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="uniformTireQualityGrade" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="overallDiameter" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 23.11 in; 40.2 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Watercraft">
+          <xsd:sequence>
+               <xsd:element name="seatingCapacity" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The number of people that can be accommodated by the available seats of an item. Example: 2; 4; 8</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="watercraftCategory" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Schooner; Yacht; Dinghy; Ketch; Jet Ski; Pontoon Boat</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="submodel" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="engineLocation" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Inboard; Outboard; Inboard  Outboard</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="propulsionSystem" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: T-V-Drive Cummins QSB 425 Diesels; 160mm jet pump, axial-flow, single stage</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="engineModel" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 2.0L EcoBoost; 12-cylinder 6-litre Continental</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="compressionRatio" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 8.2:1; 9.0:1</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="boreStroke" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 83.0 mm x 69.2 mm</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="inductionSystem" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Eaton Twin Vortices Series Roots-type supercharger with air-to-water intercooler</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="coolingSystem" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Air; Liquid; Inducted water</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="maximumEnginePower" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 201 hp; 647 kW</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="thrust" minOccurs="0" maxOccurs="1" type="WeightUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 1890 lb; 90 lb</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="impellerPropeller" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Three-blade, oval-edge stainless steel; Aluminum 3 blade, 8" Diameter, 7" Pitch, Standard Rotation</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="topSpeed" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 197 mph; 13 km</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="fuelRequirement" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 98 (95) RON</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="fuelSystem" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Digital Fuel Injection (DFIÂ®) with 60mm throttle body; Fuel Stratified Injection (FSI)</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="fuelCapacity" minOccurs="0" maxOccurs="1" type="VolumeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 20.6 gal; 13.25 gal</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="averageFuelConsumption" minOccurs="0" maxOccurs="1" type="FuelEconomyUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 12.3 mpg; 30.8 mpg</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="hullLength" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 32 ft'; 16 ft 3 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="beam" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 9 ft 3 in; 12 ft 8 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="airDraft" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 9 ft 3 in; 12 ft 8 in</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="draft" minOccurs="0" maxOccurs="1" type="LengthUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 5 ft 9 in; 14 ft</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="waterCapacity" minOccurs="0" maxOccurs="1" type="VolumeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 105 gal; 63 gal</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="dryWeight" minOccurs="0" maxOccurs="1" type="WeightUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 2932 lb; 28500 lb</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="vehicleMake" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="vehicleModel" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="vehicleType" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="vehicleYear" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="engineDisplacement" minOccurs="0" maxOccurs="1" type="VolumeUnit">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: 22 cc; 375 cc</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Vehicle">
+          <xsd:sequence>
+               <xsd:element name="swatchImages" minOccurs="0" maxOccurs="1" type="SwatchImages">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="variantGroupId" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Required if item is a variant.
+ 
+Make up a number for "Variant Group ID," and add this to all variations of the same product. Partners must ensure uniqueness of their Variant Group IDs.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="variantAttributeNames"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="20"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="variantAttributeNames" minOccurs="0" maxOccurs="1" type="VariantAttributeNames">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="variantGroupId"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="isPrimaryVariant" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Note whether item is intended as the main variant in a variant grouping. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="brand" minOccurs="1" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>If item does not have a brand, enter "Unbranded" Example: HP; Toshiba; Unbranded</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="condition" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>For refurbished items; used for non-perishables Example: New; Used; Refurbished</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="manufacturer" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Manufacturer is the maker of the product. This is the name of the company that produces the product, not necessarily the brand name of the item.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="modelNumber" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Having this information allows customers to search for items on the site and informs product matching.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="manufacturerPartNumber" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>MPN uniquely identifies the product to its manufacturer. For many products this will be identical to the model number. Some manufacturers distinguish part number from model number.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="color" minOccurs="0" maxOccurs="1" type="Color">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="material" minOccurs="0" maxOccurs="1" type="Material">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:choice minOccurs="0" maxOccurs="1">
+                    <xsd:element name="WheelsAndWheelComponents" type="WheelsAndWheelComponents"/>
+                    <xsd:element name="LandVehicles" type="LandVehicles"/>
+                    <xsd:element name="VehiclePartsAndAccessories" type="VehiclePartsAndAccessories"/>
+                    <xsd:element name="Tires" type="Tires"/>
+                    <xsd:element name="Watercraft" type="Watercraft"/>
+               </xsd:choice>
+          </xsd:sequence>
+     </xsd:complexType>
+</xsd:schema>

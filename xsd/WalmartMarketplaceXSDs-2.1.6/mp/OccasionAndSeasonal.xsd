@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?><!--  Schema for data exchanged between Walmart and its partners. Copyright 2015 Walmart Corporation. All rights reserved. --><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://walmart.com/" targetNamespace="http://walmart.com/" elementFormDefault="qualified" version="2.1">
+     <xsd:include schemaLocation="MPProductCommons.xsd"/>
+     <xsd:complexType name="DecorationsAndFavors">
+          <xsd:sequence>
+               <xsd:element name="fabricContent" minOccurs="0" maxOccurs="1" type="FabricContent">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="isAdultProduct" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Indicates if item is adult in nature and should not appear in results for children's products. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="finish" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Overall finish of the item. Example: Natural; Unfinished; Brown; Espresso; Oak</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isRecyclable" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Recycle is the act of processing used or abandoned materials for use in creating new products or capable of being used again. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="theme" minOccurs="0" maxOccurs="1" type="Theme">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="gender" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>To specify target gender of the item. Example: Women; Men; Girls; Boys; Unisex</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="Unisex"/>
+                              <xsd:enumeration value="Women"/>
+                              <xsd:enumeration value="Men"/>
+                              <xsd:enumeration value="Boys"/>
+                              <xsd:enumeration value="Girls"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="ageGroup" minOccurs="0" maxOccurs="1" type="AgeGroup">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="numberOfPieces" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The total number of pieces included in the item's package. Example: 15; 325</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="character" minOccurs="0" maxOccurs="1" type="Character">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="isPowered" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Indicates that an item is powered. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="powerType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Provides information on the exact type of power used by the item. Example: Electric; Batteries</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isPersonalizable" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Denotes if the item can be customized in some way, including engraved, embroidered, stamped, etched, etc. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isMadeFromRecycledMaterial" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="recycledMaterialContent" minOccurs="0" maxOccurs="1" type="RecycledMaterialContent">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="isMadeFromRecycledMaterial" value="Y"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="isInflatable" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Indicates that an item can be inflated. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isAnimated" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Indicates that a product has powered, moving parts. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="targetAudience" minOccurs="0" maxOccurs="1" type="TargetAudience">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="makesNoise" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Indicates that the item has a noise-making feature. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="shape" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Physical shape of the item. Example: Aviator; Cateye; Horned; Oval; Rectangle; Round; Square; Wayfarer</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Funeral">
+          <xsd:sequence>
+               <xsd:element name="finish" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Overall finish of the item. Example: Natural; Unfinished; Brown; Espresso; Oak</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="fillMaterial" minOccurs="0" maxOccurs="1" type="FillMaterial">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="CeremonialClothingAndAccessories">
+          <xsd:sequence>
+               <xsd:element name="fabricContent" minOccurs="0" maxOccurs="1" type="FabricContent">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="fabricCareInstructions" minOccurs="0" maxOccurs="1" type="FabricCareInstructions">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="clothingSize" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: S; M; L; 2; 4; 6</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                              <conditionalAttributes> <conditionalAttribute name="sockSize" value="null"/> <conditionalAttribute name="dressShirtSize" value="null"/> <conditionalAttribute name="waistSize" value="null"/> <conditionalAttribute name="pantSize" value="null"/> <conditionalAttribute name="braSize" value="null"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="gender" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>To specify target gender of the item. Example: Women; Men; Girls; Boys; Unisex</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="Unisex"/>
+                              <xsd:enumeration value="Women"/>
+                              <xsd:enumeration value="Men"/>
+                              <xsd:enumeration value="Boys"/>
+                              <xsd:enumeration value="Girls"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="clothingSizeType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Regular; Slim; Plus; Petite Plus; Tall; Husky; Juniors; Big; Petite; Junior Plus; Big  Tall</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="Junior Plus"/>
+                              <xsd:enumeration value="Petite Plus"/>
+                              <xsd:enumeration value="Big  Tall"/>
+                              <xsd:enumeration value="Plus"/>
+                              <xsd:enumeration value="Juniors"/>
+                              <xsd:enumeration value="Regular"/>
+                              <xsd:enumeration value="Big"/>
+                              <xsd:enumeration value="Husky"/>
+                              <xsd:enumeration value="Slim"/>
+                              <xsd:enumeration value="Tall"/>
+                              <xsd:enumeration value="Petite"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="pattern" minOccurs="0" maxOccurs="1" type="Pattern">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="apparelCategory" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Boys; Girls; Juniors; Maternity Plus; Maternity Wear; Men; Men's Big  Tall; Petites; School Uniforms; Women; Women's Plus; Young Men's</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="Young Men's"/>
+                              <xsd:enumeration value="Maternity Plus"/>
+                              <xsd:enumeration value="School Uniforms"/>
+                              <xsd:enumeration value="Men's Big  Tall"/>
+                              <xsd:enumeration value="Women's Plus"/>
+                              <xsd:enumeration value="Petites"/>
+                              <xsd:enumeration value="Maternity Wear"/>
+                              <xsd:enumeration value="Newborn Girl"/>
+                              <xsd:enumeration value="Boys"/>
+                              <xsd:enumeration value="Baby Boy"/>
+                              <xsd:enumeration value="Girls"/>
+                              <xsd:enumeration value="Baby Girl"/>
+                              <xsd:enumeration value="Newborn Boy"/>
+                              <xsd:enumeration value="Juniors"/>
+                              <xsd:enumeration value="Women"/>
+                              <xsd:enumeration value="Men"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="Costumes">
+          <xsd:sequence>
+               <xsd:element name="fabricContent" minOccurs="0" maxOccurs="1" type="FabricContent">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="fabricCareInstructions" minOccurs="0" maxOccurs="1" type="FabricCareInstructions">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="theme" minOccurs="0" maxOccurs="1" type="Theme">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="clothingSize" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: S; M; L; 2; 4; 6</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                              <conditionalAttributes> <conditionalAttribute name="sockSize" value="null"/> <conditionalAttribute name="dressShirtSize" value="null"/> <conditionalAttribute name="waistSize" value="null"/> <conditionalAttribute name="pantSize" value="null"/> <conditionalAttribute name="braSize" value="null"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="gender" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>To specify target gender of the item. Example: Women; Men; Girls; Boys; Unisex</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="Unisex"/>
+                              <xsd:enumeration value="Women"/>
+                              <xsd:enumeration value="Men"/>
+                              <xsd:enumeration value="Boys"/>
+                              <xsd:enumeration value="Girls"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="ageGroup" minOccurs="0" maxOccurs="1" type="AgeGroup">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="clothingSizeType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Regular; Slim; Plus; Petite Plus; Tall; Husky; Juniors; Big; Petite; Junior Plus; Big  Tall</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:enumeration value="Junior Plus"/>
+                              <xsd:enumeration value="Petite Plus"/>
+                              <xsd:enumeration value="Big  Tall"/>
+                              <xsd:enumeration value="Plus"/>
+                              <xsd:enumeration value="Juniors"/>
+                              <xsd:enumeration value="Regular"/>
+                              <xsd:enumeration value="Big"/>
+                              <xsd:enumeration value="Husky"/>
+                              <xsd:enumeration value="Slim"/>
+                              <xsd:enumeration value="Tall"/>
+                              <xsd:enumeration value="Petite"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="animalType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The common generic name for the type of animal. Example: Dog; Cat; Bird; Hamster; Lizard; Frog; Fish; Horse</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="character" minOccurs="0" maxOccurs="1" type="Character">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="targetAudience" minOccurs="0" maxOccurs="1" type="TargetAudience">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+          </xsd:sequence>
+     </xsd:complexType>
+     <xsd:complexType name="OccasionAndSeasonal">
+          <xsd:sequence>
+               <xsd:element name="swatchImages" minOccurs="0" maxOccurs="1" type="SwatchImages">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="variantAttributeNames" minOccurs="0" maxOccurs="1" type="VariantAttributeNames">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="variantGroupId"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="variantGroupId" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Required if item is a variant.
+ 
+Make up a number for "Variant Group ID," and add this to all variations of the same product. Partners must ensure uniqueness of their Variant Group IDs.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Conditionally Required"/>
+                              <conditionalAttributes> <conditionalAttribute name="variantAttributeNames"/>
+                              </conditionalAttributes>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="20"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="isPrimaryVariant" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Note whether item is intended as the main variant in a variant grouping. Example: Y; N</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="holidayLightingStyle" minOccurs="0" maxOccurs="1" type="HolidayLightingStyle">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="fabricCareInstructions" minOccurs="0" maxOccurs="1" type="FabricCareInstructions">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="brand" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>If item does not have a brand, enter "Unbranded" Example: HP; Toshiba; Unbranded</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="manufacturer" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Manufacturer is the maker of the product. This is the name of the company that produces the product, not necessarily the brand name of the item.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="modelNumber" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Having this information allows customers to search for items on the site and informs product matching.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="manufacturerPartNumber" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>MPN uniquely identifies the product to its manufacturer. For many products this will be identical to the model number. Some manufacturers distinguish part number from model number.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="color" minOccurs="0" maxOccurs="1" type="Color">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="pattern" minOccurs="0" maxOccurs="1" type="Pattern">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="material" minOccurs="0" maxOccurs="1" type="Material">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="numberOfPieces" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>The total number of pieces included in the item's package. Example: 15; 325</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:integer"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="powerType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Provides information on the exact type of power used by the item. Example: Electric; Batteries</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="occasion" minOccurs="0" maxOccurs="1" type="Occasion">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Optional"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="recommendedUses" minOccurs="0" maxOccurs="1" type="RecommendedUses">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="isAssemblyRequired" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>Is product unassembled and must be put together before use?</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:boolean"/>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="assemblyInstructions" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation>URL location showing assembly instructions for items requiring assembly.</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:anyURI">
+                              <xsd:maxLength value="2000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="watts" minOccurs="0" maxOccurs="1" type="PowerUnit">
+                    <xsd:annotation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="lightBulbType" minOccurs="0" maxOccurs="1">
+                    <xsd:annotation>
+                         <xsd:documentation> Example: Incandescent; Halogen; 
+LED</xsd:documentation>
+                         <xsd:appinfo>
+                              <requiredLevel value="Recommended"/>
+                         </xsd:appinfo>
+                    </xsd:annotation>
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                              <xsd:maxLength value="4000"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
+               <xsd:choice minOccurs="0" maxOccurs="1">
+                    <xsd:element name="DecorationsAndFavors" type="DecorationsAndFavors"/>
+                    <xsd:element name="Funeral" type="Funeral"/>
+                    <xsd:element name="CeremonialClothingAndAccessories" type="CeremonialClothingAndAccessories"/>
+                    <xsd:element name="Costumes" type="Costumes"/>
+               </xsd:choice>
+          </xsd:sequence>
+     </xsd:complexType>
+</xsd:schema>

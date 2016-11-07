@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Schema for data exchanged between Walmart and its partners.
+  Copyright 2015 Walmart Corporation. All rights reserved.
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://walmart.com/"
+  targetNamespace="http://walmart.com/"
+  elementFormDefault="qualified"
+  version="2.1">
+
+  <xsd:include schemaLocation="FeedCommons.xsd"/>
+  
+  <xsd:element name="FeedAcknowledgement">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="feedId" type="xsd:string" minOccurs="0">
+          <xsd:annotation>
+            <xsd:documentation>
+              Unique id NGI send back a correlation id to partners so that they can query the status and response later for the feed
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="error" type="IngestionError" minOccurs="0">
+          <xsd:annotation>
+            <xsd:documentation>
+              error, if any
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+</xsd:schema>

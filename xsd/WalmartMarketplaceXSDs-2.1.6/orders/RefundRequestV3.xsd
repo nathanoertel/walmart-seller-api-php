@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://walmart.com/mp/v3/orders" targetNamespace="http://walmart.com/mp/v3/orders"
+	elementFormDefault="qualified" version="3.0">
+	 
+	<xsd:include schemaLocation="CommonComponentsV3.xsd" />
+	
+	<xsd:element name="orderRefund">
+		<xsd:complexType>	
+			<xsd:sequence>
+				<xsd:element name="purchaseOrderId" type="xsd:string"  />
+				<xsd:element name="orderLines" type="refundLinesType"  />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="refundLinesType">
+		<xsd:sequence>
+			<xsd:element name="orderLine" type="refundLineType" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="refundLineType">
+		<xsd:annotation>
+			<xsd:documentation> Start of Orderline info and
+				statuses Line status
+				will have Price, status and refund sections
+				Refund section will be
+				populated only if we have refund history
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="lineNumber" type="xsd:string" />
+			<xsd:element name="refunds" type="refundsType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="refundsType">
+		<xsd:sequence>
+			<xsd:element name="refund" type="refundType" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+</xsd:schema>

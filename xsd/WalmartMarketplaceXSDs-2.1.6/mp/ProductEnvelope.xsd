@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Schema for data exchanged between Walmart and its partners.
+  Copyright 2015 Walmart Corporation. All rights reserved.
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://walmart.com/"
+  targetNamespace="http://walmart.com/"
+  elementFormDefault="qualified"
+  version="2.1">
+
+  <xsd:include schemaLocation="MPProduct.xsd" />
+  <xsd:include schemaLocation="MPItemCommons.xsd" />
+  <xsd:include schemaLocation="MPItemShippingOverrides.xsd" />
+    
+  <xsd:element name="ProductEnvelope" type="ProductEnvelope"/>
+  
+  <xsd:complexType name="ProductEnvelope">
+    <xsd:sequence>
+      <xsd:element name="mart" type="Mart" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Mart where the item would be listed
+          </xsd:documentation>
+        </xsd:annotation>  
+      </xsd:element>
+      <xsd:element name="sku" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Partner's item identifier, Walmart includes this value in all communications regarding item information such as orders
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255" />
+            <xsd:minLength value="1"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="wpid" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Walmart's item identifier
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="12" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="Product" type="MPProduct" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Product
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

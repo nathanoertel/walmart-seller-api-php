@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Schema for data exchanged between Walmart and its partners.
+  Copyright 2014 Walmart Corporation. All rights reserved.
+  Version: 1.0.0
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://walmart.com/"
+  targetNamespace="http://walmart.com/"
+  elementFormDefault="qualified"
+  version="2.1">
+
+  <xsd:include schemaLocation="MPItemCommons.xsd" />
+
+  <xsd:complexType name="MPItemShippingOverrides">
+    <xsd:annotation>
+      <xsd:documentation>
+        replaces all existing overrides
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="shippingOverride" type="MPItemShippingOverride" minOccurs="0" maxOccurs="unbounded">
+        <xsd:annotation>
+          <xsd:documentation>
+            item shipping overrides
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="MPItemShippingOverride">
+    <xsd:sequence>
+      <xsd:element name="isShippingAllowed" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Shipping may not apply to some items. Is shipping allowed for this product? 
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="shipRegion" type="ShipRegion" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Ship region codes of shipping product.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="shipMethod" type="ShipMethod" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the ship method for the corresponding region to be overridden. 
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="shipPrice" type="xsd:double" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The flat rate shipping charge amount for the corresponding item and region and 
+            shipping method (item/region/method) in USD
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+</xsd:schema>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Schema for data exchanged between Walmart and its partners.
+  Copyright 2015 Walmart Corporation. All rights reserved.
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://walmart.com/"
+  targetNamespace="http://walmart.com/"
+  elementFormDefault="qualified"
+  version="2.1">
+
+  <xsd:include schemaLocation="MPItemFeedHeader.xsd"/>
+  <xsd:include schemaLocation="MPItem.xsd"/>
+  <xsd:include schemaLocation="MPItemUpdate.xsd"/>
+  <xsd:include schemaLocation="ProductEnvelope.xsd"/>
+  <xsd:include schemaLocation="OfferEnvelope.xsd"/>
+  
+
+  <xsd:element name="MPItemFeed">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="MPItemFeedHeader" type="MPItemFeedHeader">
+          <xsd:annotation>
+            <xsd:documentation>
+              feed header
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:choice minOccurs="1" maxOccurs="10000">
+          <xsd:element name="MPItem" type="MPItem"/>
+          <xsd:element name="MPItemUpdate" type="MPItemUpdate"/>
+           <xsd:element name="ProductEnvelope" type="ProductEnvelope"/>
+					<xsd:element name="OfferEnvelope" type="OfferEnvelope"/>
+        </xsd:choice>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+
+</xsd:schema>

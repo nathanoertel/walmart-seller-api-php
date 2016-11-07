@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Schema for data exchanged between Walmart and its partners.
+  Copyright 2014 Walmart Corporation. All rights reserved.
+  Version: 1.0.0
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://walmart.com/"
+  targetNamespace="http://walmart.com/"
+  elementFormDefault="qualified"
+  version="2.1">
+
+  <xsd:include schemaLocation="MPItemCommons.xsd" />
+
+  <xsd:element name="MPItemPriceUpdate" type="MPItemPriceUpdate"/>
+
+  <xsd:complexType name="MPItemPriceUpdate">
+    <xsd:annotation>
+      <xsd:documentation>
+        replaces all existing overrides
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="mart" type="Mart" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Mart where the item would be listed
+          </xsd:documentation>
+        </xsd:annotation>  
+      </xsd:element>
+      <xsd:element name="sku" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Paerner's item identifier, Walmart includes this value in all communications regarding item information such as orders
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255" />
+            <xsd:minLength value="1"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="price" type="Money" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            item price
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="MPItemPriceResponse" type="MPItemPriceResponse"/>
+
+  <xsd:complexType name="MPItemPriceResponse">
+    <xsd:annotation>
+      <xsd:documentation>
+        replaces all existing overrides
+      </xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="mart" type="Mart" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Mart where the item would be listed
+          </xsd:documentation>
+        </xsd:annotation>  
+      </xsd:element>
+      <xsd:element name="sku" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Paerner's item identifiers
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="255" />
+            <xsd:minLength value="1"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="currency" type="CurrencyCode" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            item price
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="amount" type="xsd:decimal" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            item price
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="message" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            response message
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="1024" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+</xsd:schema>

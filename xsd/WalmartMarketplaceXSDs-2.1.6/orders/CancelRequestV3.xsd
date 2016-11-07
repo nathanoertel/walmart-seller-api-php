@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://walmart.com/mp/v3/orders" targetNamespace="http://walmart.com/mp/v3/orders"
+	elementFormDefault="qualified" version="3.0">
+	 
+	<xsd:include schemaLocation="CommonComponentsV3.xsd" />
+	
+	<xsd:element name="orderCancellation">
+		<xsd:complexType>	
+			<xsd:sequence>
+				<xsd:element name="orderLines" type="cancelLinesType" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+		
+	
+	<xsd:complexType name="cancelLinesType">
+		<xsd:sequence>
+			<xsd:element name="orderLine" type="cancelLineType"  maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="cancelLineType">
+		<xsd:annotation>
+			<xsd:documentation> Cancel section, update cancel quantity using this
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="lineNumber" type="xsd:string" />
+			<xsd:element name="orderLineStatuses" type="cancelLineStatusesType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="cancelLineStatusesType">
+		<xsd:sequence>
+			<xsd:element name="orderLineStatus" type="cancelLineStatusType" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:complexType name="cancelLineStatusType">
+		<xsd:sequence>
+			<xsd:element name="status" type="orderLineStatusValueType" />
+			<xsd:element name="cancellationReason" type="cancellationReasonType" />
+			<xsd:element name="statusQuantity" type="quantityType" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>

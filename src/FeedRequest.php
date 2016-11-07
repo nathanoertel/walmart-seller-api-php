@@ -1,9 +1,7 @@
 <?php
 namespace WalmartSellerAPI;
 
-use WalmartSellerAPI/AbstractRequest;
-
-class WalmartSellerAPI_FeedRequest extends WalmartSellerAPI_AbstractReqeust {
+class FeedRequest extends AbstractRequest {
 
 	public function getEndpoint() {
 		return '/v2/feeds';

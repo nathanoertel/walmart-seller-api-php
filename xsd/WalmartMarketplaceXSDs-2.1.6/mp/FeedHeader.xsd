@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Schema for data exchanged between Walmart and its partners.
+  Copyright 2015 Walmart Corporation. All rights reserved.
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://walmart.com/"
+  targetNamespace="http://walmart.com/"
+  elementFormDefault="qualified"
+  version="2.1">
+  
+  <xsd:element name="Header" type="FeedHeader"/>
+ 
+  <xsd:complexType name="FeedHeader">
+    <xsd:sequence>
+      <xsd:element name="version" minOccurs="1" default="2.1">
+		    <xsd:annotation>
+		      <xsd:documentation>
+		        This indicates schema version associated with the XML payload
+		      </xsd:documentation>
+		    </xsd:annotation>
+		    <xsd:simpleType>
+		      <xsd:restriction base="xsd:string">
+		      <xsd:enumeration value="2.1" />
+			      <xsd:enumeration value="1.4.1" />
+			      <xsd:enumeration value="1.4" />
+            <xsd:enumeration value="1.3.2" />
+            <xsd:enumeration value="1.3.1" />
+            <xsd:enumeration value="1.3" />
+          </xsd:restriction>
+		    </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="partnerId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            partnerId
+          </xsd:documentation>
+        </xsd:annotation>
+       <xsd:simpleType>
+         <xsd:restriction base="xsd:string">
+           <xsd:maxLength value="100" />
+         </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="sellerId" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            sellerId
+          </xsd:documentation>
+        </xsd:annotation>
+       <xsd:simpleType>
+         <xsd:restriction base="xsd:integer">
+           <xsd:totalDigits value="9" />
+         </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="tenant" minOccurs="1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="walmart.com" />
+            <xsd:enumeration value="walmart.ca" />
+            <xsd:enumeration value="samsclub.com" />
+            <xsd:enumeration value="asda.com" />
+            <xsd:enumeration value="groceries.asda.com" />
+            <xsd:enumeration value="gm.asda.com" />
+            <xsd:enumeration value="walmart.com.br" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="locale" type="xsd:string" minOccurs="0" default="en_US">
+        <xsd:annotation>
+          <xsd:documentation>
+            Locale
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="feedDate" type="xsd:dateTime" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Date after which the offer is no longer valid
+            The dateTime is specified in the following form "YYYY-MM-DDThh:mm:ss" where:
+              YYYY  indicates the year
+              MM    indicates the month
+              DD    indicates the day
+              T     indicates the start of the required time section
+              hh    indicates the hour
+              mm    indicates the minute
+              ss    indicates the second
+              Note: All components are required!
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="feedType" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            This indicates incoming feed of a particular domain
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="UNCATEGORIZEDITEM" />
+            <xsd:enumeration value="ITEMPRICE" />
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="batchId" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Represents external generated batchId
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="transactionId" minOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            Represents external generated transaction Id unique per file / stream.
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>        
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="fileName" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Represents external generated File Name.
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="dataSource" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+              request source such as Catalog Adapter
+              Sample Values: 
+                WALMART_DOTCOM
+                ISD
+                ASDA
+                PARTNER
+                OTHER                         
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:string">
+              <xsd:maxLength value="64"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="requestSource" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            request source such as Catalog Adapter
+            Sample Values: 
+              US_CATALOG
+              BUNDLES
+              EMI
+              FUSION
+              AGGREGATOR
+              PARTNER
+              OTHER                         
+          </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:maxLength value="64"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element name="responseCallbackUrl" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:simpleType>
+            <xsd:restriction base="xsd:anyURI">
+              <xsd:maxLength value="512"/>
+            </xsd:restriction>
+          </xsd:simpleType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+</xsd:schema>
