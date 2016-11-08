@@ -15,7 +15,6 @@ class CommonType {
 
 			$types = XSDParser::parse($type);
 
-			print_r($types['types']);
 			foreach($types['types'] as $name => $t) {
 				self::$types[$name] = $t;
 			}
@@ -30,7 +29,7 @@ class CommonType {
 
 	public function __construct($name, $fields) {
 		$this->__name = $name;
-		$this->__fields = $fields;
+		$this->__fields = $fields['_fields'];
 	}
 
 	public function __set($key, $value) {
@@ -70,6 +69,10 @@ class CommonType {
 	public function getElementOptions() {
 		if(isset($this->__fields['_elements'])) return $this->__fields['_elements']['elements'];
 		else return array();
+	}
+	
+	public function getFields() {
+		return $this->__fields;
 	}
 	
 	public function parse($data) {
