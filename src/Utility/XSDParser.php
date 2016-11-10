@@ -4,7 +4,7 @@ namespace WalmartSellerAPI\Utility;
 class XSDParser {
 
 	private static $parsed = array();
-
+	
 	public static function parse($type, &$schema = array()) {
 		if(!isset(self::$parsed[$type])) {
 			if(file_exists(dirname(__FILE__).'/../../xsd/WalmartMarketplaceXSDs-2.1.6/'.$type.'.xsd')) {
@@ -109,8 +109,8 @@ class XSDParser {
 					$elements = array();
 					foreach($node->childNodes as $childNode) {
 						self::parseNode($namespace, $childNode, $elements);
-						$schema[$namespace.$name->value] = $elements;
 					}
+					$schema['types'][$namespace.$name->value] = $elements;
 				} else {
 					foreach($node->childNodes as $childNode) {
 						self::parseNode($namespace, $childNode, $schema);

@@ -21,7 +21,7 @@ class CommonType {
 		}
 
 		if(is_array(self::$types[$type])) {
-			self::$types[$type] = new CommonType($type, self::$types[$type]);
+			if(isset(self::$types[$type]['_fields'])) self::$types[$type] = new CommonType($type, self::$types[$type]);
 		}
 
 		return self::$types[$type];
