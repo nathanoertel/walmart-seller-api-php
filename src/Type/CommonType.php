@@ -62,7 +62,12 @@ class CommonType {
 	public function getFields() {
 		return $this->__fields;
 	}
+<<<<<<< HEAD
 	public function parse($xml) {
+=======
+	
+	public function parse($data) {
+>>>>>>> 7971f3dcbd35a2eb50077c54d614e05a246472c6
 		foreach($this->__fields as $key => $value) {
 			if(isset($xml->children($this->namespace)->$key)) {
 				if(!isset($value['max']) || $value['max'] == 1) $this->$key = $this->__parse($value, $xml->children($this->namespace)->$key);

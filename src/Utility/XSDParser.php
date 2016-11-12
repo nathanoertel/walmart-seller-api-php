@@ -4,7 +4,7 @@ namespace WalmartSellerAPI\Utility;
 class XSDParser {
 
 	private static $parsed = array();
-
+	
 	public static function parse($type, &$schema = array()) {
 		if(!isset(self::$parsed[$type])) {
 			if(file_exists(dirname(__FILE__).'/../../xsd/WalmartMarketplaceXSDs-2.1.6/'.$type.'.xsd')) {
@@ -15,7 +15,7 @@ class XSDParser {
 				$doc = new \DOMDocument();
 
 				$doc->load(dirname(__FILE__).'/../../xsd/WalmartMarketplaceXSDs-2.1.6/'.$type.'.xsd');
-				echo "Open $type\n";
+
 				foreach($doc->childNodes as $childNode) {
 					self::parseNode('', $namespace, $childNode, $schema);
 				}
@@ -26,7 +26,7 @@ class XSDParser {
 			}
 
 			return $schema;
-		} else echo "Using Type $type\n";
+		}
 
 		return true;
 	}
@@ -71,11 +71,16 @@ class XSDParser {
 			case 'xsd:element':
 				$name = $node->attributes->getNamedItem('name')->value;
 				$type = $node->attributes->getNamedItem('type');
+				$minOccurs = $node->attributes->getNamedItem('minOccurs');
 				$typeDef = array();
 				if($type) {
 					if(strpos($type->value, 'xsd:') === 0) $typeDef['type'] = str_replace('xsd:', '', $type->value);
 					else $typeDef['type'] = $namespace.$type->value;
-				} 
+				}
+				
+				if($minOccurs && intval($minOccurs->value) > 0) {
+					$typeDef['required'] = true;
+				} else $typeDef['required'] = false;
 
 				$minOccurs = $node->attributes->getNamedItem('minOccurs');
 				$maxOccurs = $node->attributes->getNamedItem('maxOccurs');
