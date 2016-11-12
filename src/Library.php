@@ -14,7 +14,6 @@ class Library {
 		$types = XSDParser::parse($name);
 
 		foreach($types['types'] as $name => $t) {
-			if($name == 'orders/elementsType' || $name == 'mp/MPProduct') print_r($t);
 			self::$types[$name] = $t;
 		}
 
