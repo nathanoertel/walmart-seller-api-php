@@ -4,33 +4,20 @@ namespace WalmartSellerAPI\Type;
 use WalmartSellerAPI\Utility\XSDParser;
 
 class CommonType {
-	private static $types;
+	protected $namespace;
 
 	protected $__fields;
 
 	protected $__name;
 
-	public static function getType($type) {
-		if(!isset(self::$types[$type])) {
-
-			$types = XSDParser::parse($type);
-
-			print_r($types['types']);
-			foreach($types['types'] as $name => $t) {
-				self::$types[$name] = $t;
-			}
-		}
-
-		if(is_array(self::$types[$type])) {
-			self::$types[$type] = new CommonType($type, self::$types[$type]);
-		}
-
-		return self::$types[$type];
-	}
-
 	public function __construct($name, $fields) {
 		$this->__name = $name;
-		$this->__fields = $fields;
+		$this->namespace = $fields['namespace'];
+		if(isset($fields['_fields'])) {
+			$this->__fields = $fields['_fields'];
+		} else if(isset($fields['_elements'])) {
+			$this->__fields = $fields;
+		}
 	}
 
 	public function __set($key, $value) {
@@ -72,10 +59,21 @@ class CommonType {
 		else return array();
 	}
 	
-	public function parse($data) {
+	public function getFields() {
+		return $this->__fields;
+	}
+	public function parse($xml) {
 		foreach($this->__fields as $key => $value) {
-			if(isset($data[$key])) {
-				$this->$key = $this->__parse($value, $data[$key]);
+			if(isset($xml->children($this->namespace)->$key)) {
+				if(!isset($value['max']) || $value['max'] == 1) $this->$key = $this->__parse($value, $xml->children($this->namespace)->$key);
+				else {
+					$values  = array();
+
+					foreach($xml->children($this->namespace)->$key as $elements) {
+						$values[] = $this->__parse($value, $elements);
+					}
+					$this->$key = $values;
+				}
 			}
 		}
 	}
@@ -86,16 +84,19 @@ class CommonType {
 		
 		switch($type['type']) {
 			case 'integer':
+			case 'int':
 				$value = intval($data);
 				break;
 			case 'float':
+			case 'double':
+			case 'decimal':
 				$value = floatval($data);
 				break;
 			case 'string':
-				$value = $data;
-				break;
+			case 'anyURI':
 			case 'timestamp':
-				$value = $data;
+			case 'dateTime':
+				$value = (string)$data;
 				break;
 			case 'boolean':
 				$value = filter_var($data, FILTER_VALIDATE_BOOLEAN);
@@ -121,11 +122,11 @@ class CommonType {
 					}
 				}
 			default:
-				$class = 'LightspeedPOS_Object_'.$type['type'];
-				
-				if(class_exists($class)) {
-					$value = new $class();
-					
+				$value = \WalmartSellerAPI\Library::getType($type['type']);
+
+				if(is_array($value)) {
+					$value = $this->__parse($value, $data);
+				} else {
 					$value->parse($data);
 				}
 				break;

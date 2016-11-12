@@ -20,7 +20,7 @@ abstract class AbstractRequest {
 
 	public $env;
 
-	private $config = array(
+	protected $config = array(
 		'max_retries' => 3
 	);
 
@@ -73,11 +73,12 @@ abstract class AbstractRequest {
 		// );
 	}
 
-	public function get() {
-		return $this->request(self::GET);
+	public function get($parameters = array()) {
+		return $this->request(self::GET, $parameters);
 	}
 
-	private function request($method, $parameters = array()) {
+	private function request($method, $data = array()) {
+		$result = false;
 
 		$url = $this->getEnvBaseUrl($this->env).$this->getEndpoint();
 
@@ -89,18 +90,11 @@ abstract class AbstractRequest {
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_URL => $url,
 			CURLOPT_USERAGENT => 'Digital Cloud Commerce',
-			CURLOPT_HTTPHEADER => array(
-				'Accept: application/xml',
-				'WM_SVC.NAME: Walmart Marketplace',
-				'WM_CONSUMER.ID: '.$this->config['consumerId'],
-				'WM_SEC.TIMESTAMP: '.$time,
-				'WM_SEC.AUTH_SIGNATURE: '.$this->getSignature($this->config['consumerId'], $this->config['privateKey'], $url, $method, $time),
-				'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16))
-			),
 			CURLOPT_HEADER => 1,
 			CURLOPT_RETURNTRANSFER => 1
 		);
 
+		print_r($options);
 		if($method == self::GET) {
 			if(!empty($data)) $options[CURLOPT_URL] .= '?'.http_build_query($data);
 			if($this->logger) $this->logger->log('GET '.$options[CURLOPT_URL]);
@@ -127,6 +121,8 @@ abstract class AbstractRequest {
 			$options[CURLOPT_CUSTOMREQUEST] = 'DELETE';
 			if($this->logger) $this->logger->log('DELETE '.$options[CURLOPT_URL]);
 		}
+
+		$options[CURLOPT_HTTPHEADER] = $this->getHeaders($options[CURLOPT_URL], $method);
 		
 		curl_setopt_array($curl, $options);
 
@@ -141,10 +137,10 @@ abstract class AbstractRequest {
 
 			$headers = substr($response, 0, $headerSize);
 			$body = substr($response, $headerSize);
-			
-			//$responseClass = $this->getResponse();
 
-			//$result = new $responseClass($headers, $body, $method);
+			$responseClass = $this->getResponse();
+
+			$result = new $responseClass($headers, $body, $method);
 
 			unset($headerSize, $headers, $body);
 
@@ -156,6 +152,8 @@ abstract class AbstractRequest {
 		}
 		
 		curl_close($curl);
+
+		return $result;
 	}
 
 	private function getSignature($consumerId, $privateKey, $requestUrl, $requestMethod, $timestamp) {
@@ -205,6 +203,21 @@ abstract class AbstractRequest {
 	}
 
 	public abstract function getEndpoint();
+
+	protected abstract function getResponse();
+
+	public function getHeaders($url, $method, $headers = array()) {
+		$time = round(microtime(true)*1000);
+
+		$headers[] = 'Accept: application/xml';
+		$headers[] = 'WM_SVC.NAME: Walmart Marketplace';
+		$headers[] = 'WM_CONSUMER.ID: '.$this->config['consumerId'];
+		$headers[] = 'WM_SEC.TIMESTAMP: '.$time;
+		$headers[] = 'WM_SEC.AUTH_SIGNATURE: '.$this->getSignature($this->config['consumerId'], $this->config['privateKey'], $url, $method, $time);
+		$headers[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
+
+		return $headers;
+	}
 
 	public function setConfig($key, $value) {
 		$keys = explode('/', $key);
