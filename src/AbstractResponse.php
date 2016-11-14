@@ -23,8 +23,6 @@ abstract class AbstractResponse {
 	
 	private $headers = array();
 
-	abstract protected function getLibrary();
-
 	public function isSuccess() {
 		return $this->success;
 	}
@@ -74,25 +72,22 @@ abstract class AbstractResponse {
 
 		$xml = simplexml_load_string($response);
 
-		echo $xml->getName()."\n";
-
 		if($xml->getName() == 'errors') {
 			$error = $xml->children('http://walmart.com/');
 			$this->success = false;
-			$this->errorCode = (string)$error->code;
-			$this->error = (string)$error->field;
-			$this->errorMessage = (string)$error->description;
+			$this->errorCode = (string)$error->children('http://walmart.com/')->code;
+			$this->error = (string)$error->children('http://walmart.com/')->field;
+			$this->errorMessage = (string)$error->children('http://walmart.com/')->description;
 		} else {
-			Library::load($this->getLibrary());
 			$document = Library::getDocument($xml->getName());
-			$this->data = Library::getType($document['type']);
+			$this->data = $document->getType();
+			$this->data->parse($xml);
 			switch($method) {
 				case AbstractRequest::GET:
-					$this->data->parse($xml);
-					break;
+						break;
 				case AbstractRequest::ADD:
 					break;
-				case AbstractRequest::FIND:
+				case AbstractRequest::PUT:
 					break;
 				case AbstractRequest::UPDATE:
 					break;

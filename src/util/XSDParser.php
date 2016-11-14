@@ -1,12 +1,12 @@
 <?php
-namespace WalmartSellerAPI\Utility;
+namespace WalmartSellerAPI\util;
 
 class XSDParser {
 
-	private static $parsed = array();
+	private $parsed = array();
 	
-	public static function parse($type, &$schema = array()) {
-		if(!isset(self::$parsed[$type])) {
+	public function parse($type, &$schema = array()) {
+		if(!isset($this->parsed[$type])) {
 			if(file_exists(dirname(__FILE__).'/../../xsd/WalmartMarketplaceXSDs-2.1.6/'.$type.'.xsd')) {
 				$position = strrpos($type, '/');
 				if($position === false) $namespace = '';
@@ -17,10 +17,10 @@ class XSDParser {
 				$doc->load(dirname(__FILE__).'/../../xsd/WalmartMarketplaceXSDs-2.1.6/'.$type.'.xsd');
 
 				foreach($doc->childNodes as $childNode) {
-					self::parseNode('', $namespace, $childNode, $schema);
+					$this->parseNode('', $namespace, $childNode, $schema);
 				}
 
-				self::$parsed[$type] = true;
+				$this->parsed[$type] = true;
 			} else {
 				throw new \Exception('Type '.$type.' could not be found. ('.dirname(__FILE__).'/../../xsd/WalmartMarketplaceXSDs-2.1.6/'.$type.'.xsd'.')');
 			}
@@ -31,30 +31,30 @@ class XSDParser {
 		return true;
 	}
 
-	private static function parseNode($docNamespace, $namespace, $node, &$schema) {
+	private function parseNode($docNamespace, $namespace, $node, &$schema) {
 		switch($node->nodeName) {
 			case 'xsd:schema':
 				$docNamespace = $node->attributes->getNamedItem('targetNamespace')->value;
 				foreach($node->childNodes as $childNode) {
-					self::parseNode($docNamespace, $namespace, $childNode, $schema);
+					$this->parseNode($docNamespace, $namespace, $childNode, $schema);
 				}
 				return $schema;
 			case 'xsd:include':
 				$name = $node->attributes->getNamedItem('schemaLocation')->value;
-				self::parse($namespace.str_replace('.xsd', '', $name), $schema);
+				$this->parse($namespace.str_replace('.xsd', '', $name), $schema);
 				break;
 			case 'xsd:complexType':
 				$name = $node->attributes->getNamedItem('name');
 
 				if($name == null) {
 					foreach($node->childNodes as $childNode) {
-						self::parseNode($docNamespace, $namespace, $childNode, $schema);
+						$this->parseNode($docNamespace, $namespace, $childNode, $schema);
 					}
 				} else {
 					$name = $node->attributes->getNamedItem('name')->value;
 					$elements = array();
 					foreach($node->childNodes as $childNode) {
-						self::parseNode($docNamespace, $namespace, $childNode, $elements);
+						$this->parseNode($docNamespace, $namespace, $childNode, $elements);
 					}
 					$schema['types'][$namespace.$name] = $elements;
 					$schema['types'][$namespace.$name]['namespace'] = $docNamespace;
@@ -63,10 +63,23 @@ class XSDParser {
 			case 'xsd:sequence':
 				$fields = array();
 				foreach($node->childNodes as $childNode) {
-					self::parseNode($docNamespace, $namespace, $childNode, $fields);
+					$this->parseNode($docNamespace, $namespace, $childNode, $fields);
 				}
 				$schema['_fields'] = $fields;
 				$schema['namespace'] = $docNamespace;
+				break;
+			case 'xsd:simpleContent':
+				$extensions = array();
+				foreach($node->childNodes as $childNode) {
+					$this->parseNode($docNamespace, $namespace, $childNode, $extensions);
+				}
+				$schema['_fields'] = $extensions;
+				$schema['namespace'] = $docNamespace;
+				break;
+			case 'xsd:extension':
+				foreach($node->childNodes as $childNode) {
+					$this->parseNode($docNamespace, $namespace, $childNode, $schema);
+				}
 				break;
 			case 'xsd:element':
 				$name = $node->attributes->getNamedItem('name')->value;
@@ -74,8 +87,10 @@ class XSDParser {
 				$minOccurs = $node->attributes->getNamedItem('minOccurs');
 				$typeDef = array();
 				if($type) {
-					if(strpos($type->value, 'xsd:') === 0) $typeDef['type'] = str_replace('xsd:', '', $type->value);
-					else $typeDef['type'] = $namespace.$type->value;
+					if(strpos($type->value, ':') === false) $typeDef['type'] = $namespace.$type->value;
+					else {
+						$typeDef['type'] = (strpos($type->value, 'xsd:') === 0 ? '' : $namespace).substr($type->value, strpos($type->value, ':')+1);
+					}
 				}
 				
 				if($minOccurs && intval($minOccurs->value) > 0) {
@@ -85,11 +100,11 @@ class XSDParser {
 				$minOccurs = $node->attributes->getNamedItem('minOccurs');
 				$maxOccurs = $node->attributes->getNamedItem('maxOccurs');
 
-				if($minOccurs) $typeDef['required'] = (intval($minOccurs->value) > 0 ? 1 : 0);
-				if($maxOccurs) $typeDef['max'] = $maxOccurs->value == 'unbounded' ? 0 : intval($maxOccurs->value);
+				if($minOccurs) $typeDef['minOccurs'] = $minOccurs->value;
+				if($maxOccurs) $typeDef['maxOccurs'] = $maxOccurs->value;
 
 				foreach($node->childNodes as $childNode) {
-					self::parseNode($docNamespace, $namespace, $childNode, $typeDef);
+					$this->parseNode($docNamespace, $namespace, $childNode, $typeDef);
 				}
 
 				if($node->parentNode->nodeName == 'xsd:schema') {
@@ -99,7 +114,7 @@ class XSDParser {
 				break;
 			case 'xsd:annotation':
 				foreach($node->childNodes as $childNode) {
-					self::parseNode($docNamespace, $namespace, $childNode, $schema);
+					$this->parseNode($docNamespace, $namespace, $childNode, $schema);
 				}
 				break;
 			case 'xsd:documentation':
@@ -119,29 +134,35 @@ class XSDParser {
 				if($name) {
 					$elements = array();
 					foreach($node->childNodes as $childNode) {
-						self::parseNode($docNamespace, $namespace, $childNode, $elements);
+						$this->parseNode($docNamespace, $namespace, $childNode, $elements);
 					}
 					$schema['types'][$namespace.$name->value] = $elements;
 				} else {
 					foreach($node->childNodes as $childNode) {
-						self::parseNode($docNamespace, $namespace, $childNode, $schema);
+						$this->parseNode($docNamespace, $namespace, $childNode, $schema);
 					}
 				}
 				break;
 			case 'xsd:attribute':
 				$name = $node->attributes->getNamedItem('name');
-				$elements = array();
-				foreach($node->childNodes as $childNode) {
-					self::parseNode($docNamespace, $namespace, $childNode, $elements);
+				$type = $node->attributes->getNamedItem('type');
+
+				if($type) {
+					$schema[$name->value]['type'] = (strpos($type->value, 'xsd:') === 0 ? '' : $namespace).substr($type->value, strpos($type->value, ':')+1);
+				} else {
+					$elements = array();
+					foreach($node->childNodes as $childNode) {
+						$this->parseNode($docNamespace, $namespace, $childNode, $elements);
+					}
 					$schema[$name->value] = $elements;
-					$schema[$name->value]['attribute'] = true;
 				}
+				$schema[$name->value]['attribute'] = true;
 				break;
 			case 'xsd:restriction':
 				$name = str_replace('xsd:', '', $node->attributes->getNamedItem('base')->value);
 				$schema['type'] = $name;
 				foreach($node->childNodes as $childNode) {
-					self::parseNode($docNamespace, $namespace, $childNode, $schema);
+					$this->parseNode($docNamespace, $namespace, $childNode, $schema);
 				}
 				break;
 			case 'xsd:enumeration':
@@ -150,7 +171,7 @@ class XSDParser {
 			case 'xsd:choice':
 				$options = array();
 				foreach($node->childNodes as $childNode) {
-					self::parseNode($docNamespace, $namespace, $childNode, $options);
+					$this->parseNode($docNamespace, $namespace, $childNode, $options);
 				}
 				$minOccurs = intval($node->attributes->getNamedItem('minOccurs')->value);
 				$maxOccurs = intval($node->attributes->getNamedItem('maxOccurs')->value);
@@ -163,7 +184,6 @@ class XSDParser {
 				break;
 			default:
 				if(strpos($node->nodeName, 'xsd:') === 0) {
-					if($node->attributes->getNamedItem('value') == null) echo $node->nodeName;
 					$schema[str_replace('xsd:', '', $node->nodeName)] = $node->attributes->getNamedItem('value')->value;
 				}
 				break;

@@ -14,7 +14,7 @@ abstract class AbstractRequest {
 
 	const GET = 'GET';
 	const ADD = 'ADD';
-	const UPDATE = 'UPDATE';
+	const UPDATE = 'POST';
 	const PUT = 'PUT';
 	const DELETE = 'DELETE';
 
@@ -66,6 +66,8 @@ abstract class AbstractRequest {
 			]);
 		}
 
+		$this->init();
+
 		// // Ensure that ApiVersion is set.
 		// $this->setConfig(
 		// 	'defaults/ApiVersion',
@@ -73,14 +75,22 @@ abstract class AbstractRequest {
 		// );
 	}
 
-	public function get($parameters = array()) {
-		return $this->request(self::GET, $parameters);
+	public function get($path = '', $parameters = array()) {
+		return $this->request(self::GET, $path, $parameters);
 	}
 
-	private function request($method, $data = array()) {
+	public function post($path, $parameters = array()) {
+		return $this->request(self::UPDATE, $path, $parameters);
+	}
+
+	public function put($path, $parameters = array()) {
+		return $this->request(self::PUT, $path, $parameters);
+	}
+
+	private function request($method, $path, $data = array()) {
 		$result = false;
 
-		$url = $this->getEnvBaseUrl($this->env).$this->getEndpoint();
+		$url = $this->getEnvBaseUrl($this->env).$this->getEndpoint().$path;
 
 		$curl = curl_init();
 
@@ -91,47 +101,44 @@ abstract class AbstractRequest {
 			CURLOPT_URL => $url,
 			CURLOPT_USERAGENT => 'Digital Cloud Commerce',
 			CURLOPT_HEADER => 1,
-			CURLOPT_RETURNTRANSFER => 1
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLINFO_HEADER_OUT => true
 		);
 
-		print_r($options);
+		$httpHeaders = array();
+
 		if($method == self::GET) {
 			if(!empty($data)) $options[CURLOPT_URL] .= '?'.http_build_query($data);
-			if($this->logger) $this->logger->log('GET '.$options[CURLOPT_URL]);
-		} else if($method == self::FIND) {
-			$options[CURLOPT_URL] .= '/'.$data['id'].(empty($data['data']) ? '' : '?'.http_build_query($data['data']));
-			if($this->logger) $this->logger->log('FIND '.$options[CURLOPT_URL]);
-		} else if($method == self::UPDATE) {
-			$options[CURLOPT_URL] .= '/'.$data['id'];
-			$options[CURLOPT_CUSTOMREQUEST] = 'PUT';
-			$options[CURLOPT_POSTFIELDS] = $data['data'];
-			if($this->logger) {
-				$this->logger->log('UPDATE '.$options[CURLOPT_URL]);
-				$this->logger->log($options[CURLOPT_POSTFIELDS]);
-			}
+			$this->log('GET '.$options[CURLOPT_URL]);
+		} else if($method == self::UPDATE || $method == self::PUT) {
+			$options[CURLOPT_POST] = 1;
+			$options[CURLOPT_POSTFIELDS] = $data;
+			$httpHeaders[] = 'Content-Type: application/xml; boundary=<?xml version="1.0"?>';
+			if($method == self::PUT) {
+				$options[CURLOPT_CUSTOMREQUEST] = 'PUT';
+				$this->log('PUT '.$options[CURLOPT_URL]);
+			} else $this->log('UPDATE '.$options[CURLOPT_URL]);
+			$this->log($options[CURLOPT_POSTFIELDS]);
 		} else if($method == self::ADD) {
 			$options[CURLOPT_POST] = 1;
 			$options[CURLOPT_POSTFIELDS] = $data;
-			if($this->logger) {
-				$this->logger->log('ADD '.$options[CURLOPT_URL]);
-				$this->logger->log($options[CURLOPT_POSTFIELDS]);
-			}
+			$this->log('ADD '.$options[CURLOPT_URL]);
+			$this->log($options[CURLOPT_POSTFIELDS]);
 		} else if($method == self::DELETE) {
 			$options[CURLOPT_URL] .= '/'.$data;
 			$options[CURLOPT_CUSTOMREQUEST] = 'DELETE';
-			if($this->logger) $this->logger->log('DELETE '.$options[CURLOPT_URL]);
+			$this->log('DELETE '.$options[CURLOPT_URL]);
 		}
 
-		$options[CURLOPT_HTTPHEADER] = $this->getHeaders($options[CURLOPT_URL], $method);
-		
+		$options[CURLOPT_HTTPHEADER] = $this->getHeaders($options[CURLOPT_URL], $method, $httpHeaders);
+
 		curl_setopt_array($curl, $options);
 
 		$response = curl_exec($curl);
-
-		echo $response;
+		$information = curl_getinfo($curl);
 
 		if($response !== false) {
-			if($this->logger) $this->logger->log($response);
+			$this->log($response);
 			
 			$headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
 
@@ -144,11 +151,11 @@ abstract class AbstractRequest {
 
 			unset($headerSize, $headers, $body);
 
-			if(!$result->isSuccess() && !$retry && $result->getError() == 'RateLimitedException') {
+			if(!$result->isSuccess() && $result->getError() == 'RateLimitedException') {
 				throw new Exception($result->getErrorMessage(), $result->getErrorCode());
 			}
 		} else {
-			if($this->logger) $this->logger->log(curl_error($curl));
+			$this->log(curl_error($curl));
 		}
 		
 		curl_close($curl);
@@ -158,7 +165,7 @@ abstract class AbstractRequest {
 
 	private function getSignature($consumerId, $privateKey, $requestUrl, $requestMethod, $timestamp) {
 		$message = $consumerId."\n".$requestUrl."\n".strtoupper($requestMethod)."\n".$timestamp."\n";
-
+echo $message;
 		$rsa = new RSA();
 		$decodedPrivateKey = base64_decode($privateKey);
 		$rsa->setPrivateKeyFormat(RSA::PRIVATE_FORMAT_PKCS8);
@@ -174,7 +181,6 @@ abstract class AbstractRequest {
 			$rsa->setHash('sha256');
 			$rsa->setSignatureMode(RSA::SIGNATURE_PKCS1);
 
-			echo $message;
 			$signed = $rsa->sign($message);
 			/**
 			 * Return Base64 Encode generated signature
@@ -206,6 +212,8 @@ abstract class AbstractRequest {
 
 	protected abstract function getResponse();
 
+	protected abstract function init();
+
 	public function getHeaders($url, $method, $headers = array()) {
 		$time = round(microtime(true)*1000);
 
@@ -231,5 +239,9 @@ abstract class AbstractRequest {
 		$temp = $value;
 
 		unset($temp);
+	}
+
+	private function log($message) {
+		if($this->logger) $this->logger->log($message);
 	}
 }
