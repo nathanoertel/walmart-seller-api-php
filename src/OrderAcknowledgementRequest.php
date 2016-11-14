@@ -16,21 +16,16 @@ class OrderAcknowledgementRequest extends AbstractRequest {
 	}
 
 	protected function init() {
+		// check that the necessary keys are set
+		if(!isset($this->config['channelTypeId'])) {
+			throw new \Exception('Configuration missing channelTypeId');
+		}
+
 		Library::load('orders/PurchaseOrderV3');
 	}
 
 	public function getHeaders($url, $method, $headers = array()) {
 		$headers[] = 'WM_CONSUMER.CHANNEL.TYPE: '.$this->config['channelTypeId'];
 		return parent::getHeaders($url, $method, $headers);
-	}
-
-	public function __construct(array $config = [], $env = self::ENV_PROD) {
-
-		// check that the necessary keys are set
-		if(!isset($config['channelTypeId'])) {
-			throw new \Exception('Configuration missing channelTypeId');
-		}
-
-		parent::__construct($config, $env);
 	}
 }

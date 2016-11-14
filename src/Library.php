@@ -20,12 +20,16 @@ class Library {
 
 			$types = $parser->parse($name);
 
-			foreach($types['types'] as $name => $t) {
-				self::$types[$name] = new TypeDef($name, $t);
+			if(isset($types['types'])) {
+				foreach($types['types'] as $name => $t) {
+					self::$types[$name] = new TypeDef($name, $t);
+				}
 			}
-
-			foreach($types['documents'] as $name => $t) {
-				self::$documents[$name] = new Document($name, $t);
+			
+			if(isset($types['documents'])) {
+				foreach($types['documents'] as $name => $t) {
+					self::$documents[$name] = new Document($name, $t);
+				}
 			}
 
 			self::$loaded[$name] = true;

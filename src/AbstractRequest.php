@@ -31,7 +31,7 @@ abstract class AbstractRequest {
 	 * @param string $env
 	 * @throws \Exception
 	 */
-	public function __construct(array $config = [], $env = self::ENV_PROD)
+	public function __construct(array $config = [], $logger = null, $env = self::ENV_PROD)
 	{
 		// check the environment
 		if(!in_array($env, [self::ENV_PROD, self::ENV_DEV])) {
@@ -46,33 +46,11 @@ abstract class AbstractRequest {
 		}
 	
 		// Apply some defaults.
-		$this->config = array_merge_recursive($this->config, $config, [
-			'http_client_options' => [
-				'defaults' => [
-					'auth' => [
-						$config['consumerId'],
-						$config['privateKey']
-					]
-				],
-			],
-		]);
-
-		// If an override base url is not provided, determine proper baseurl from env
-		if(!isset($config['description_override']['baseUrl'])) {
-			$config = array_merge_recursive($config , [
-				'description_override' => [
-					'baseUrl' => $this->getEnvBaseUrl($env),
-				],
-			]);
-		}
+		$this->config = array_merge_recursive($this->config, $config);
+		
+		$this->logger = $logger;
 
 		$this->init();
-
-		// // Ensure that ApiVersion is set.
-		// $this->setConfig(
-		// 	'defaults/ApiVersion',
-		// 	$this->getDescription()->getApiVersion()
-		// );
 	}
 
 	public function get($path = '', $parameters = array()) {

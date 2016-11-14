@@ -60,8 +60,10 @@ class TypeDef {
 		return isset($this->elements['elements'][$name]);
 	}
 
-	public function getElements() {
-		return $this->elements;
+	public function getElements($index = null) {
+		if($index == null) return $this->elements;
+		else if(isset($this->elements[$index])) return $this->elements[$index];
+		else return null;
 	}
 
 	public function isRequired() {

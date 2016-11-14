@@ -48,7 +48,7 @@ class Type {
 	}
 
 	public function getElementOptions() {
-		if($this->__type->hasElements()) return $this->__type->getElements()['elements'];
+		if($this->__type->hasElements()) return $this->__type->getElements('elements');
 		else return array();
 	}
 	
@@ -119,7 +119,7 @@ class Type {
 		}
 
 		if($this->__type->hasElements()) {
-			foreach($this->__type->getElements()['elements'] as $key => $element) {
+			foreach($this->__type->getElements('elements') as $key => $element) {
 				if(isset($this->$key)) {
 					$this->__xml($xml, $key, $this->$key);
 				}
