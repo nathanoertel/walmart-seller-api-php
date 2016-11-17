@@ -19,7 +19,7 @@ class InventoryRequest extends AbstractRequest {
 		$quantity->amount = $inventory;
 		$inv->quantity = $quantity;
 		$inv->fulfillmentLagTime = $fulfillment;
-echo $document->getXML($inv)->asXML();
+
 		return $this->put('?sku='.$sku, $document->getXML($inv)->asXML());
 	}
 

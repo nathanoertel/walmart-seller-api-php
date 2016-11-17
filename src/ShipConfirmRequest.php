@@ -19,9 +19,18 @@ class ShipConfirmRequest extends AbstractRequest {
 			$quantity->amount = $shipment['quantity'];
 			$status->statusQuantity = $quantity;
 			$trackingInfo = Library::getType('orders/trackingInfoType');
-			$trackingInfo->shipDateTime = $shipment['shipDate'];
+
+			$utcTimezone = new \DateTimeZone("UTC");
+			$timezone = new \DateTimeZone(date_default_timezone_get());
+			
+			$shipTime = new \DateTime();
+			$shipTime->setTimezone($timezone);
+			$shipTime->setTimestamp($shipment['shipTime']);
+			$shipTime->setTimezone($utcTimezone);
+		
+			$trackingInfo->shipDateTime = $shipTime->format(\DateTime::ATOM);
 			$carrierName = Library::getType('orders/carrierNameType');
-			if(empty($shipment['shippingProvider'])) $carrierName->otherCarrier = $shipment['shippingProvider'];
+			if(empty($shipment['shippingProvider'])) $carrierName->otherCarrier = $shipment['shippingProviderName'];
 			else $carrierName->carrier = $shipment['shippingProvider'];
 			$trackingInfo->carrierName = $carrierName;
 			$trackingInfo->methodCode = $shipment['shippingMethod'];

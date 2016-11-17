@@ -3,12 +3,110 @@ namespace WalmartSellerAPI;
 
 class FeedRequest extends AbstractRequest {
 
+	public function find($feedId) {
+		Library::load('responses/ItemStatusDetail');
+		
+		return $this->get('/feeditems/'.$feedId, array('includeDetails' => 'true'));
+	}
+	
 	public function bulkUpdateProducts($products) {
 
 	}
+
+	public function bulkUpdatePricing($skus) {
+		Library::load('prices/BulkPriceFeed');
+		
+		$document = Library::getDocument('PriceFeed');
+		$feed = $document->getType();
+		$header = Library::getType('prices/feedHeaderType');
+
+		$utcTimezone = new \DateTimeZone("UTC");
+		$timezone = new \DateTimeZone(date_default_timezone_get());
+		
+		$time = new \DateTime();
+		$time->setTimezone($timezone);
+		$time->setTimestamp(time());
+		$time->setTimezone($utcTimezone);
+	
+		$header->feedDate = $time->format(\DateTime::ATOM);
+		$header->version = '1.5.1';
+		
+		$feed->PriceHeader = $header;
+	
+		foreach($skus as $sku => $prices) {
+			$p = Library::getType('prices/itemPriceType');
+			$itemIdentifier = Library::getType('prices/itemIdentifierType');
+			$itemIdentifier->sku = $sku;
+			$p->itemIdentifier = $itemIdentifier;
+			$pricingList = Library::getType('prices/pricingListType');
+			$pricingListPricing = Library::getType('prices/pricingType');
+			$currentPrice = Library::getType('prices/price');
+			if($prices['salePrice']) {
+				$comparisonPrice = Library::getType('prices/price');
+				$comparisonPriceValue = Library::getType('prices/moneyType');
+				$comparisonPriceValue->amount = $prices['price'];
+				$comparisonPrice->value = $comparisonPriceValue;
+				$currentPriceValue = Library::getType('prices/moneyType');
+				$currentPriceValue->amount = $prices['salePrice'];
+				$currentPrice->value = $currentPriceValue;
+				$pricingListPricing->comparisonPrice = $comparisonPrice;
+				$pricingListPricing->currentPriceType = 'REDUCED';
+			} else {
+				$currentPriceValue = Library::getType('prices/moneyType');
+				$currentPriceValue->amount = $prices['price'];
+				$currentPrice->value = $currentPriceValue;
+			}
+			$pricingListPricing->currentPrice = $currentPrice;
+			$pricingList->pricing = $pricingListPricing;
+			$p->pricingList = $pricingList;
+			$feed->Price = $p;
+		}
+
+		return $this->post('?feedType=price', $document->getXML($feed)->asXML());
+	}
 	
 	public function bulkUpdateInventory($skus) {
+		Library::load('inventory/InventoryFeed');
+		
+		$document = Library::getDocument('InventoryFeed');
+		$feed = $document->getType();
+		$header = Library::getType('inventory/InventoryHeader');
 
+		$utcTimezone = new \DateTimeZone("UTC");
+		$timezone = new \DateTimeZone(date_default_timezone_get());
+		
+		$time = new \DateTime();
+		$time->setTimezone($timezone);
+		$time->setTimestamp(time());
+		$time->setTimezone($utcTimezone);
+	
+		$header->feedDate = $time->format(\DateTime::ATOM);
+		$header->version = '1.4';
+		
+		$feed->InventoryHeader = $header;
+	
+		foreach($skus as $sku => $inventory) {
+			$inv = Library::getType('inventory/inventory');
+			$inv->sku = $sku;
+			$quantity = Library::getType('inventory/Quantity');
+			$quantity->unit = 'EACH';
+			$quantity->amount = $inventory;
+			$inv->quantity = $quantity;
+			$inv->fulfillmentLagTime = 1;
+			$feed->inventory = $inv;
+		}
+
+		return $this->post('?feedType=inventory', $document->getXML($feed)->asXML());
+	}
+	
+	protected function getPostFields($data) {
+		return array(
+			'file' => $data
+		);
+	}
+	
+	protected function getPostContentType() {
+		return 'Content-Type: multipart/form-data';
 	}
 
 	public function getEndpoint() {
@@ -16,6 +114,10 @@ class FeedRequest extends AbstractRequest {
 	}
 
 	protected function getResponse() {
-		return 'FeedResponse';
+		return 'WalmartSellerAPI\FeedResponse';
+	}
+
+	protected function init() {
+		Library::load('mp/FeedAcknowledgement');
 	}
 }

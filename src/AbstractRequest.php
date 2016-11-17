@@ -31,10 +31,10 @@ abstract class AbstractRequest {
 	 * @param string $env
 	 * @throws \Exception
 	 */
-	public function __construct(array $config = [], $logger = null, $env = self::ENV_PROD)
+	public function __construct(array $config = array(), $logger = null, $env = self::ENV_PROD)
 	{
 		// check the environment
-		if(!in_array($env, [self::ENV_PROD, self::ENV_DEV])) {
+		if(!in_array($env, array(self::ENV_PROD, self::ENV_DEV))) {
 			throw new \Exception('Invalid environment');
 		}
 
@@ -65,6 +65,10 @@ abstract class AbstractRequest {
 		return $this->request(self::PUT, $path, $parameters);
 	}
 
+	public function delete($path, $parameters = array()) {
+		return $this->request(self::DELETE, $path, $parameters);
+	}
+
 	private function request($method, $path, $data = array()) {
 		$result = false;
 
@@ -90,18 +94,18 @@ abstract class AbstractRequest {
 			$this->log('GET '.$options[CURLOPT_URL]);
 		} else if($method == self::UPDATE || $method == self::PUT) {
 			$options[CURLOPT_POST] = 1;
-			$options[CURLOPT_POSTFIELDS] = $data;
-			$httpHeaders[] = 'Content-Type: application/xml; boundary=<?xml version="1.0"?>';
+			$options[CURLOPT_POSTFIELDS] = $this->getPostFields($data);
+			$httpHeaders[] = $this->getPostContentType();
 			if($method == self::PUT) {
 				$options[CURLOPT_CUSTOMREQUEST] = 'PUT';
 				$this->log('PUT '.$options[CURLOPT_URL]);
 			} else $this->log('UPDATE '.$options[CURLOPT_URL]);
-			$this->log($options[CURLOPT_POSTFIELDS]);
+			$this->log($data);
 		} else if($method == self::ADD) {
 			$options[CURLOPT_POST] = 1;
 			$options[CURLOPT_POSTFIELDS] = $data;
 			$this->log('ADD '.$options[CURLOPT_URL]);
-			$this->log($options[CURLOPT_POSTFIELDS]);
+			$this->log($data);
 		} else if($method == self::DELETE) {
 			$options[CURLOPT_URL] .= '/'.$data;
 			$options[CURLOPT_CUSTOMREQUEST] = 'DELETE';
@@ -114,6 +118,8 @@ abstract class AbstractRequest {
 
 		$response = curl_exec($curl);
 		$information = curl_getinfo($curl);
+		
+		//print_r($information);
 
 		if($response !== false) {
 			$this->log($response);
@@ -140,10 +146,18 @@ abstract class AbstractRequest {
 
 		return $result;
 	}
+	
+	protected function getPostFields($data) {
+		return $data;
+	}
+	
+	protected function getPostContentType() {
+		return 'Content-Type: application/xml; boundary=<?xml version="1.0"?>';
+	}
 
 	private function getSignature($consumerId, $privateKey, $requestUrl, $requestMethod, $timestamp) {
 		$message = $consumerId."\n".$requestUrl."\n".strtoupper($requestMethod)."\n".$timestamp."\n";
-echo $message;
+
 		$rsa = new RSA();
 		$decodedPrivateKey = base64_decode($privateKey);
 		$rsa->setPrivateKeyFormat(RSA::PRIVATE_FORMAT_PKCS8);

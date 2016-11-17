@@ -39,6 +39,11 @@ class TypeDef {
 	public function hasField($name) {
 		return isset($this->fields[$name]);
 	}
+	
+	public function getFieldType($name) {
+		if(isset($this->fields[$name])) return $this->fields[$name]['type'];
+		else return null;
+	}
 
 	public function getFields() {
 		return $this->fields;
@@ -59,6 +64,11 @@ class TypeDef {
 	public function hasElement($name) {
 		return isset($this->elements['elements'][$name]);
 	}
+	
+	public function getElementType($name) {
+		if(isset($this->elements['elements'][$name])) return $this->elements['elements'][$name]['type'];
+		else return null;
+	}
 
 	public function getElements($index = null) {
 		if($index == null) return $this->elements;
@@ -72,6 +82,11 @@ class TypeDef {
 
 	public function isMultiple() {
 		return $this->maxOccurs == 'unbounded' || $this->maxOccurs > 1;
+	}
+
+	public function isFieldMultiple($name) {
+		if(isset($this->fields[$name]['maxOccurs'])) return $this->fields[$name]['maxOccurs'] == 'unbounded' || $this->fields[$name]['maxOccurs'] > 1;
+		else return false;
 	}
 
 	public function isAttribute($field) {
