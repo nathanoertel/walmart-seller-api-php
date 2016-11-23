@@ -24,7 +24,7 @@ class OrderRequest extends AbstractRequest {
 	}
 
 	public function getEndpoint() {
-		return '/v2/orders';
+		return '/v3/orders';
 	}
 
 	protected function getResponse() {

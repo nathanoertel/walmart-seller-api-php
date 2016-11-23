@@ -119,7 +119,7 @@ abstract class AbstractRequest {
 		$response = curl_exec($curl);
 		$information = curl_getinfo($curl);
 		
-		//print_r($information);
+		$this->log($information['request_header']);
 
 		if($response !== false) {
 			$this->log($response);

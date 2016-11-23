@@ -60,6 +60,7 @@ class ShipConfirmRequest extends AbstractRequest {
 		}
 
 		Library::load('orders/ShipConfirmRequestV3');
+		Library::load('orders/PurchaseOrderV3');
 	}
 
 	public function getHeaders($url, $method, $headers = array()) {

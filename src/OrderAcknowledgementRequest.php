@@ -4,7 +4,7 @@ namespace WalmartSellerAPI;
 class OrderAcknowledgementRequest extends AbstractRequest {
 
 	public function acknowledge($purchaseOrderId) {
-		return $this->post('/'.$purchaseOrderId.'/acknowledge');
+		return $this->post('/'.$purchaseOrderId.'/acknowledge', null);
 	}
 
 	public function getEndpoint() {
