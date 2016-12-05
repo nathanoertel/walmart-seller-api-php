@@ -69,30 +69,37 @@ abstract class AbstractResponse {
 				$this->headers[$key] = $value;
 			}
 		}
-
-		$xml = simplexml_load_string($response);
-
-		if($xml->getName() == 'errors') {
-			$error = $xml->children('http://walmart.com/');
+		
+		if($this->headers['http_code'] == 'HTTP/1.1 503 Service Unavailable') {
 			$this->success = false;
-			$this->errorCode = (string)$error->children('http://walmart.com/')->code;
-			$this->error = (string)$error->children('http://walmart.com/')->field;
-			$this->errorMessage = (string)$error->children('http://walmart.com/')->description;
+			$this->errorCode = 503;
+			$this->error = 'Service Unavailable';
+			$this->errorMessage = 'Service Unavailable';
 		} else {
-			$document = Library::getDocument($xml->getName());
-			$this->data = $document->getType();
-			$this->data->parse($xml);
-			switch($method) {
-				case AbstractRequest::GET:
+			$xml = simplexml_load_string($response);
+	
+			if($xml->getName() == 'errors') {
+				$error = $xml->children('http://walmart.com/');
+				$this->success = false;
+				$this->errorCode = (string)$error->children('http://walmart.com/')->code;
+				$this->error = (string)$error->children('http://walmart.com/')->field;
+				$this->errorMessage = (string)$error->children('http://walmart.com/')->description;
+			} else {
+				$document = Library::getDocument($xml->getName());
+				$this->data = $document->getType();
+				$this->data->parse($xml);
+				switch($method) {
+					case AbstractRequest::GET:
+							break;
+					case AbstractRequest::ADD:
 						break;
-				case AbstractRequest::ADD:
-					break;
-				case AbstractRequest::PUT:
-					break;
-				case AbstractRequest::UPDATE:
-					break;
-				case AbstractRequest::DELETE:
-					break;
+					case AbstractRequest::PUT:
+						break;
+					case AbstractRequest::UPDATE:
+						break;
+					case AbstractRequest::DELETE:
+						break;
+				}
 			}
 		}
 	}

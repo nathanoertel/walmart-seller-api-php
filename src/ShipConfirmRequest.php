@@ -7,8 +7,10 @@ class ShipConfirmRequest extends AbstractRequest {
 		$document = Library::getDocument('orderShipment');
 
 		$doc = $document->getType();
+
+		$lines = Library::getType('orders/shippingLinesType');
+
 		foreach($shipments as $shipment) {
-			$lines = Library::getType('orders/shippingLinesType');
 			$line = Library::getType('orders/shippingLineType');
 			$line->lineNumber = $shipment['id'];
 			$statuses = Library::getType('orders/shipLineStatusesType');
@@ -39,8 +41,9 @@ class ShipConfirmRequest extends AbstractRequest {
 			$statuses->orderLineStatus = $status;
 			$line->orderLineStatuses = $statuses;
 			$lines->orderLine = $line;
-			$doc->orderLines = $lines;
 		}
+
+		$doc->orderLines = $lines;
 
 		return $this->post('/'.$purchaseOrderId.'/shipping', $document->getXML($doc)->asXML());
 	}
