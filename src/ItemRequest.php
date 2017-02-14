@@ -4,7 +4,7 @@ namespace WalmartSellerAPI;
 class ItemRequest extends AbstractRequest {
 
 	public function retire($sku) {
-		return $this->delete('/retire/'.$sku);
+		return $this->delete('/'.$sku);
 	}
 
 	public function getEndpoint() {
@@ -17,5 +17,6 @@ class ItemRequest extends AbstractRequest {
 
 	protected function init() {
 		Library::load('mp/MPItemRetire');
+		Library::load('responses/ItemRetireResponse');
 	}
 }

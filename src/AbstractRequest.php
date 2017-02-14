@@ -107,7 +107,7 @@ abstract class AbstractRequest {
 			$this->log('ADD '.$options[CURLOPT_URL]);
 			$this->log($data);
 		} else if($method == self::DELETE) {
-			$options[CURLOPT_URL] .= '/'.$data;
+			if(!empty($data)) $options[CURLOPT_URL] .= '?'.http_build_query($data);
 			$options[CURLOPT_CUSTOMREQUEST] = 'DELETE';
 			$this->log('DELETE '.$options[CURLOPT_URL]);
 		}
