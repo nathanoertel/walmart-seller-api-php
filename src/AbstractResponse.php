@@ -75,15 +75,26 @@ abstract class AbstractResponse {
 			$this->errorCode = 503;
 			$this->error = 'Service Unavailable';
 			$this->errorMessage = 'Service Unavailable';
+		} else if($this->headers['http_code'] == 'HTTP/1.1 400 Bad Request') {
+			$this->success = false;
+			$this->errorCode = 400;
+			$this->error = 'Bad Request';
+			$this->errorMessage = 'Bad Reqeust';
 		} else {
 			$xml = simplexml_load_string($response);
 	
 			if($xml->getName() == 'errors') {
-				$error = $xml->children('http://walmart.com/');
 				$this->success = false;
-				$this->errorCode = (string)$error->children('http://walmart.com/')->code;
-				$this->error = (string)$error->children('http://walmart.com/')->field;
-				$this->errorMessage = (string)$error->children('http://walmart.com/')->description;
+				$error = $xml->children('http://walmart.com/');
+				if(empty($error)) {
+					$this->errorCode = (string)$xml->error->code;
+					$this->error = (string)$xml->error->info;
+					$this->errorMessage = (string)$xml->error->description;
+				} else {
+					$this->errorCode = (string)$error->children('http://walmart.com/')->code;
+					$this->error = (string)$error->children('http://walmart.com/')->field;
+					$this->errorMessage = (string)$error->children('http://walmart.com/')->description;
+				}
 			} else {
 				$document = Library::getDocument($xml->getName());
 				$this->data = $document->getType();
