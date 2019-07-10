@@ -183,7 +183,7 @@ class XSDParser {
 				);
 				break;
 			default:
-				if(strpos($node->nodeName, 'xsd:') === 0) {
+				if(strpos($node->nodeName, 'xsd:') === 0 && isset($schema[str_replace('xsd:', '', $node->nodeName)])) {
 					$schema[str_replace('xsd:', '', $node->nodeName)] = $node->attributes->getNamedItem('value')->value;
 				}
 				break;

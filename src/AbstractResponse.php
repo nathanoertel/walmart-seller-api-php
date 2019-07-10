@@ -82,8 +82,13 @@ abstract class AbstractResponse {
 			$this->errorMessage = 'Bad Reqeust';
 		} else {
 			$xml = simplexml_load_string($response);
-	
-			if($xml->getName() == 'errors') {
+			
+			if($xml === false) {
+				$this->success = false;
+				$this->errorCode = 500;
+				$this->error = $response;
+				$this->errorMessage = $response;
+			} else if($xml->getName() == 'errors') {
 				$this->success = false;
 				$error = $xml->children('http://walmart.com/');
 				if(empty($error)) {
