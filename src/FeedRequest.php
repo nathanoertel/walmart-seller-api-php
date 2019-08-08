@@ -3,10 +3,12 @@ namespace WalmartSellerAPI;
 
 class FeedRequest extends AbstractRequest {
 
-	public function find($feedId) {
+	public function find($feedId, $params = array()) {
 		Library::load('responses/ItemStatusDetail');
 		
-		return $this->get('/feeditems/'.$feedId, array('includeDetails' => 'true'));
+		if(empty($params)) $params['includeDetails'] = 'true';
+
+		return $this->get('/feeditems/'.$feedId, $params);
 	}
 	
 	public function bulkUpdateProducts($products) {

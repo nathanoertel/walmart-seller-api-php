@@ -26,6 +26,14 @@
      <xsd:include schemaLocation="MPProductCommons.xsd"/>
      <xsd:complexType name="MPProduct">
           <xsd:sequence>
+               <xsd:element maxOccurs="1" minOccurs="0" name="SkuUpdate">
+                    <xsd:simpleType>
+                         <xsd:restriction base="xsd:string">
+                         <xsd:enumeration value="Yes"/>
+                         <xsd:enumeration value="No"/>
+                         </xsd:restriction>
+                    </xsd:simpleType>
+               </xsd:element>
                <xsd:element name="productName" minOccurs="1" maxOccurs="1">
                     <xsd:annotation>
                          <xsd:documentation>Title of the product to be displayed on the product details page. Brand + Category + Defining Quality + Item Name + Pack Count if applicable. Example: George Girls' Short-Sleeve Polo; Hanes Men's V-Neck Tees, 3-Pack</xsd:documentation>

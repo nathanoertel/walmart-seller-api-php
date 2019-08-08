@@ -122,8 +122,6 @@ abstract class AbstractRequest {
 		$this->log($information['request_header']);
 
 		if($response !== false) {
-			$this->log($response);
-			
 			$headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
 
 			$headers = substr($response, 0, $headerSize);
@@ -133,6 +131,12 @@ abstract class AbstractRequest {
 
 			$result = new $responseClass($headers, $body, $method);
 
+			if($result->isSuccess()) {
+				$this->log($headers);
+				$this->log($this->formatXml($body));
+			} else {
+				$this->log($response);
+			}
 			unset($headerSize, $headers, $body);
 
 			if(!$result->isSuccess() && $result->getError() == 'RateLimitedException') {
@@ -232,6 +236,15 @@ abstract class AbstractRequest {
 		$temp = $value;
 
 		unset($temp);
+	}
+
+	private function formatXml($xml) {
+		$xmlDocument = new \DOMDocument('1.0');
+		$xmlDocument->preserveWhiteSpace = false;
+		$xmlDocument->formatOutput = true;
+		$xmlDocument->loadXML($xml);
+
+		return $xmlDocument->saveXML();
 	}
 
 	private function log($message) {
