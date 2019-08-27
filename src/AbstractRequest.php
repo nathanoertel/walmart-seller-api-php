@@ -266,7 +266,6 @@ abstract class AbstractRequest {
 							'expires' => $time + $accessToken['expires_in']
 						);
 
-						print_r($this->config['token']);
 						$this->log($header);
 						$this->log($body);
 					} else {
