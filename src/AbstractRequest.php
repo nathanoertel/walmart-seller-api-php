@@ -41,7 +41,10 @@ abstract class AbstractRequest {
 		$this->env = $env;
 
 		// check that the necessary keys are set
-		if(!isset($config['consumerId']) || !isset($config['privateKey'])) {
+		if(
+			!isset($config['clientId']) || !isset($config['clientSecret']) ||
+			!isset($config['consumerId']) || !isset($config['privateKey'])
+		) {
 			throw new \Exception('Configuration missing consumerId or privateKey');
 		}
 	
@@ -211,15 +214,90 @@ abstract class AbstractRequest {
 	protected abstract function init();
 
 	public function getHeaders($url, $method, $headers = array()) {
-		$time = round(microtime(true)*1000);
+		if(isset($this->config['clientId']) && isset($this->config['clientSecret'])) {
+			$time = round(microtime(true)*1000);
 
-		$headers[] = 'Accept: application/xml';
-		$headers[] = 'WM_SVC.NAME: Walmart Marketplace';
-		$headers[] = 'WM_CONSUMER.ID: '.$this->config['consumerId'];
-		$headers[] = 'WM_SEC.TIMESTAMP: '.$time;
-		$headers[] = 'WM_SEC.AUTH_SIGNATURE: '.$this->getSignature($this->config['consumerId'], $this->config['privateKey'], $url, $method, $time);
-		$headers[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
-		$headers[] = 'WM_CONSUMER.CHANNEL.TYPE: '.$this->config['channelTypeId'];
+			if(!isset($this->config['token']) || $this->config['token']['expires'] < $time) {
+				$curl = curl_init();
+
+				$url = $this->getEnvBaseUrl($this->env).'/v3/token';
+		
+				$options = array(
+					CURLOPT_RETURNTRANSFER => 1,
+					CURLOPT_URL => $url,
+					CURLOPT_USERAGENT => 'Digital Cloud Commerce',
+					CURLOPT_HEADER => 1,
+					CURLOPT_RETURNTRANSFER => 1,
+					CURLINFO_HEADER_OUT => true
+				);
+		
+				$httpHeaders = array();
+		
+				$options[CURLOPT_POST] = 1;
+				$options[CURLOPT_POSTFIELDS] = 'grant_type=client_credentials';
+				$httpHeaders[] = 'Authorization: Basic '.base64_encode($this->config['clientId'].':'.$this->config['clientSecret']);
+				$httpHeaders[] = 'Content-Type: application/x-www-form-urlencoded';
+				$httpHeaders[] = 'Accept: application/json';
+				$httpHeaders[] = 'WM_SVC.NAME: Walmart Marketplace';
+				$httpHeaders[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
+				$httpHeaders[] = 'WM_SVC.VERSION: 1.0.0';
+			
+				$options[CURLOPT_HTTPHEADER] = $httpHeaders;
+		
+				curl_setopt_array($curl, $options);
+		
+				$response = curl_exec($curl);
+				$information = curl_getinfo($curl);
+				
+				$this->log($information['request_header']);
+		
+				if($response !== false) {
+					$headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+		
+					$header = substr($response, 0, $headerSize);
+					$body = substr($response, $headerSize);
+
+					$accessToken = json_decode($body, true);
+
+					if(isset($accessToken['access_token'])) {
+						$this->config['token'] = array(
+							'access_token' => $accessToken['access_token'],
+							'token_type' => $accessToken['token_type'],
+							'expires' => $time + $accessToken['expires_in']
+						);
+
+						print_r($this->config['token']);
+						$this->log($header);
+						$this->log($body);
+					} else {
+						$this->log($response);
+						throw new Exception('OAuth Failed');
+					}
+				} else {
+					$this->log(curl_error($curl));
+					throw new Exception('OAuth Failed');
+				}
+				
+				curl_close($curl);
+			}
+
+			$headers[] = 'Accept: application/xml';
+			$headers[] = 'Authorization: Basic '.base64_encode($this->config['clientId'].':'.$this->config['clientSecret']);
+			$headers[] = 'WM_SVC.NAME: Walmart Marketplace';
+			$headers[] = 'WM_SEC.ACCESS_TOKEN: '.$this->config['token']['access_token'];
+			$headers[] = 'WM_SEC.TIMESTAMP: '.$time;
+			$headers[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
+		} else {
+			$time = round(microtime(true)*1000);
+
+			$headers[] = 'Accept: application/xml';
+			$headers[] = 'WM_SVC.NAME: Walmart Marketplace';
+			$headers[] = 'WM_CONSUMER.ID: '.$this->config['consumerId'];
+			$headers[] = 'WM_SEC.TIMESTAMP: '.$time;
+			$headers[] = 'WM_SEC.AUTH_SIGNATURE: '.$this->getSignature($this->config['consumerId'], $this->config['privateKey'], $url, $method, $time);
+			$headers[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
+			$headers[] = 'WM_CONSUMER.CHANNEL.TYPE: '.$this->config['channelTypeId'];
+		}
 
 		return $headers;
 	}
