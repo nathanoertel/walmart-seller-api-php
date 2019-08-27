@@ -42,8 +42,8 @@ abstract class AbstractRequest {
 
 		// check that the necessary keys are set
 		if(
-			!isset($config['clientId']) || !isset($config['clientSecret']) ||
-			!isset($config['consumerId']) || !isset($config['privateKey'])
+			!((isset($config['clientId']) && isset($config['clientSecret'])) ||
+			(isset($config['consumerId']) && isset($config['privateKey'])))
 		) {
 			throw new \Exception('Configuration missing consumerId or privateKey');
 		}
@@ -215,9 +215,10 @@ abstract class AbstractRequest {
 
 	public function getHeaders($url, $method, $headers = array()) {
 		if(isset($this->config['clientId']) && isset($this->config['clientSecret'])) {
+			$requestTime = time();
 			$time = round(microtime(true)*1000);
 
-			if(!isset($this->config['token']) || $this->config['token']['expires'] < $time) {
+			if(!isset($this->config['token']) || $this->config['token']['expires'] <= $requestTime-10) {
 				$curl = curl_init();
 
 				$url = $this->getEnvBaseUrl($this->env).'/v3/token';
@@ -263,7 +264,7 @@ abstract class AbstractRequest {
 						$this->config['token'] = array(
 							'access_token' => $accessToken['access_token'],
 							'token_type' => $accessToken['token_type'],
-							'expires' => $time + $accessToken['expires_in']
+							'expires' => $requestTime + $accessToken['expires_in']
 						);
 
 						$this->log($header);
