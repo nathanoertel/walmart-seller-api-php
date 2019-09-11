@@ -10,28 +10,23 @@ class InventoryRequest extends AbstractRequest {
 	}
 
 	public function update($sku, $inventory, $fulfillment) {
-		$document = Library::getDocument('inventory');
+		$inventory = new WalmartSellerAPI\model\Inventory();
 
-		$inv = $document->getType();
-		$inv->sku = $sku;
-		$quantity = Library::getType('inventory/Quantity');
-		$quantity->unit = 'Each';
-		$quantity->amount = $inventory;
-		$inv->quantity = $quantity;
-		$inv->fulfillmentLagTime = $fulfillment;
+		$inventory['sku'] = $sku;
+		$inventory['quantity'] = array(
+			'unit' => 'EACH',
+			'amount' => $inventory
+		);
+		$inventory['fulfillmentLagTime'] = $fulfillment;
 
-		return $this->put('?sku='.$sku, $document->getXML($inv)->asXML());
+		return $this->put('?sku='.$sku, $inventory->asXML());
 	}
 
 	public function getEndpoint() {
-		return '/v2/inventory';
+		return '/v3/inventory';
 	}
 
 	protected function getResponse() {
 		return 'WalmartSellerAPI\InventoryResponse';
-	}
-
-	protected function init() {
-		Library::load('inventory/Inventory');
 	}
 }

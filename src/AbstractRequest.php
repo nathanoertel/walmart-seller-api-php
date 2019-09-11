@@ -52,8 +52,6 @@ abstract class AbstractRequest {
 		$this->config = array_merge_recursive($this->config, $config);
 		
 		$this->logger = $logger;
-
-		$this->init();
 	}
 
 	public function get($path = '', $parameters = array()) {
@@ -210,8 +208,6 @@ abstract class AbstractRequest {
 	public abstract function getEndpoint();
 
 	protected abstract function getResponse();
-
-	protected abstract function init();
 
 	public function getHeaders($url, $method, $headers = array()) {
 		if(isset($this->config['clientId']) && isset($this->config['clientSecret'])) {

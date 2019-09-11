@@ -18,5 +18,8 @@
 		"psr-4": {
 			"WalmartSellerAPI\\": "src/"
 		}
+	},
+    "require-dev": {
+        "phpunit/phpunit": "^7"
 	}
 }

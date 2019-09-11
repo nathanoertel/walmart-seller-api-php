@@ -8,7 +8,7 @@ class FeedRequest extends AbstractRequest {
 		
 		if(empty($params)) $params['includeDetails'] = 'true';
 
-		return $this->get('/feeditems/'.$feedId, $params);
+		return $this->get('/feeds/'.$feedId, $params);
 	}
 	
 	public function bulkUpdateProducts($products) {
@@ -68,12 +68,6 @@ class FeedRequest extends AbstractRequest {
 	}
 	
 	public function bulkUpdateInventory($skus) {
-		Library::load('inventory/InventoryFeed');
-		
-		$document = Library::getDocument('InventoryFeed');
-		$feed = $document->getType();
-		$header = Library::getType('inventory/InventoryHeader');
-
 		$utcTimezone = new \DateTimeZone("UTC");
 		$timezone = new \DateTimeZone(date_default_timezone_get());
 		
@@ -82,23 +76,27 @@ class FeedRequest extends AbstractRequest {
 		$time->setTimestamp(time());
 		$time->setTimezone($utcTimezone);
 	
-		$header->feedDate = $time->format(\DateTime::ATOM);
-		$header->version = '1.4';
-		
-		$feed->InventoryHeader = $header;
-	
+		$feed = new WalmartSellerAPI\model\InventoryFeed();
+
+		$feed['InventoryHeader'] = array(
+			'version' => '1.4',
+			'feedDate' => $time->format(\DateTime::ATOM),
+		);
+
+		$feed['inventory'] = array();
+
 		foreach($skus as $sku => $inventory) {
-			$inv = Library::getType('inventory/inventory');
-			$inv->sku = $sku;
-			$quantity = Library::getType('inventory/Quantity');
-			$quantity->unit = 'EACH';
-			$quantity->amount = $inventory;
-			$inv->quantity = $quantity;
-			$inv->fulfillmentLagTime = 1;
-			$feed->inventory = $inv;
+			$feed['inventory'][] = array(
+				'sku' => $sku,
+				'quantity' => array(
+					'unit' => 'EACH',
+					'amount' => $inventory
+				),
+				'fulfillmentLagTime' => 1
+			);
 		}
 
-		return $this->post('?feedType=inventory', $document->getXML($feed)->asXML());
+		return $this->post('?feedType=inventory', $feed->asXML());
 	}
 	
 	protected function getPostFields($data) {
@@ -112,14 +110,10 @@ class FeedRequest extends AbstractRequest {
 	}
 
 	public function getEndpoint() {
-		return '/v2/feeds';
+		return '/v3/feeds';
 	}
 
 	protected function getResponse() {
 		return 'WalmartSellerAPI\FeedResponse';
-	}
-
-	protected function init() {
-		Library::load('mp/FeedAcknowledgement');
 	}
 }

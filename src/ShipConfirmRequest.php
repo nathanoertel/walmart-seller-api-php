@@ -56,16 +56,6 @@ class ShipConfirmRequest extends AbstractRequest {
 		return 'WalmartSellerAPI\ShipConfirmResponse';
 	}
 
-	protected function init() {
-		// check that the necessary keys are set
-		if(!isset($this->config['channelTypeId'])) {
-			throw new \Exception('Configuration missing channelTypeId');
-		}
-
-		Library::load('orders/ShipConfirmRequestV3');
-		Library::load('orders/PurchaseOrderV3');
-	}
-
 	public function getHeaders($url, $method, $headers = array()) {
 		$headers[] = 'WM_CONSUMER.CHANNEL.TYPE: '.$this->config['channelTypeId'];
 		return parent::getHeaders($url, $method, $headers);

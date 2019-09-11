@@ -12,16 +12,10 @@ class ItemRequest extends AbstractRequest {
 	}
 
 	public function getEndpoint() {
-		return '/v2/items';
+		return '/v3/items';
 	}
 
 	protected function getResponse() {
 		return 'WalmartSellerAPI\ItemResponse';
-	}
-
-	protected function init() {
-		Library::load('mp/MPItemRetire');
-		Library::load('mp/MPItemViews');
-		Library::load('responses/ItemRetireResponse');
 	}
 }

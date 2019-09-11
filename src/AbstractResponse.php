@@ -101,12 +101,11 @@ abstract class AbstractResponse {
 					$this->errorMessage = (string)$error->children('http://walmart.com/')->description;
 				}
 			} else {
-				$document = Library::getDocument($xml->getName());
-				$this->data = $document->getType();
-				$this->data->parse($xml);
+				$name = 'WalmartSellerAPI\model\\'.$xml->getName();
+				$this->data = new $name($xml);
 				switch($method) {
 					case AbstractRequest::GET:
-							break;
+						break;
 					case AbstractRequest::ADD:
 						break;
 					case AbstractRequest::PUT:
