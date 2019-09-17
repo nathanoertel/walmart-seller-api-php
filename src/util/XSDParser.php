@@ -74,6 +74,10 @@ class XSDParser {
 				}
 			}
 		}
+
+		if(isset($def['extends'])) {
+			$def['_fields'] = array_merge(self::$types[$def['extends']]['_fields'], $def['_fields']);
+		}
 	}
 
 	private static function parseNode($docNamespace, $namespace, $node, &$types, &$schema) {
@@ -137,6 +141,24 @@ class XSDParser {
 				$schema['namespace'] = $docNamespace;
 				break;
 			case 'xsd:extension':
+				$base = $node->attributes->getNamedItem('base');
+
+				if($base) {
+					if($node->parentNode->nodeName == 'xsd:simpleContent') {
+						$schema['_'] = array(
+							'name' => '',
+							'type' => (strpos($base->value, 'xsd:') === 0 ? '' : $namespace).substr($base->value, strpos($base->value, ':')+1)
+						);
+					} else {
+						$schema['extends'] = $namespace.$base->value;
+					}
+				}
+
+				foreach($node->childNodes as $childNode) {
+					self::parseNode($docNamespace, $namespace, $childNode, $types, $schema);
+				}
+				break;
+			case 'xsd:complexContent':
 				foreach($node->childNodes as $childNode) {
 					self::parseNode($docNamespace, $namespace, $childNode, $types, $schema);
 				}

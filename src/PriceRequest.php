@@ -20,9 +20,13 @@ class PriceRequest extends AbstractRequest {
 		);
 
 		if($salePrice) {
-			$p['pricingList']['pricing']['currentPrice']['value'] = $salePrice;
+			$p['pricingList']['pricing']['currentPrice']['value']['amount'] = $salePrice;
 			$p['pricingList']['pricing']['currentPriceType'] = 'REDUCED';
-			$p['pricingList']['pricing']['comparisonPrice']['value'] = $price;
+			$p['pricingList']['pricing']['comparisonPrice'] = array(
+				'value' => array(
+					'amount' => $price
+				)
+			);
 		}
 
 		return $this->put('', $p->asXML());

@@ -15,7 +15,8 @@ class OrderRequest extends AbstractRequest {
 			$startTime->setTimestamp($startDate);
 			$startTime->setTimezone($utcTimezone);
 		
-			$params['createdStartDate'] = $startTime->format(\DateTime::ATOM);
+			$params['createdStartDate'] = $startTime->format('Y-m-d\TH:i:s.u\Z');
+			print_r($params);
 		} else {
 			parse_str($nextCursor, $params);
 		}
@@ -35,7 +36,7 @@ class OrderRequest extends AbstractRequest {
 			$startTime->setTimestamp($startDate);
 			$startTime->setTimezone($utcTimezone);
 		
-			$params['createdStartDate'] = $startTime->format(\DateTime::ATOM);
+			$params['createdStartDate'] = $startTime->format('Y-m-d\TH:i:s.u\Z');
 		} else {
 			parse_str($nextCursor, $params);
 		}

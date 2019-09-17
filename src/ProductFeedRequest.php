@@ -1,6 +1,8 @@
 <?php
 namespace WalmartSellerAPI;
 
+use WalmartSellerAPI\model\ItemFeed;
+
 class ProductFeedRequest extends FeedRequest {
 
 	public function submit($type, $items) {
@@ -12,22 +14,15 @@ class ProductFeedRequest extends FeedRequest {
 		$time->setTimestamp(time());
 		$time->setTimezone($utcTimezone);
 	
-		$header->feedDate = $time->format(\DateTime::ATOM);
-
 		$feed = new ItemFeed();
 
 		$feed['MPItemFeedHeader'] = array(
 			'version' => '3.2',
-			'feedDate' => $time->format(\DateTime::ATOM)
+			'feedDate' => $time->format('Y-m-d\TH:i:s.u\Z')
 		);
 
 		$feed[$type] = $items;
 		
 		return $this->post('?feedType=item', $feed->asXML());
-	}
-	
-	public function getFeed() {
-		$document = Library::getDocument('MPItemFeed');
-		return $document->getType();
 	}
 }

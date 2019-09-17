@@ -56,6 +56,10 @@ abstract class AbstractResponse {
 		return $this->data;
 	}
 
+	protected function getModel($name) {
+		return 'WalmartSellerAPI\model\\'.$name;
+	}
+
 	public function __construct($headers, $response, $method) {
 		$this->response = $response;
 		
@@ -101,7 +105,7 @@ abstract class AbstractResponse {
 					$this->errorMessage = (string)$error->children('http://walmart.com/')->description;
 				}
 			} else {
-				$name = 'WalmartSellerAPI\model\\'.$xml->getName();
+				$name = $this->getModel($xml->getName());
 				$this->data = new $name($xml);
 				switch($method) {
 					case AbstractRequest::GET:

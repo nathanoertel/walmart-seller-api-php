@@ -17,7 +17,6 @@ class InventoryRequest extends AbstractRequest {
 			'unit' => 'EACH',
 			'amount' => $inventory
 		);
-		$inventory['fulfillmentLagTime'] = $fulfillment;
 
 		return $this->put('?sku='.$sku, $inventory->asXML());
 	}
