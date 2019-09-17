@@ -141,7 +141,7 @@ abstract class AbstractRequest {
 			unset($headerSize, $headers, $body);
 
 			if(!$result->isSuccess() && $result->getError() == 'RateLimitedException') {
-				throw new Exception($result->getErrorMessage(), $result->getErrorCode());
+				throw new \Exception($result->getErrorMessage(), $result->getErrorCode());
 			}
 		} else {
 			$this->log(curl_error($curl));
@@ -267,11 +267,11 @@ abstract class AbstractRequest {
 						$this->log($body);
 					} else {
 						$this->log($response);
-						throw new Exception('OAuth Failed');
+						throw new \Exception('OAuth Failed');
 					}
 				} else {
 					$this->log(curl_error($curl));
-					throw new Exception('OAuth Failed');
+					throw new \Exception('OAuth Failed');
 				}
 				
 				curl_close($curl);
