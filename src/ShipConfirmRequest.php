@@ -1,51 +1,59 @@
 <?php
 namespace WalmartSellerAPI;
 
+use WalmartSellerAPI\model\OrderShipment;
+
 class ShipConfirmRequest extends AbstractRequest {
 
 	public function confirm($purchaseOrderId, $shipments) {
-		$document = Library::getDocument('orderShipment');
+		$shipConfirm = new OrderShipment();
 
-		$doc = $document->getType();
+		$shipConfirm['orderLines'] = array(
+			'orderLine' => array()
+		);
 
-		$lines = Library::getType('orders/shippingLinesType');
+		$utcTimezone = new \DateTimeZone("UTC");
+		$timezone = new \DateTimeZone(date_default_timezone_get());
 
 		foreach($shipments as $shipment) {
-			$line = Library::getType('orders/shippingLineType');
-			$line->lineNumber = $shipment['id'];
-			$statuses = Library::getType('orders/shipLineStatusesType');
-			$status = Library::getType('orders/shipLineStatusType');
-			$status->status = 'Shipped';
-			$quantity = Library::getType('orders/quantityType');
-			$quantity->unitOfMeasurement = 'Each';
-			$quantity->amount = $shipment['quantity'];
-			$status->statusQuantity = $quantity;
-			$trackingInfo = Library::getType('orders/trackingInfoType');
-
-			$utcTimezone = new \DateTimeZone("UTC");
-			$timezone = new \DateTimeZone(date_default_timezone_get());
-			
 			$shipTime = new \DateTime();
 			$shipTime->setTimezone($timezone);
 			$shipTime->setTimestamp($shipment['shipTime']);
 			$shipTime->setTimezone($utcTimezone);
-		
-			$trackingInfo->shipDateTime = $shipTime->format(\DateTime::ATOM);
-			$carrierName = Library::getType('orders/carrierNameType');
-			if(empty($shipment['shippingProvider'])) $carrierName->otherCarrier = $shipment['shippingProviderName'];
-			else $carrierName->carrier = $shipment['shippingProvider'];
-			$trackingInfo->carrierName = $carrierName;
-			$trackingInfo->methodCode = $shipment['shippingMethod'];
-			$trackingInfo->trackingNumber = $shipment['trackingNumber'];
-			$status->trackingInfo = $trackingInfo;
-			$statuses->orderLineStatus = $status;
-			$line->orderLineStatuses = $statuses;
-			$lines->orderLine = $line;
+
+			if(empty($shipment['shippingProvider'])) {
+				$carrierName = array(
+					'otherCarrier' => $shipment['shippingProviderName']
+				);
+			} else {
+				$carrierName = array(
+					'carrier' => $shipment['shippingProvider']
+				);
+			}
+
+			$shipConfirm['orderLines']['orderLine'][] = array(
+				'lineNumber' => $shipment['id'],
+				'orderLineStatuses' => array(
+					'orderLineStatus' => array(
+						array(
+							'status' => 'Shipped',
+							'statusQuantity' => array(
+								'unitOfMeasurement' => 'Each',
+								'amount' => $shipment['quantity']
+							),
+							'trackingInfo' => array(
+								'shipDateTime' => $shipTime->format('Y-m-d\TH:i:s.u\Z'),
+								'carrierName' => $carrierName,
+								'methodCode' => $shipment['shippingMethod'],
+								'trackingNumber' => $shipment['trackingNumber']
+							)
+						)
+					)
+				)
+			);
 		}
 
-		$doc->orderLines = $lines;
-
-		return $this->post('/'.$purchaseOrderId.'/shipping', $document->getXML($doc)->asXML());
+		return $this->post('/'.$purchaseOrderId.'/shipping', $shipConfirm->asXML());
 	}
 
 	public function getEndpoint() {
