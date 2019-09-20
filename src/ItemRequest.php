@@ -7,6 +7,10 @@ class ItemRequest extends AbstractRequest {
 		return $this->delete('/'.$sku);
 	}
 	
+	public function items($params) {
+		return $this->get('', $params);
+	}
+	
 	public function item($sku) {
 		return $this->get('/'.$sku);
 	}
