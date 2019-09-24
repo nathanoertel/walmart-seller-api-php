@@ -9,7 +9,7 @@ class OrderResponse extends AbstractResponse {
             case 'order':
                 return 'WalmartSellerAPI\model\Order';
             default:
-                throw new Exception('OrderResponse '.$name.' Not Found');
+                throw new \Exception('OrderResponse '.$name.' Not Found');
         }
     }    
 }
