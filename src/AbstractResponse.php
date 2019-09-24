@@ -107,7 +107,7 @@ abstract class AbstractResponse {
 			} else {
 				if($xml->getName() == 'html') {
 					$this->success = false;
-					$dom = new DOMDocument();
+					$dom = new \DOMDocument();
 					@$dom->loadHTML($response);
 
 					foreach($dom->getElementsByTagName('h1') as $code) {
