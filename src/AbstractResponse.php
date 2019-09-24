@@ -105,11 +105,11 @@ abstract class AbstractResponse {
 					$this->errorMessage = (string)$error->children('http://walmart.com/')->description;
 				}
 			} else {
-				$name = $this->getModel($xml->getName());
-				if($name == 'html') {
+				if($xml->getName() == 'html') {
 					$this->success = false;
 					$this->errorMessage = $response;
 				} else {
+					$name = $this->getModel($xml->getName());
 					$this->data = new $name($xml);
 					switch($method) {
 						case AbstractRequest::GET:
