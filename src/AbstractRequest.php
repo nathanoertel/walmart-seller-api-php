@@ -157,7 +157,7 @@ abstract class AbstractRequest {
 	}
 	
 	protected function getPostContentType() {
-		return 'Content-Type: application/xml; boundary=<?xml version="1.0"?>';
+		return 'Content-Type: application/xml';
 	}
 
 	private function getSignature($consumerId, $privateKey, $requestUrl, $requestMethod, $timestamp) {
