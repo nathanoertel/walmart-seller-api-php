@@ -29,6 +29,8 @@ class XSDParser {
 				if($position === false) $namespace = '';
 				else $namespace = substr($type, 0, $position).'/';
 
+				self::$parsed[$type] = true;
+
 				$doc = new \DOMDocument();
 
 				$doc->load(dirname(__FILE__).'/../../xsd/v3/'.$type.'.xsd');
@@ -36,8 +38,6 @@ class XSDParser {
 				foreach($doc->childNodes as $childNode) {
 					self::parseNode('', $namespace, $childNode, $types, $schema);
 				}
-
-				self::$parsed[$type] = true;
 			} else {
 				throw new \Exception('Type '.$type.' could not be found. ('.dirname(__FILE__).'/../../xsd/v3/'.$type.'.xsd'.')');
 			}
