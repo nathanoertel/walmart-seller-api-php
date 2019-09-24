@@ -107,7 +107,19 @@ abstract class AbstractResponse {
 			} else {
 				if($xml->getName() == 'html') {
 					$this->success = false;
-					$this->errorMessage = $response;
+					$dom = new DOMDocument();
+					@$dom->loadHTML($response);
+
+					foreach($dom->getElementsByTagName('h1') as $code) {
+						$this->errorCode = $code->nodeValue;
+						break;
+					}
+
+					foreach($dom->getElementsByTagName('h2') as $code) {
+						$this->error = $code->nodeValue;
+						$this->errorMessage = $code->nodeValue;
+						break;
+					}
 				} else {
 					$name = $this->getModel($xml->getName());
 					$this->data = new $name($xml);
