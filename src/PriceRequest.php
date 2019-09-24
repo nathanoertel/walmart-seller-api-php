@@ -1,10 +1,12 @@
 <?php
 namespace WalmartSellerAPI;
 
+use WalmartSellerAPI\model\Price;
+
 class PriceRequest extends AbstractRequest {
 
 	public function update($sku, $price, $salePrice = null) {
-		$p = new WalmartSellerAPI\model\Price();
+		$p = new Price();
 
 		$p['itemIdentifier'] = array(
 			'sku' => $sku
