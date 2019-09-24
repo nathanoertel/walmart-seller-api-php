@@ -106,18 +106,23 @@ abstract class AbstractResponse {
 				}
 			} else {
 				$name = $this->getModel($xml->getName());
-				$this->data = new $name($xml);
-				switch($method) {
-					case AbstractRequest::GET:
-						break;
-					case AbstractRequest::ADD:
-						break;
-					case AbstractRequest::PUT:
-						break;
-					case AbstractRequest::UPDATE:
-						break;
-					case AbstractRequest::DELETE:
-						break;
+				if($name == 'html') {
+					$this->success = false;
+					$this->errorMessage = $response;
+				} else {
+					$this->data = new $name($xml);
+					switch($method) {
+						case AbstractRequest::GET:
+							break;
+						case AbstractRequest::ADD:
+							break;
+						case AbstractRequest::PUT:
+							break;
+						case AbstractRequest::UPDATE:
+							break;
+						case AbstractRequest::DELETE:
+							break;
+					}
 				}
 			}
 		}
