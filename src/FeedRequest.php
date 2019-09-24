@@ -90,8 +90,7 @@ class FeedRequest extends AbstractRequest {
 				'quantity' => array(
 					'unit' => 'EACH',
 					'amount' => $inventory
-				),
-				'fulfillmentLagTime' => 1
+				)
 			);
 		}
 
