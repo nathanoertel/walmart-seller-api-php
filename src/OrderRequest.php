@@ -16,7 +16,6 @@ class OrderRequest extends AbstractRequest {
 			$startTime->setTimezone($utcTimezone);
 		
 			$params['createdStartDate'] = $startTime->format('Y-m-d\TH:i:s.u\Z');
-			print_r($params);
 		} else {
 			parse_str($nextCursor, $params);
 		}
