@@ -51,7 +51,7 @@ class FeedRequest extends AbstractRequest {
 			);
 
 			if($prices['salePrice']) {
-				$price['pricingList']['pricing']['currentPrice']['value'] = $prices['salePrice'];
+				$price['pricingList']['pricing']['currentPrice']['value']['amount'] = $prices['salePrice'];
 				$price['pricingList']['pricing']['currentPriceType'] = 'REDUCED';
 				$price['pricingList']['pricing']['comparisonPrice'] = array(
 					'value' => array(
