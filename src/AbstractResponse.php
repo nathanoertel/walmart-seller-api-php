@@ -84,57 +84,64 @@ abstract class AbstractResponse {
 			$this->errorCode = 400;
 			$this->error = 'Bad Request';
 			$this->errorMessage = 'Bad Reqeust';
+			if(!empty($response)) $this->__loadXML($response, $method);
 		} else {
-			$xml = simplexml_load_string($response);
-			
-			if($xml === false) {
+			if(($xml = $this->__loadXML($response, $method)) === false) {
 				$this->success = false;
 				$this->errorCode = 500;
 				$this->error = $response;
 				$this->errorMessage = $response;
-			} else if($xml->getName() == 'errors') {
+			}
+		}
+	}
+
+	private function __loadXML($response, $method) {
+		$xml = simplexml_load_string($response);
+			
+		if($xml === false) {
+			return $xml;
+		} else if($xml->getName() == 'errors') {
+			$this->success = false;
+			$error = $xml->children('http://walmart.com/');
+			if(empty($error)) {
+				$this->errorCode = (string)$xml->error->code;
+				$this->error = (string)$xml->error->info;
+				$this->errorMessage = (string)$xml->error->description;
+			} else {
+				$this->errorCode = (string)$error->children('http://walmart.com/')->code;
+				$this->error = (string)$error->children('http://walmart.com/')->field;
+				$this->errorMessage = (string)$error->children('http://walmart.com/')->description;
+			}
+		} else {
+			if($xml->getName() == 'html') {
 				$this->success = false;
-				$error = $xml->children('http://walmart.com/');
-				if(empty($error)) {
-					$this->errorCode = (string)$xml->error->code;
-					$this->error = (string)$xml->error->info;
-					$this->errorMessage = (string)$xml->error->description;
-				} else {
-					$this->errorCode = (string)$error->children('http://walmart.com/')->code;
-					$this->error = (string)$error->children('http://walmart.com/')->field;
-					$this->errorMessage = (string)$error->children('http://walmart.com/')->description;
+				$dom = new \DOMDocument();
+				@$dom->loadHTML($response);
+
+				foreach($dom->getElementsByTagName('h1') as $code) {
+					$this->errorCode = $code->nodeValue;
+					break;
+				}
+
+				foreach($dom->getElementsByTagName('h2') as $code) {
+					$this->error = $code->nodeValue;
+					$this->errorMessage = $code->nodeValue;
+					break;
 				}
 			} else {
-				if($xml->getName() == 'html') {
-					$this->success = false;
-					$dom = new \DOMDocument();
-					@$dom->loadHTML($response);
-
-					foreach($dom->getElementsByTagName('h1') as $code) {
-						$this->errorCode = $code->nodeValue;
+				$name = $this->getModel($xml->getName());
+				$this->data = new $name($xml);
+				switch($method) {
+					case AbstractRequest::GET:
 						break;
-					}
-
-					foreach($dom->getElementsByTagName('h2') as $code) {
-						$this->error = $code->nodeValue;
-						$this->errorMessage = $code->nodeValue;
+					case AbstractRequest::ADD:
 						break;
-					}
-				} else {
-					$name = $this->getModel($xml->getName());
-					$this->data = new $name($xml);
-					switch($method) {
-						case AbstractRequest::GET:
-							break;
-						case AbstractRequest::ADD:
-							break;
-						case AbstractRequest::PUT:
-							break;
-						case AbstractRequest::UPDATE:
-							break;
-						case AbstractRequest::DELETE:
-							break;
-					}
+					case AbstractRequest::PUT:
+						break;
+					case AbstractRequest::UPDATE:
+						break;
+					case AbstractRequest::DELETE:
+						break;
 				}
 			}
 		}
