@@ -3,6 +3,10 @@ namespace WalmartSellerAPI;
 
 class OrderRequest extends AbstractRequest {
 	
+	public function order($purchaseOrderId) {
+		return $this->get('/'.$purchaseOrderId);
+	}
+	
 	public function orders($startDate, $nextCursor = null) {
 		$params = array();
 		
