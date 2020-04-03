@@ -9,7 +9,7 @@ class InventoryRequest extends AbstractRequest {
 		));
 	}
 
-	public function update($sku, $inventory, $fulfillment) {
+	public function update($sku, $inventory) {
 		$inventory = new WalmartSellerAPI\model\Inventory();
 
 		$inventory['sku'] = $sku;
