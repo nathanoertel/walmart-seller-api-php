@@ -101,7 +101,7 @@ abstract class AbstractRequest {
 				$options[CURLOPT_CUSTOMREQUEST] = 'PUT';
 				$this->log('PUT '.$options[CURLOPT_URL]);
 			} else $this->log('UPDATE '.$options[CURLOPT_URL]);
-			$this->log($this->formatXml($data));
+			if(!empty($data)) $this->log($this->formatXml($data));
 		} else if($method == self::ADD) {
 			$options[CURLOPT_POST] = 1;
 			$options[CURLOPT_POSTFIELDS] = $data;
