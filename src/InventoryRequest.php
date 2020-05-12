@@ -1,6 +1,8 @@
 <?php
 namespace WalmartSellerAPI;
 
+use WalmartSellerAPI\model\Inventory;
+
 class InventoryRequest extends AbstractRequest {
 
 	public function find($sku) {
@@ -9,13 +11,13 @@ class InventoryRequest extends AbstractRequest {
 		));
 	}
 
-	public function update($sku, $inventory) {
-		$inventory = new WalmartSellerAPI\model\Inventory();
+	public function update($sku, $quantity) {
+		$inventory = new Inventory();
 
 		$inventory['sku'] = $sku;
 		$inventory['quantity'] = array(
 			'unit' => 'EACH',
-			'amount' => $inventory
+			'amount' => $quantity
 		);
 
 		return $this->put('?sku='.$sku, $inventory->asXML());

@@ -115,7 +115,10 @@ class XSDParser {
 					}
 
 					if(array_keys($elements) !== range(0, count($elements) - 1)) {
-						self::$types[$namespace.$name] = $elements;
+						if(isset(self::$types[$namespace.$name])) {
+							self::$types[$namespace.$name] = array_merge(self::$types[$namespace.$name], $elements);
+							print_r(self::$types[$namespace.$name]);
+						} else self::$types[$namespace.$name] = $elements;
 					} else {
 						self::$types[$namespace.$name]['_fields'] = $elements;
 					}
