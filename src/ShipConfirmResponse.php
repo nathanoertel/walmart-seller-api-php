@@ -7,7 +7,7 @@ class ShipConfirmResponse extends AbstractResponse {
             case 'order':
                 return 'WalmartSellerAPI\model\Order';
             default:
-                throw new Exception('OrderAcknowledgementResponse '.$name.' Not Found');
+                throw new \Exception('OrderAcknowledgementResponse '.$name.' Not Found');
         }
     }    
 }

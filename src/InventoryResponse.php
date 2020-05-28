@@ -7,7 +7,7 @@ class InventoryResponse extends AbstractResponse {
             case 'inventory':
                 return 'WalmartSellerAPI\model\Inventory';
             default:
-                throw new Exception('InventoryResponse '.$name.' Not Found');
+                throw new \Exception('InventoryResponse '.$name.' Not Found');
         }
     }    
 }
