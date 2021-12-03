@@ -77,7 +77,8 @@ abstract class AbstractModel extends ArrayObject {
                                     if(isset($field['attribute'])) {
                                         $xml->addAttribute($field['name'], $source[$field['name']]);
                                     } else {
-                                        $xml->addChild($field['name'], $source[$field['name']]);
+                                        $fieldName = $field['name'];
+                                        $xml->$fieldName = $source[$field['name']];
                                     }
                                 }
                             }
