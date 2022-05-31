@@ -65,33 +65,37 @@ abstract class AbstractResponse {
 		
 		$headerArray = explode("\r\n", $headers);
 		
+		$httpType = 'HTTP/1.1';
+		$httpCode = 500;
+		$httpStatus = '';
+		
 		foreach($headerArray as $index => $header) {
 			if(strpos($header, 'HTTP/1.1') === 0) {
 				$this->headers['http_code'] = $header;
+				$httpCodeList = explode(' ', $header);
+				$httpType = array_shift($httpCodeList);
+				$httpCode = array_shift($httpCodeList);
+				$httpCode = intval($httpCode);
+				$httpStatus = implode(' ', $httpCodeList);
 			} else if(!empty($header)) {
 				list($key, $value) = explode(': ', $header);
 				$this->headers[$key] = $value;
 			}
 		}
-		
-		if($this->headers['http_code'] == 'HTTP/1.1 503 Service Unavailable') {
-			$this->success = false;
-			$this->errorCode = 503;
-			$this->error = 'Service Unavailable';
-			$this->errorMessage = 'Service Unavailable';
-		} else if($this->headers['http_code'] == 'HTTP/1.1 400 Bad Request') {
-			$this->success = false;
-			$this->errorCode = 400;
-			$this->error = 'Bad Request';
-			$this->errorMessage = 'Bad Reqeust';
-			if(!empty($response)) $this->__loadXML($response, $method);
-		} else {
+
+		if($httpCode >= 200 || $httpCode < 300) {
 			if(($xml = $this->__loadXML($response, $method)) === false) {
 				$this->success = false;
-				$this->errorCode = 500;
-				$this->error = $response;
+				$this->errorCode = $httpCode;
+				$this->error = $httpStatus;
 				$this->errorMessage = $response;
 			}
+		} else {
+			$this->success = false;
+			$this->errorCode = $httpCode;
+			$this->error = $httpStatus;
+			$this->errorMessage = $response;
+			if(!empty($response)) $this->__loadXML($response, $method);
 		}
 	}
 
@@ -130,18 +134,20 @@ abstract class AbstractResponse {
 				}
 			} else {
 				$name = $this->getModel($xml->getName());
-				$this->data = new $name($xml);
-				switch($method) {
-					case AbstractRequest::GET:
-						break;
-					case AbstractRequest::ADD:
-						break;
-					case AbstractRequest::PUT:
-						break;
-					case AbstractRequest::UPDATE:
-						break;
-					case AbstractRequest::DELETE:
-						break;
+				if(class_exists($name)) {
+					$this->data = new $name($xml);
+					switch($method) {
+						case AbstractRequest::GET:
+							break;
+						case AbstractRequest::ADD:
+							break;
+						case AbstractRequest::PUT:
+							break;
+						case AbstractRequest::UPDATE:
+							break;
+						case AbstractRequest::DELETE:
+							break;
+					}
 				}
 			}
 		}

@@ -43,7 +43,7 @@ class PriceRequest extends AbstractRequest {
 	}
 
 	public function getHeaders($url, $method, $headers = array()) {
-		$headers[] = 'WM_CONSUMER.CHANNEL.TYPE: '.$this->config['channelTypeId'];
+		if (isset($this->config['channelTypeId'])) $headers[] = 'WM_CONSUMER.CHANNEL.TYPE: '.$this->config['channelTypeId'];
 		return parent::getHeaders($url, $method, $headers);
 	}
 }

@@ -292,7 +292,7 @@ abstract class AbstractRequest {
 			$headers[] = 'WM_SEC.TIMESTAMP: '.$time;
 			$headers[] = 'WM_SEC.AUTH_SIGNATURE: '.$this->getSignature($this->config['consumerId'], $this->config['privateKey'], $url, $method, $time);
 			$headers[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
-			$headers[] = 'WM_CONSUMER.CHANNEL.TYPE: '.$this->config['channelTypeId'];
+			if (isset($this->config['channelTypeId'])) $headers[] = 'WM_CONSUMER.CHANNEL.TYPE: '.$this->config['channelTypeId'];
 		}
 
 		return $headers;
