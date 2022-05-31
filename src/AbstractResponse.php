@@ -48,7 +48,7 @@ abstract class AbstractResponse {
 	}
 	
 	public function getHeader($key) {
-		if(isset($this->headers[$key])) return $this->headers($key);
+		if(isset($this->headers[$key])) return $this->headers[$key];
 		else return null;
 	}
 
