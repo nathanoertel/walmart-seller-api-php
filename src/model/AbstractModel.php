@@ -164,13 +164,25 @@ abstract class AbstractModel extends ArrayObject {
         }
     }
 
+    protected function getXMLFromData($data) {
+        if(is_string($data)) $data = new \SimpleXMLElement($data);
+        return $data;
+    }
+
     public function __construct($type, $data = null) {
         $this->type = XSDParser::load($type);
 
         if($data != null) {
-            if(is_string($data)) $data = new \SimpleXMLElement($data);
-            $this->parseXML($this->type, $data->children($this->type['namespace']), $this);
+            $xml = $this->getXMLFromData($data);
+            $this->parseXML($this->type, $xml->children($this->type['namespace']), $this);
         }
+    }
+
+    private function getChildren($xml) {
+        $children = $xml->children($this->type['namespace']);
+        if (count($children) === 0) $children = $xml->children();
+
+        return $children;
     }
 }
 ?>
