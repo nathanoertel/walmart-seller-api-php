@@ -5,6 +5,8 @@ use WalmartSellerAPI\model\BulkPriceFeed;
 use WalmartSellerAPI\model\InventoryFeed;
 
 class FeedRequest extends AbstractRequest {
+	protected static $utcTimezone;
+	protected static $timezone;
 
 	public function find($feedId, $params = array()) {
 		$params['includeDetails'] = 'true';
@@ -17,18 +19,10 @@ class FeedRequest extends AbstractRequest {
 	}
 
 	public function bulkUpdatePricing($skus) {
-		$utcTimezone = new \DateTimeZone("UTC");
-		$timezone = new \DateTimeZone(date_default_timezone_get());
-		
-		$time = new \DateTime();
-		$time->setTimezone($timezone);
-		$time->setTimestamp(time());
-		$time->setTimezone($utcTimezone);
-	
 		$feed = new BulkPriceFeed();
 
 		$feed['PriceHeader'] = array(
-			'feedDate' => $time->format('Y-m-d\TH:i:s.u\Z'),
+			'feedDate' => self::getTimestamp(time()),
 			'version' => '1.5.1'
 		);
 
@@ -67,19 +61,11 @@ class FeedRequest extends AbstractRequest {
 	}
 	
 	public function bulkUpdateInventory($skus) {
-		$utcTimezone = new \DateTimeZone("UTC");
-		$timezone = new \DateTimeZone(date_default_timezone_get());
-		
-		$time = new \DateTime();
-		$time->setTimezone($timezone);
-		$time->setTimestamp(time());
-		$time->setTimezone($utcTimezone);
-	
 		$feed = new InventoryFeed();
 
 		$feed['InventoryHeader'] = array(
 			'version' => '1.4',
-			'feedDate' => $time->format(\DateTime::ATOM),
+			'feedDate' => self::getTimestamp(time(), \DateTime::ATOM),
 		);
 
 		$feed['inventory'] = array();
@@ -113,5 +99,21 @@ class FeedRequest extends AbstractRequest {
 
 	protected function getResponse() {
 		return 'WalmartSellerAPI\FeedResponse';
+	}
+
+	public static function getTimestamp($timestamp, $format = 'Y-m-d\TH:i:s.u\Z') {
+		if(self::$utcTimezone === null) self::$utcTimezone = new \DateTimeZone("UTC");
+		if(self::$timezone === null) self::$timezone = new \DateTimeZone(date_default_timezone_get());
+
+		$time = new \DateTime();
+		$time->setTimezone(self::$timezone);
+		$time->setTimestamp($timestamp);
+		$time->setTimezone(self::$utcTimezone);
+		return $time->format($format);
+	}
+
+	public function __construct(array $config = array(), $logger = null, $env = self::ENV_PROD)
+	{
+		parent::__construct($config, $logger, $env);
 	}
 }
