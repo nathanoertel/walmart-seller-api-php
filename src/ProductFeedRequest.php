@@ -6,23 +6,37 @@ use WalmartSellerAPI\model\ItemFeed;
 class ProductFeedRequest extends FeedRequest {
 
 	public function submit($type, $items) {
-		$utcTimezone = new \DateTimeZone("UTC");
-		$timezone = new \DateTimeZone(date_default_timezone_get());
+		$feed = [
+			'MPItemFeedHeader' => [
+				'version' => '1.5',
+				'processMode' => 'REPLACE',
+				'subset' => 'EXTERNAL',
+				'locale' => 'en',
+				'sellingChannel' => 'marketplace',
+				'feedDate' => self::getTimestamp(time())
+			],
+			'MPItem' => $items,
+		];
 		
-		$time = new \DateTime();
-		$time->setTimezone($timezone);
-		$time->setTimestamp(time());
-		$time->setTimezone($utcTimezone);
+		return $this->post('?feedType=MP_ITEM', json_encode($feed));
+	}
+
+	protected function getPostContentType() {
+		return 'Content-Type: application/json';
+	}
 	
-		$feed = new ItemFeed();
-
-		$feed['MPItemFeedHeader'] = array(
-			'version' => '3.2',
-			'feedDate' => $time->format('Y-m-d\TH:i:s.u\Z')
+	protected function getPostFields($data) {
+		return $data;
+	}
+	
+	protected function formatXml($data) {
+		return json_encode(
+			json_decode($data, true),
+			JSON_PRETTY_PRINT
 		);
+	}
 
-		$feed[$type] = $items;
-		
-		return $this->post('?feedType=item', $feed->asXML());
+	public static function getTimestamp($timestamp, $format = DATE_ATOM) {
+		return parent::getTimestamp($timestamp, $format);
 	}
 }
