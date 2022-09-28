@@ -22,7 +22,6 @@ class CategoryRequest {
         if(isset($type['_fields'])) {
             foreach($type['_fields'] as $field) {
                 if(isset($field['type']) && $field['type'] == 'choice') {
-                    error_log($field['name'].' '.$field['type']);
                     foreach($field['options'] as $option) {
                         $currentPath = array_merge($path, array($option['name']));
                         $options = $this->getChoices($option, $options, $currentPath);
@@ -57,7 +56,6 @@ class CategoryRequest {
                     if($option['name'] == $category) {
                         if(!empty($categories)) $this->chooseCategory($categories, $option);
                         $type['_fields'][$index] = $option;
-                        // unset($type['_fields'][$index]['options']);
                     }
                 }
             }
