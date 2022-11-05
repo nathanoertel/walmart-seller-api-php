@@ -3,6 +3,6 @@ namespace WalmartSellerAPI\log;
 
 interface Logger {
 	
-	public function log($message, $error = false);
+	public function info($message, $error = false);
 }
 ?>

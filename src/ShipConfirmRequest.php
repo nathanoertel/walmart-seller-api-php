@@ -23,7 +23,7 @@ class ShipConfirmRequest extends AbstractRequest {
 
 			if(empty($shipment['shippingProvider'])) {
 				$carrierName = array(
-					'otherCarrier' => $shipment['shippingProviderName']
+					'otherCarrier' => empty($shipment['shippingProviderName']) ? 'Other' : $shipment['shippingProviderName']
 				);
 			} else {
 				$carrierName = array(

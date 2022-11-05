@@ -322,6 +322,6 @@ abstract class AbstractRequest {
 	}
 
 	private function log($message) {
-		if($this->logger) $this->logger->log($message);
+		if($this->logger) $this->logger->info($message);
 	}
 }

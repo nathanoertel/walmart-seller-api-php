@@ -7,7 +7,7 @@ class FileLogger implements Logger {
 	
 	private $error;
 	
-	public function log($message, $error = false) {
+	public function info($message, $error = false) {
 		error_log($message."\n", 3, ($error ? $this->error : $this->info));
 	}
 	
