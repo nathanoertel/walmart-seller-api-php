@@ -75,7 +75,7 @@ abstract class AbstractResponse {
 			}
 		}
 
-		if($httpCode >= 200 || $httpCode < 300) {
+		if($httpCode >= 200 && $httpCode < 300) {
 			if(($xml = $this->__loadData($response, $method)) === false) {
 				$this->success = false;
 				$this->errorCode = $httpCode;
