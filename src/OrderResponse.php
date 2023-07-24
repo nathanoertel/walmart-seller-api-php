@@ -1,7 +1,7 @@
 <?php
 namespace WalmartSellerAPI;
 
-class OrderResponse extends AbstractResponse {
+class OrderResponse extends AbstractXMLResponse {
     protected function getModel($name) {
         switch($name) {
             case 'list':

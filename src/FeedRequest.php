@@ -4,7 +4,7 @@ namespace WalmartSellerAPI;
 use WalmartSellerAPI\model\BulkPriceFeed;
 use WalmartSellerAPI\model\InventoryFeed;
 
-class FeedRequest extends AbstractRequest {
+class FeedRequest extends AbstractXMLRequest {
 	protected static $utcTimezone;
 	protected static $timezone;
 

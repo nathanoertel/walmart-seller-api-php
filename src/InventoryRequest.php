@@ -3,7 +3,7 @@ namespace WalmartSellerAPI;
 
 use WalmartSellerAPI\model\Inventory;
 
-class InventoryRequest extends AbstractRequest {
+class InventoryRequest extends AbstractXMLRequest {
 
 	public function find($sku) {
 		return $this->get('', array(

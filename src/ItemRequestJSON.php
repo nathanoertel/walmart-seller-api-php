@@ -1,8 +1,7 @@
 <?php
 namespace WalmartSellerAPI;
 
-class ItemRequest extends AbstractXMLRequest {
-
+class ItemRequestJSON extends AbstractJSONRequest {
 	public function retire($sku) {
 		return $this->delete('/'.$sku);
 	}
@@ -20,6 +19,6 @@ class ItemRequest extends AbstractXMLRequest {
 	}
 
 	protected function getResponse() {
-		return 'WalmartSellerAPI\ItemResponse';
+		return 'WalmartSellerAPI\ItemResponseJSON';
 	}
 }

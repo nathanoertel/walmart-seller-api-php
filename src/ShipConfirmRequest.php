@@ -3,7 +3,7 @@ namespace WalmartSellerAPI;
 
 use WalmartSellerAPI\model\OrderShipment;
 
-class ShipConfirmRequest extends AbstractRequest {
+class ShipConfirmRequest extends AbstractXMLRequest {
 
 	public function confirm($purchaseOrderId, $shipments) {
 		$shipConfirm = new OrderShipment();

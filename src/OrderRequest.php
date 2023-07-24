@@ -1,7 +1,7 @@
 <?php
 namespace WalmartSellerAPI;
 
-class OrderRequest extends AbstractRequest {
+class OrderRequest extends AbstractXMLRequest {
 	
 	public function order($purchaseOrderId) {
 		return $this->get('/'.$purchaseOrderId);

@@ -101,7 +101,7 @@ abstract class AbstractRequest {
 				$options[CURLOPT_CUSTOMREQUEST] = 'PUT';
 				$this->log('PUT '.$options[CURLOPT_URL]);
 			} else $this->log('UPDATE '.$options[CURLOPT_URL]);
-			if(!empty($data)) $this->log($this->formatXml($data));
+			if(!empty($data)) $this->log($this->formatResponse($data));
 		} else if($method == self::ADD) {
 			$options[CURLOPT_POST] = 1;
 			$options[CURLOPT_POSTFIELDS] = $data;
@@ -134,7 +134,7 @@ abstract class AbstractRequest {
 
 			if($result->isSuccess()) {
 				$this->log($headers);
-				$this->log($this->formatXml($body));
+				$this->log($this->formatResponse($body));
 			} else {
 				$this->log($response);
 			}
@@ -159,6 +159,8 @@ abstract class AbstractRequest {
 	protected function getPostContentType() {
 		return 'Content-Type: application/xml';
 	}
+
+	protected abstract function getAcceptType();
 
 	private function getSignature($consumerId, $privateKey, $requestUrl, $requestMethod, $timestamp) {
 		$message = $consumerId."\n".$requestUrl."\n".strtoupper($requestMethod)."\n".$timestamp."\n";
@@ -277,7 +279,7 @@ abstract class AbstractRequest {
 				curl_close($curl);
 			}
 
-			$headers[] = 'Accept: application/xml';
+			$headers[] = $this->getAcceptType();
 			$headers[] = 'Authorization: Basic '.base64_encode($this->config['clientId'].':'.$this->config['clientSecret']);
 			$headers[] = 'WM_SVC.NAME: Walmart Marketplace';
 			$headers[] = 'WM_SEC.ACCESS_TOKEN: '.$this->config['token']['access_token'];
@@ -286,7 +288,7 @@ abstract class AbstractRequest {
 		} else {
 			$time = round(microtime(true)*1000);
 
-			$headers[] = 'Accept: application/xml';
+			$headers[] = $this->getAcceptType();
 			$headers[] = 'WM_SVC.NAME: Walmart Marketplace';
 			$headers[] = 'WM_CONSUMER.ID: '.$this->config['consumerId'];
 			$headers[] = 'WM_SEC.TIMESTAMP: '.$time;
@@ -312,14 +314,7 @@ abstract class AbstractRequest {
 		unset($temp);
 	}
 
-	protected function formatXml($xml) {
-		$xmlDocument = new \DOMDocument('1.0');
-		$xmlDocument->preserveWhiteSpace = false;
-		$xmlDocument->formatOutput = true;
-		$xmlDocument->loadXML($xml);
-
-		return $xmlDocument->saveXML();
-	}
+	protected abstract function formatResponse($response);
 
 	private function log($message) {
 		if($this->logger) $this->logger->info($message);

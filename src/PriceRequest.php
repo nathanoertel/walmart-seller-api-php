@@ -3,7 +3,7 @@ namespace WalmartSellerAPI;
 
 use WalmartSellerAPI\model\Price;
 
-class PriceRequest extends AbstractRequest {
+class PriceRequest extends AbstractXMLRequest {
 
 	public function update($sku, $price, $salePrice = null) {
 		$p = new Price();

@@ -1,5 +1,5 @@
 <?php
 namespace WalmartSellerAPI;
 
-class ItemResponse extends AbstractResponse {
+class ItemResponse extends AbstractXMLResponse {
 }
