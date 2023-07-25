@@ -2,6 +2,10 @@
 namespace WalmartSellerAPI;
 
 abstract class AbstractXMLRequest extends AbstractRequest {
+	protected function getPostContentType() {
+		return 'Content-Type: application/xml';
+	}
+
 	protected function getAcceptType() {
 		return 'Accept: application/xml';
 	}

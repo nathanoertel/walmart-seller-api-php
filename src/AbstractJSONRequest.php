@@ -2,6 +2,10 @@
 namespace WalmartSellerAPI;
 
 abstract class AbstractJSONRequest extends AbstractRequest {
+	protected function getPostContentType() {
+		return 'Content-Type: application/json';
+	}
+
 	protected function getAcceptType() {
 		return 'Accept: application/json';
 	}

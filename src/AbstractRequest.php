@@ -156,9 +156,7 @@ abstract class AbstractRequest {
 		return $data;
 	}
 	
-	protected function getPostContentType() {
-		return 'Content-Type: application/xml';
-	}
+	protected abstract function getPostContentType();
 
 	protected abstract function getAcceptType();
 
