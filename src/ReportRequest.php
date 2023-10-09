@@ -4,7 +4,7 @@ namespace WalmartSellerAPI;
 use WalmartSellerAPI\model\Inventory;
 
 class ReportRequest extends AbstractJSONRequest {
-	private function getFilenameFromURL($url) {
+	public function getFilenameFromURL($url) {
 		$path = parse_url($url, PHP_URL_PATH);
 		$filename = basename($path, '.zip');
 		return $filename . '.csv';
@@ -67,8 +67,8 @@ class ReportRequest extends AbstractJSONRequest {
 	public function status($requestId) {
 		return $this->get('/reportRequests/' . $requestId);
 	}
-	
-	public function download($requestId) {
+
+	public function getDownloadUrl($requestId) {
 		$result = $this->get('/downloadReport', [
 			'requestId' => $requestId,
 		]);
@@ -77,10 +77,16 @@ class ReportRequest extends AbstractJSONRequest {
 			$result = $result->getResults();
 
 			if ($result['requestStatus'] === 'READY') {
-				echo $result['downloadURL'] . "\n";
-
-				return $this->downloadUnzipGetContents($result['downloadURL']);
+				return $result['downloadURL'];
 			}
+		}
+		
+		return false;
+	}
+	
+	public function download($requestId) {
+		if ($url = $this->getDownloadUrl($requestId)) {
+			return $this->downloadUnzipGetContents($url);
 		}
 		
 		return false;
