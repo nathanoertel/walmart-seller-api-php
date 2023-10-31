@@ -3,7 +3,9 @@ namespace WalmartSellerAPI;
 
 use WalmartSellerAPI\model\ItemFeed;
 
-class ProductFeedRequest extends FeedRequest {
+class ProductFeedRequest extends AbstractJSONRequest {
+	protected static $utcTimezone;
+	protected static $timezone;
 
 	public function submit($type, $items) {
 		$feed = [
@@ -21,22 +23,22 @@ class ProductFeedRequest extends FeedRequest {
 		return $this->post('?feedType=MP_ITEM', json_encode($feed));
 	}
 
-	protected function getPostContentType() {
-		return 'Content-Type: application/json';
-	}
-	
-	protected function getPostFields($data) {
-		return $data;
-	}
-	
-	protected function formatXml($data) {
-		return json_encode(
-			json_decode($data, true),
-			JSON_PRETTY_PRINT
-		);
+	public function getEndpoint() {
+		return '/v3/feeds';
 	}
 
-	public static function getTimestamp($timestamp, $format = DATE_ATOM) {
-		return parent::getTimestamp($timestamp, $format);
+	protected function getResponse() {
+		return 'WalmartSellerAPI\ProductFeedResponseJSON';
+	}
+
+	public static function getTimestamp($timestamp, $format = 'Y-m-d\TH:i:s.u\Z') {
+		if(self::$utcTimezone === null) self::$utcTimezone = new \DateTimeZone("UTC");
+		if(self::$timezone === null) self::$timezone = new \DateTimeZone(date_default_timezone_get());
+
+		$time = new \DateTime();
+		$time->setTimezone(self::$timezone);
+		$time->setTimestamp($timestamp);
+		$time->setTimezone(self::$utcTimezone);
+		return $time->format($format);
 	}
 }
