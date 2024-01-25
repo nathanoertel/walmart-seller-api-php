@@ -52,9 +52,20 @@ abstract class AbstractResponse {
 
 	protected abstract function __loadData($response, $method);
 
+	private function getResponseOrGzippedResponse($response)
+	{
+			foreach($this->headers as $header => $value) {
+					if(strtolower($header) === 'content-encoding') {
+							if(strtolower($value) == 'gzip') {
+								return gzdecode($response);
+							}
+							return $response;
+					}
+			}
+			return $response;
+	}
+
 	public function __construct($headers, $response, $method) {
-		$this->response = $response;
-		
 		$headerArray = explode("\r\n", $headers);
 		
 		$httpType = 'HTTP/1.1';
@@ -74,20 +85,22 @@ abstract class AbstractResponse {
 				$this->headers[$key] = $value;
 			}
 		}
+		
+		$this->response = $this->getResponseOrGzippedResponse($response);
 
 		if($httpCode >= 200 && $httpCode < 300) {
-			if(($xml = $this->__loadData($response, $method)) === false) {
+			if(($xml = $this->__loadData($this->response, $method)) === false) {
 				$this->success = false;
 				$this->errorCode = $httpCode;
 				$this->error = $httpStatus;
-				$this->errorMessage = $response;
+				$this->errorMessage = $this->response;
 			}
 		} else {
 			$this->success = false;
 			$this->errorCode = $httpCode;
 			$this->error = $httpStatus;
-			$this->errorMessage = $response;
-			if(!empty($response)) $this->__loadData($response, $method);
+			$this->errorMessage = $this->response;
+			if(!empty($this->response)) $this->__loadData($this->response, $method);
 		}
 	}
 }

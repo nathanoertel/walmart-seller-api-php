@@ -134,9 +134,9 @@ abstract class AbstractRequest {
 
 			if($result->isSuccess()) {
 				$this->log($headers);
-				$this->log($this->formatResponse($body));
+				$this->log($this->formatResponse($result->getRawResponse()));
 			} else {
-				$this->log($response);
+				$this->log($result->getRawResponse());
 			}
 			unset($headerSize, $headers, $body);
 
@@ -315,6 +315,6 @@ abstract class AbstractRequest {
 	protected abstract function formatResponse($response);
 
 	private function log($message) {
-		if($this->logger) $this->logger->info($message);
+		if($this->logger && $message !== false) $this->logger->info($message);
 	}
 }
