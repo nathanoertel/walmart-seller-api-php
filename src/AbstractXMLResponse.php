@@ -17,10 +17,18 @@ abstract class AbstractXMLResponse extends AbstractResponse {
 	}
 
 	protected function __loadData($response, $method) {
-		$xml = simplexml_load_string($response);
+		$xml = @simplexml_load_string($response);
 			
 		if($xml === false) {
-			return $xml;
+			$this->success = false;
+
+			$json = json_decode($response, true);
+
+			if ($json && isset($json['error'])) {
+        $this->errorCode = (string)$json['error']['code'];
+        $this->error = (string)$json['error']['info'];
+        $this->errorMessage = (string)$json['error']['description'];
+			}
 		} else if($xml->getName() == 'errors') {
 			$this->success = false;
 			$error = $xml->children('http://walmart.com/');
