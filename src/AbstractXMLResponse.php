@@ -25,9 +25,10 @@ abstract class AbstractXMLResponse extends AbstractResponse {
 			$json = json_decode($response, true);
 
 			if ($json && isset($json['error'])) {
-        $this->errorCode = (string)$json['error']['code'];
-        $this->error = (string)$json['error']['info'];
-        $this->errorMessage = (string)$json['error']['description'];
+				$error = is_array($json['error']) ? array_shift($json['error']) : $json['error'];
+        $this->errorCode = (string)$error['code'];
+        $this->error = (string)$error['info'];
+        $this->errorMessage = (string)$error['description'];
 			}
 		} else if($xml->getName() == 'errors') {
 			$this->success = false;
