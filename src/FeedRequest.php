@@ -112,7 +112,7 @@ class FeedRequest extends AbstractXMLRequest {
 		return $time->format($format);
 	}
 
-	public function __construct(array $config = array(), $logger = null, $env = self::ENV_PROD)
+	public function __construct($config = array(), $logger = null, $env = self::ENV_PROD)
 	{
 		parent::__construct($config, $logger, $env);
 	}
