@@ -20,9 +20,11 @@ abstract class AbstractRequest {
 
 	public $env;
 
-	protected $config = array(
+	protected $config;
+
+	protected $defaults = [
 		'max_retries' => 3
-	);
+	];
 
 	private $logger;
 
@@ -31,7 +33,7 @@ abstract class AbstractRequest {
 	 * @param string $env
 	 * @throws \Exception
 	 */
-	public function __construct(array $config = array(), $logger = null, $env = self::ENV_PROD)
+	public function __construct($config = array(), $logger = null, $env = self::ENV_PROD)
 	{
 		// check the environment
 		if(!in_array($env, array(self::ENV_PROD, self::ENV_DEV))) {
@@ -49,7 +51,13 @@ abstract class AbstractRequest {
 		}
 	
 		// Apply some defaults.
-		$this->config = array_merge_recursive($this->config, $config);
+		$this->config = $config;
+		
+		foreach($this->defaults as $index => $value) {
+			if (!isset($this->config[$index])) {
+				$this->config[$index] = $value;
+			}
+		}
 		
 		$this->logger = $logger;
 	}
