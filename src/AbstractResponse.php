@@ -52,7 +52,7 @@ abstract class AbstractResponse {
 
 	protected abstract function __loadData($response, $method);
 
-	private function getResponseOrGzippedResponse($response)
+	protected function getResponseOrGzippedResponse($response)
 	{
 			foreach($this->headers as $header => $value) {
 					if(strtolower($header) === 'content-encoding') {

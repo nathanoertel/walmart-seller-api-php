@@ -78,7 +78,7 @@ abstract class AbstractRequest {
 		return $this->request(self::DELETE, $path, $parameters);
 	}
 
-	private function request($method, $path, $data = array()) {
+	protected function request($method, $path, $data = array()) {
 		$result = false;
 
 		$url = $this->getEnvBaseUrl($this->env).$this->getEndpoint().$path;
@@ -104,7 +104,7 @@ abstract class AbstractRequest {
 		} else if($method == self::UPDATE || $method == self::PUT) {
 			$options[CURLOPT_POST] = 1;
 			$options[CURLOPT_POSTFIELDS] = $this->getPostFields($data);
-			$httpHeaders[] = $this->getPostContentType();
+			// $httpHeaders[] = $this->getPostContentType();
 			if($method == self::PUT) {
 				$options[CURLOPT_CUSTOMREQUEST] = 'PUT';
 				$this->log('PUT '.$options[CURLOPT_URL]);
@@ -153,6 +153,7 @@ abstract class AbstractRequest {
 			}
 		} else {
 			$this->log(curl_error($curl));
+			$this->log($options[CURLOPT_URL]);
 		}
 		
 		curl_close($curl);
@@ -217,74 +218,80 @@ abstract class AbstractRequest {
 
 	protected abstract function getResponse();
 
-	public function getHeaders($url, $method, $headers = array()) {
-		if(isset($this->config['clientId']) && isset($this->config['clientSecret'])) {
-			$requestTime = time();
-			$time = round(microtime(true)*1000);
+	protected function refreshToken() {
+		$requestTime = time();
 
-			if(!isset($this->config['token']) || $this->config['token']['expires'] <= $requestTime-10) {
-				$curl = curl_init();
+		if(
+			!isset($this->config['token'])
+			|| $this->config['token']['expires'] <= $requestTime - 10
+		) {
+			$curl = curl_init();
 
-				$url = $this->getEnvBaseUrl($this->env).'/v3/token';
+			$url = $this->getEnvBaseUrl($this->env).'/v3/token';
+	
+			$options = array(
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLOPT_URL => $url,
+				CURLOPT_USERAGENT => 'Digital Cloud Commerce',
+				CURLOPT_HEADER => 1,
+				CURLOPT_RETURNTRANSFER => 1,
+				CURLINFO_HEADER_OUT => true
+			);
+	
+			$httpHeaders = array();
+	
+			$options[CURLOPT_POST] = 1;
+			$options[CURLOPT_POSTFIELDS] = 'grant_type=client_credentials';
+			$httpHeaders[] = 'Authorization: Basic '.base64_encode($this->config['clientId'].':'.$this->config['clientSecret']);
+			$httpHeaders[] = 'Content-Type: application/x-www-form-urlencoded';
+			$httpHeaders[] = 'Accept: application/json';
+			$httpHeaders[] = 'WM_SVC.NAME: Walmart Marketplace';
+			$httpHeaders[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
+			$httpHeaders[] = 'WM_SVC.VERSION: 1.0.0';
 		
-				$options = array(
-					CURLOPT_RETURNTRANSFER => 1,
-					CURLOPT_URL => $url,
-					CURLOPT_USERAGENT => 'Digital Cloud Commerce',
-					CURLOPT_HEADER => 1,
-					CURLOPT_RETURNTRANSFER => 1,
-					CURLINFO_HEADER_OUT => true
-				);
-		
-				$httpHeaders = array();
-		
-				$options[CURLOPT_POST] = 1;
-				$options[CURLOPT_POSTFIELDS] = 'grant_type=client_credentials';
-				$httpHeaders[] = 'Authorization: Basic '.base64_encode($this->config['clientId'].':'.$this->config['clientSecret']);
-				$httpHeaders[] = 'Content-Type: application/x-www-form-urlencoded';
-				$httpHeaders[] = 'Accept: application/json';
-				$httpHeaders[] = 'WM_SVC.NAME: Walmart Marketplace';
-				$httpHeaders[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
-				$httpHeaders[] = 'WM_SVC.VERSION: 1.0.0';
+			$options[CURLOPT_HTTPHEADER] = $httpHeaders;
+	
+			curl_setopt_array($curl, $options);
+	
+			$response = curl_exec($curl);
+			$information = curl_getinfo($curl);
 			
-				$options[CURLOPT_HTTPHEADER] = $httpHeaders;
-		
-				curl_setopt_array($curl, $options);
-		
-				$response = curl_exec($curl);
-				$information = curl_getinfo($curl);
-				
-				$this->log($information['request_header']);
-		
-				if($response !== false) {
-					$headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
-		
-					$header = substr($response, 0, $headerSize);
-					$body = substr($response, $headerSize);
+			$this->log($information['request_header']);
+	
+			if($response !== false) {
+				$headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
+	
+				$header = substr($response, 0, $headerSize);
+				$body = substr($response, $headerSize);
 
-					$accessToken = json_decode($body, true);
+				$accessToken = json_decode($body, true);
 
-					if(isset($accessToken['access_token'])) {
-						$this->config['token'] = array(
-							'access_token' => $accessToken['access_token'],
-							'token_type' => $accessToken['token_type'],
-							'expires' => $requestTime + $accessToken['expires_in']
-						);
+				if(isset($accessToken['access_token'])) {
+					$this->config['token'] = array(
+						'access_token' => $accessToken['access_token'],
+						'token_type' => $accessToken['token_type'],
+						'expires' => $requestTime + $accessToken['expires_in']
+					);
 
-						$this->log($header);
-						$this->log($body);
-					} else {
-						$this->log($response);
-						throw new \Exception('OAuth Failed');
-					}
+					$this->debug($header);
+					$this->debug($body);
 				} else {
-					$this->log(curl_error($curl));
+					$this->error($response);
 					throw new \Exception('OAuth Failed');
 				}
-				
-				curl_close($curl);
+			} else {
+				$this->error(curl_error($curl));
+				throw new \Exception('OAuth Failed');
 			}
+			
+			curl_close($curl);
+		}
+	}
 
+	public function getHeaders($url, $method, $headers = array()) {
+		if(isset($this->config['clientId']) && isset($this->config['clientSecret'])) {
+			$this->refreshToken();
+			$time = round(microtime(true)*1000);
 			$headers[] = $this->getAcceptType();
 			$headers[] = 'Authorization: Basic '.base64_encode($this->config['clientId'].':'.$this->config['clientSecret']);
 			$headers[] = 'WM_SVC.NAME: Walmart Marketplace';
@@ -301,6 +308,10 @@ abstract class AbstractRequest {
 			$headers[] = 'WM_SEC.AUTH_SIGNATURE: '.$this->getSignature($this->config['consumerId'], $this->config['privateKey'], $url, $method, $time);
 			$headers[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
 			if (isset($this->config['channelTypeId'])) $headers[] = 'WM_CONSUMER.CHANNEL.TYPE: '.$this->config['channelTypeId'];
+		}
+
+		if ($method == self::UPDATE || $method == self::PUT) {
+			$headers[] = $this->getPostContentType();
 		}
 
 		return $headers;
@@ -322,7 +333,15 @@ abstract class AbstractRequest {
 
 	protected abstract function formatResponse($response);
 
-	private function log($message) {
+	protected function debug($message) {
+		if($this->logger && $message !== false) $this->logger->debug($message);
+	}
+
+	protected function error($message) {
+		if($this->logger && $message !== false) $this->logger->error($message);
+	}
+
+	protected function log($message) {
 		if($this->logger && $message !== false) $this->logger->info($message);
 	}
 }

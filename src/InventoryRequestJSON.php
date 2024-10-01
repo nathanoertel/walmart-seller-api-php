@@ -9,13 +9,13 @@ class InventoryRequestJSON extends AbstractJSONRequest {
 	}
 
 	public function update($sku, $quantity) {
-		return $this->put('?sku='.$sku, json_encode([
+		return $this->put('?sku='.$sku, [
 			'sku' => $sku,
 			'quantity' => [
 				'unit' => 'EACH',
 				'amount' => $quantity
 			],
-		]));
+		]);
 	}
 
 	public function getEndpoint() {

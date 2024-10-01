@@ -20,7 +20,7 @@ class ProductFeedRequest extends AbstractJSONRequest {
 			'MPItem' => $items,
 		];
 		
-		return $this->post('?feedType=MP_ITEM', json_encode($feed));
+		return $this->post('?feedType=MP_ITEM', $feed);
 	}
 
 	public function getEndpoint() {
