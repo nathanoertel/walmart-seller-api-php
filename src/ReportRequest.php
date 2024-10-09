@@ -56,7 +56,7 @@ class ReportRequest extends AbstractJSONRequest {
     return $data;
 	}
 
-	public function request($type, $version) {
+	public function requestReport($type, $version) {
 		$url = '/reportRequests?' .http_build_query([
 			'reportType' => $type,
 			'reportVersion' => $version,
