@@ -62,13 +62,15 @@ abstract class AbstractJSONRequest extends AbstractRequest {
 				$this->log('GET ' . $url);
 			}
 		} else if($method == self::UPDATE || $method == self::PUT) {
-			$options['json'] = $data;
 			if($method == self::PUT) {
 				$this->log('PUT '.$url);
 			} else $this->log('UPDATE '.$url);
-			if(!empty($data)) $this->log(
-				json_encode($data, JSON_PRETTY_PRINT)
-			);
+			if(!empty($data)) {
+				$options['json'] = $data;
+				$this->log(
+					json_encode($data, JSON_PRETTY_PRINT)
+				);
+			}
 		} else if($method == self::ADD) {
 			$options['json'] = $data;
 			$this->log('ADD '.$url);
@@ -95,19 +97,28 @@ abstract class AbstractJSONRequest extends AbstractRequest {
 			$responseClass = $this->getResponse();
 
 			$result = new $responseClass($response, $method);
-
+			
       $this->debug($response->getStatusCode());
       $this->debug(implode("\n", array_map(function ($value, $key) {
         return $key . ': ' . implode(' ', $value);
       }, $response->getHeaders(), array_keys($response->getHeaders()))));
       $this->debug($response->getBody());
       return $result;
-    } catch (GuzzleHttp\Exception\RequestException $e) {
+    } catch (\GuzzleHttp\Exception\RequestException $e) {
       $this->error($e->getCode());
-      $this->error($e->getMessage());
+      $this->error(implode("\n", array_map(function ($value, $key) {
+        return $key . ': ' . implode(' ', $value);
+      }, $e->getResponse()->getHeaders(), array_keys($e->getResponse()->getHeaders()))));
       $this->error($e->getResponse()->getBody()->getContents());
       throw $e;
-    } catch (Exception $e) {
+    } catch (\GuzzleHttp\Exception\ClientException $e) {
+      $this->error($e->getCode());
+      $this->error(implode("\n", array_map(function ($value, $key) {
+        return $key . ': ' . implode(' ', $value);
+      }, $e->getResponse()->getHeaders(), array_keys($e->getResponse()->getHeaders()))));
+      $this->error($e->getResponse()->getBody()->getContents());
+      throw $e;
+    } catch (\Exception $e) {
       $this->error($e->getCode());
       $this->error($e->getMessage());
       throw $e;
