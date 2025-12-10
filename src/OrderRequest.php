@@ -2,10 +2,35 @@
 namespace WalmartSellerAPI;
 
 class OrderRequest extends AbstractXMLRequest {
-	
+	public static function getDate($timestamp) {
+		$utcTimezone = new \DateTimeZone("UTC");
+		$timezone = new \DateTimeZone(date_default_timezone_get());
+		
+		$date = new \DateTime();
+		$date->setTimezone($timezone);
+		$date->setTimestamp($timestamp);
+		$date->setTimezone($utcTimezone);
+		return $date->format('Y-m-d\TH:i:s.u\Z');
+	}
+
 	public function order($purchaseOrderId) {
 		return $this->get('/'.$purchaseOrderId);
 	}
+
+	private function parseNextCursorOrParams($paramsOrNextCursor) {
+		if (is_string($paramsOrNextCursor)) {
+			parse_str($paramsOrNextCursor, $params);
+			return $params;
+		}
+		
+		return $paramsOrNextCursor;
+	}
+
+	public function getOrders($paramsOrNextCursor) {
+		$params = $this->parseNextCursorOrParams($paramsOrNextCursor);
+		return $this->get('', $params);
+	}
+	
 	
 	public function orders($startDate, $nextCursor = null) {
 		$params = array();
