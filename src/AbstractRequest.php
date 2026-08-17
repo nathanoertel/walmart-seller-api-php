@@ -1,8 +1,8 @@
 <?php
 namespace WalmartSellerAPI;
 
-use phpseclib\Crypt\Random;
-use phpseclib\Crypt\RSA;
+use phpseclib3\Crypt\PublicKeyLoader;
+use phpseclib3\Crypt\RSA;
 
 abstract class AbstractRequest {
 
@@ -169,32 +169,20 @@ abstract class AbstractRequest {
 
 	protected abstract function getAcceptType();
 
-	private function getSignature($consumerId, $privateKey, $requestUrl, $requestMethod, $timestamp) {
+	protected function getSignature($consumerId, $privateKey, $requestUrl, $requestMethod, $timestamp) {
 		$message = $consumerId."\n".$requestUrl."\n".strtoupper($requestMethod)."\n".$timestamp."\n";
 
-		$rsa = new RSA();
 		$decodedPrivateKey = base64_decode($privateKey);
-		$rsa->setPrivateKeyFormat(RSA::PRIVATE_FORMAT_PKCS8);
-		$rsa->setPublicKeyFormat(RSA::PRIVATE_FORMAT_PKCS8);
 
-		/**
-		 * Load private key
-		 */
-		if($rsa->loadKey($decodedPrivateKey,RSA::PRIVATE_FORMAT_PKCS8)){
-			/**
-			 * Make sure we use SHA256 for signing
-			 */
-			$rsa->setHash('sha256');
-			$rsa->setSignatureMode(RSA::SIGNATURE_PKCS1);
-
-			$signed = $rsa->sign($message);
-			/**
-			 * Return Base64 Encode generated signature
-			 */
-			return base64_encode($signed);
-		} else {
-			throw new \Exception("Unable to load private key");
+		try {
+			$rsa = PublicKeyLoader::loadPrivateKey($decodedPrivateKey)
+				->withHash('sha256')
+				->withPadding(RSA::SIGNATURE_PKCS1);
+		} catch (\Exception $exception) {
+			throw new \Exception('Unable to load private key', 0, $exception);
 		}
+
+		return base64_encode($rsa->sign($message));
 	}
 
 	/**
@@ -246,7 +234,7 @@ abstract class AbstractRequest {
 			$httpHeaders[] = 'Content-Type: application/x-www-form-urlencoded';
 			$httpHeaders[] = 'Accept: application/json';
 			$httpHeaders[] = 'WM_SVC.NAME: Walmart Marketplace';
-			$httpHeaders[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
+			$httpHeaders[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(random_bytes(16));
 			$httpHeaders[] = 'WM_SVC.VERSION: 1.0.0';
 		
 			$options[CURLOPT_HTTPHEADER] = $httpHeaders;
@@ -297,7 +285,7 @@ abstract class AbstractRequest {
 			$headers[] = 'WM_SVC.NAME: Walmart Marketplace';
 			$headers[] = 'WM_SEC.ACCESS_TOKEN: '.$this->config['token']['access_token'];
 			$headers[] = 'WM_SEC.TIMESTAMP: '.$time;
-			$headers[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
+			$headers[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(random_bytes(16));
 		} else {
 			$time = round(microtime(true)*1000);
 
@@ -306,7 +294,7 @@ abstract class AbstractRequest {
 			$headers[] = 'WM_CONSUMER.ID: '.$this->config['consumerId'];
 			$headers[] = 'WM_SEC.TIMESTAMP: '.$time;
 			$headers[] = 'WM_SEC.AUTH_SIGNATURE: '.$this->getSignature($this->config['consumerId'], $this->config['privateKey'], $url, $method, $time);
-			$headers[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(Random::string(16));
+			$headers[] = 'WM_QOS.CORRELATION_ID: '.base64_encode(random_bytes(16));
 			if (isset($this->config['channelTypeId'])) $headers[] = 'WM_CONSUMER.CHANNEL.TYPE: '.$this->config['channelTypeId'];
 		}
 

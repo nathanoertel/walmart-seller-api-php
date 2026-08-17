@@ -1,9 +1,6 @@
 <?php
 namespace WalmartSellerAPI;
 
-use phpseclib\Crypt\Random;
-use phpseclib\Crypt\RSA;
-
 abstract class AbstractJSONRequest extends AbstractRequest {
 	protected function getPostContentType() {
 		return 'Content-Type: application/json';
@@ -29,7 +26,7 @@ abstract class AbstractJSONRequest extends AbstractRequest {
 			$headers['WM_SVC.NAME'] = 'Walmart Marketplace';
 			$headers['WM_SEC.ACCESS_TOKEN'] = $this->config['token']['access_token'];
 			$headers['WM_SEC.TIMESTAMP'] = $time;
-			$headers['WM_QOS.CORRELATION_ID'] = base64_encode(Random::string(16));
+			$headers['WM_QOS.CORRELATION_ID'] = base64_encode(random_bytes(16));
 		} else {
 			$time = round(microtime(true)*1000);
 
@@ -38,7 +35,7 @@ abstract class AbstractJSONRequest extends AbstractRequest {
 			$headers['WM_CONSUMER.ID'] = $this->config['consumerId'];
 			$headers['WM_SEC.TIMESTAMP'] = $time;
 			$headers['WM_SEC.AUTH_SIGNATURE'] = $this->getSignature($this->config['consumerId'], $this->config['privateKey'], $url, $method, $time);
-			$headers['WM_QOS.CORRELATION_ID'] = base64_encode(Random::string(16));
+			$headers['WM_QOS.CORRELATION_ID'] = base64_encode(random_bytes(16));
 			if (isset($this->config['channelTypeId'])) $headers['WM_CONSUMER.CHANNEL.TYPE'] = $this->config['channelTypeId'];
 		}
 
